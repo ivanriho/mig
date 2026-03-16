@@ -1,0 +1,128 @@
+---
+import { Image } from "astro:assets";
+
+import blobComfy from "../../public/blobcomfy.png";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import AboutSection from "../components/AboutSection.astro";
+import Icon from "../components/Icon.astro";
+import TechGroup from "../components/TechGroup.astro";
+---
+
+<BaseLayout
+  title="Om mig — Ivan Ristić Hofrén"
+  description="Om mig — 15-årig webutvecklare & Elev från Malmö med erfarenhet inom Rust, Python och webutveckling."
+>
+  <div
+    id="about-page"
+    class="mt-10 mb-32 flex w-full max-w-5xl flex-col items-center gap-16 px-6 lg:mt-20 lg:gap-18"
+  >
+    <div
+      class="flex w-full max-w-3xl flex-col items-center gap-6 text-center md:flex-row md:items-start md:gap-10 md:text-left"
+    >
+      <div
+        class="fade-in-up glass flex h-32 w-32 shrink-0 items-center justify-center rounded-full p-5 transition-[scale] duration-300 hover:scale-[1.05] md:h-36 md:w-36"
+      >
+        <Image
+          src={blobComfy}
+          alt="Blob Comfy"
+          class="h-auto w-auto opacity-95 brightness-95 hue-rotate-30"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+      <div class="flex flex-col gap-3">
+        <h1 class="page-title drop-shadow-lg [animation-delay:0.1s]">
+          Om mig
+        </h1>
+        <h2
+          class="fade-in-up text-2xl font-bold text-yellow-100 drop-shadow-lg [animation-delay:0.18s] md:text-3xl"
+        >
+          Ivan Ristić Hofrén
+        </h2>
+        <div
+          class="fade-in flex flex-wrap justify-center gap-2 [animation-delay:0.25s] md:justify-start"
+        >
+          <div class="pill text-white/80">
+            15 år gammal
+          </div>
+          <div class="pill text-white/80">Fågelbacksskolan</div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="fade-in-up content-block w-full max-w-3xl py-3 text-base drop-shadow-lg [animation-delay:0.3s] md:text-lg"
+    >
+      <p>
+        Jag är 15 år och bor i Malmö. Jag går på Fågelbacksskolan och beskriver mig själv som en social och ansvarstagande person som också fungerar bra med att arbeta självständigt. Jag är tekniskt intresserad och tycker om att arbeta med webbutveckling på min fritid. Jag tävlingssimmar i Vellinge och tycker om träning och utmaningar. Jag har också en hund och tycker om att vara med djur. Tidigare har jag praoat i två veckor på ICA där jag fick hjälpa till med olika uppgifter i butiken, till exempel att fylla på varor, fronta hyllor och hjälpa kunder.
+      </p>
+    </div>
+
+    <div
+      class="reveal flex w-full max-w-3xl items-center gap-3 font-sans text-sm text-white/60"
+    >
+      <Icon size="1.5em" img="lightbulb" />
+      <p>
+        This website was made with <span class="text-amber-100">Astro</span>,
+        <span class="text-sky-200">TypeScript</span>, and <span
+          class="text-sky-200">Tailwind CSS</span
+        >
+      </p>
+    </div>
+
+    <hr class="reveal w-1/2 border-white/15" />
+
+    <AboutSection title="Hobbies" icon="home" class="max-w-3xl">
+      <div class="flex flex-col gap-8">
+        <div class="reveal content-block py-2">
+          <p>
+            Mina hobbies är djur, webbutveckling, simning, resa och att umgås med vänner. Jag har en hund och tycker om att vara med djur. På fritiden arbetar jag också med webbutveckling, till exempel att skapa och designa hemsidor. Dessutom tävlingssimmar jag, vilket jag tycker är både roligt och utvecklande.
+          </p>
+        </div>
+
+        <TechGroup heading="Interests">
+          <div class="flex flex-wrap gap-2">
+            <span class="pill text-blue-100">Djur</span>
+            <span class="pill text-green-100">Webbutveckling</span>
+            <span class="pill text-yellow-100">Simning</span>
+            <span class="pill text-rose-100">Resa</span>
+            <span class="pill text-purple-100">Umgås</span>
+          </div>
+        </TechGroup>
+      </div>
+    </AboutSection>
+
+    <hr class="reveal w-1/2 border-white/15" />
+
+    <AboutSection title="Tidigare jobb" icon="lightbulb" class="max-w-3xl">
+      <div class="flex flex-col gap-8">
+        <div class="reveal content-block py-2">
+          <p>
+            Jag praoade i två veckor på ICA och fick prova på många olika arbetsuppgifter i butiken. Jag plockade upp varor och fyllde på hyllor, frontade varor så att det såg snyggt ut i butiken, hjälpte till i kassan, sorterade och packade upp leveranser i lagret samt hjälpte kunder som behövde hitta varor. Jag fick också hjälpa till att hålla ordning i butiken och se till att allt var rent och organiserat.
+          </p>
+        </div>
+
+        <TechGroup heading="Lärdomar">
+          <div class="flex flex-wrap gap-2">
+            <span class="pill text-blue-100">Kassa</span>
+            <span class="pill text-green-100">Varuplock</span>
+            <span class="pill text-yellow-100">Kundservice</span>
+            <span class="pill text-rose-100">Lager</span>
+            <span class="pill text-purple-100">Butiksordning</span>
+          </div>
+        </TechGroup>
+      </div>
+    </AboutSection>
+  </div>
+  <style>
+    @reference '../styles/global.css';
+
+    .section-cta {
+      @apply flex flex-wrap gap-3 pt-5;
+    }
+
+    .gear-card {
+      @apply rounded-xl p-5 transition-[scale] duration-300 hover:scale-[1.02];
+    }
+  </style>
+</BaseLayout>

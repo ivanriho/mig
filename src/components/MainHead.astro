@@ -1,0 +1,81 @@
+---
+import { ClientRouter } from "astro:transitions";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+
+const siteUrl = Astro.site!.origin;
+const basePath = import.meta.env.BASE_URL;
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+const ogImage = new URL(`${basePath.replace(/\/$/, "")}/blobcomfy_og.png`, siteUrl).href;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Tom the Bomb",
+  url: siteUrl,
+  image: ogImage,
+  jobTitle: "Computer Engineering Student",
+  affiliation: {
+    "@type": "CollegeOrUniversity",
+    name: "University of Waterloo",
+  },
+  sameAs: [
+    "https://github.com/Tom-the-Bomb",
+    "https://www.instagram.com/tom_the_bomb_111/",
+  ],
+};
+---
+
+<meta charset="UTF-8" />
+<meta name="author" content="Tom the Bomb" />
+<meta name="description" content={description} />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="generator" content={Astro.generator} />
+<meta name="theme-color" content="#2a7fff" />
+
+<!-- Open Graph -->
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:alt" content="Tom the Bomb logo" />
+<meta property="og:site_name" content="Tom the Bomb" />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image:alt" content="Tom the Bomb logo" />
+
+<title>{title}</title>
+
+<link rel="canonical" href={canonicalUrl} />
+<link rel="icon" type="image/x-icon" href={`${basePath}favicon.ico`} />
+<link rel="icon" type="image/png" sizes="16x16" href={`${basePath}favicon-16x16.png`} />
+<link rel="icon" type="image/png" sizes="32x32" href={`${basePath}favicon-32x32.png`} />
+<link rel="apple-touch-icon" sizes="180x180" href={`${basePath}apple-touch-icon.png`} />
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600;700;900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Long+Cang&family=Quicksand:wght@300..700&display=swap"
+  rel="stylesheet"
+/>
+
+<!-- JSON-LD Structured Data -->
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify(jsonLd)}
+/>
+
+<ClientRouter />

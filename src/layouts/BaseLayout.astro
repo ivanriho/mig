@@ -1,0 +1,215 @@
+---
+import MainHead from "../components/MainHead.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<html lang="en" transition:animate="none">
+  <head>
+    <MainHead title={title} description={description} />
+  </head>
+  <body
+    class="flex min-h-svh flex-col bg-gray-800 bg-linear-to-tr from-violet-500 to-orange-300 bg-fixed"
+  >
+    <header class="sticky top-0 z-50 flex-none">
+      <Nav
+        pages={[
+          { name: "About" },
+          { name: "Cv" },
+        ]}
+      />
+    </header>
+
+    <main class="flex grow flex-col items-center">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <div class="squares" aria-hidden="true">
+      <div class="glass"></div>
+      <div class="glass"></div>
+      <div class="glass"></div>
+      <div class="glass hidden! md:block"></div>
+      <div class="glass"></div>
+      <div class="glass"></div>
+      <div class="glass"></div>
+      <div class="glass hidden! md:block"></div>
+      <div class="glass"></div>
+      <div class="glass hidden! md:block"></div>
+    </div>
+  </body>
+</html>
+
+<script>
+  let prevObserver: IntersectionObserver | null = null;
+
+  const initRevealAnimations = () => {
+    prevObserver?.disconnect();
+    prevObserver = null;
+
+    const reveals = document.querySelectorAll<HTMLElement>(".reveal");
+    const revealOnces = document.querySelectorAll<HTMLElement>(".reveal-once");
+    if (!reveals.length && !revealOnces.length) {
+      return;
+    }
+
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.target.classList.contains("reveal-once")) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          } else {
+            entry.target.classList.toggle("visible", entry.isIntersecting);
+          }
+        });
+      },
+      { threshold: 0.05 },
+    );
+
+    reveals.forEach((el) => observer.observe(el));
+    revealOnces.forEach((el) => observer.observe(el));
+
+    prevObserver = observer;
+  };
+
+  document.addEventListener("astro:page-load", initRevealAnimations);
+  document.addEventListener("DOMContentLoaded", initRevealAnimations);
+
+  if (document.readyState !== "loading") {
+    queueMicrotask(initRevealAnimations);
+  }
+</script>
+
+<style>
+  @reference '../styles/global.css';
+
+  .squares {
+    @apply fixed bottom-0 left-0 -z-1000 h-svh w-full overflow-hidden;
+    contain: strict;
+  }
+
+  .squares > div {
+    @apply absolute -bottom-37.5 block h-5 w-5 rounded-[10%];
+    animation: squares infinite linear;
+  }
+
+  .squares .glass {
+    @apply overflow-visible border border-white/35 bg-white/15 backdrop-blur-none;
+  }
+
+  .squares .glass::after {
+    @apply hidden;
+  }
+
+  .squares > div:nth-child(1) {
+    left: 25%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 0s;
+    animation-duration: 25s;
+  }
+
+  .squares > div:nth-child(2) {
+    left: 10%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 2s;
+    animation-duration: 12s;
+  }
+
+  .squares > div:nth-child(3) {
+    left: 70%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 4s;
+    animation-duration: 25s;
+  }
+
+  .squares > div:nth-child(4) {
+    left: 40%;
+    width: 60px;
+    height: 60px;
+    animation-delay: 0s;
+    animation-duration: 18s;
+  }
+
+  .squares > div:nth-child(5) {
+    left: 65%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 0s;
+    animation-duration: 25s;
+  }
+
+  .squares > div:nth-child(6) {
+    left: 75%;
+    width: 110px;
+    height: 110px;
+    animation-delay: 3s;
+    animation-duration: 25s;
+  }
+
+  .squares > div:nth-child(7) {
+    left: 35%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 7s;
+    animation-duration: 25s;
+  }
+
+  .squares > div:nth-child(8) {
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    animation-delay: 15s;
+    animation-duration: 45s;
+  }
+
+  .squares > div:nth-child(9) {
+    left: 20%;
+    width: 15px;
+    height: 15px;
+    animation-delay: 2s;
+    animation-duration: 35s;
+  }
+
+  .squares > div:nth-child(10) {
+    left: 85%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 0s;
+    animation-duration: 11s;
+  }
+
+  @keyframes squares {
+    from {
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+      border-radius: 10%;
+    }
+    to {
+      transform: translateY(-100svh) rotate(720deg);
+      opacity: 0.25;
+      border-radius: 50%;
+    }
+  }
+</style>

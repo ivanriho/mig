@@ -1,0 +1,11 @@
+{
+  "js/ts.inlayHints.parameterNames.enabled": "all",
+  "js/ts.tsdk.path": "node_modules/typescript/lib",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnType": false,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  "files.autoSave": "onFocusChange",
+  "css.lint.unknownAtRules": "ignore"
+}

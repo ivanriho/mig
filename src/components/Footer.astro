@@ -1,0 +1,37 @@
+---
+import Icon from "./Icon.astro";
+
+interface Props {
+  text?: string;
+}
+
+const {
+  text = `Ivan Ristić Hofrén ${new Date().getFullYear()}`,
+} = Astro.props;
+
+const socials = [
+  { img: "mail", href: "mailto:ivanristichofren@icloud.com", label: "Email" },
+  { img: "github", href: "https://github.com/ivanriho", label: "GitHub" },
+  {
+    img: "discord",
+    href: "https://discord.com/users/1479856948823461909",
+    label: "Discord",
+  },
+];
+---
+
+<footer class="reveal relative flex-none p-8 text-center text-xl">
+  <div class="flex flex-wrap justify-center gap-2 p-5 md:gap-3">
+    {
+      socials.map((social) => (
+        <Icon
+          class="h-11 w-11 md:h-15 md:w-15"
+          img={social.img}
+          href={social.href}
+          label={social.label}
+        />
+      ))
+    }
+  </div>
+  <p class="text-lg md:text-xl">{text}</p>
+</footer>
