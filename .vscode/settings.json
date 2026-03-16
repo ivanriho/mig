@@ -7,5 +7,11 @@
   "editor.formatOnSave": true,
   "editor.formatOnSaveMode": "file",
   "files.autoSave": "onFocusChange",
-  "css.lint.unknownAtRules": "ignore"
+  "css.lint.unknownAtRules": "ignore",
+  "chat.tools.terminal.autoApprove": {
+    "/^git ls-files \\| grep -i 'sommarjobb\\\\\\.pdf' \\|\\| true$/": {
+      "approve": true,
+      "matchCommandLine": true
+    }
+  }
 }
