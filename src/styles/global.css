@@ -47,8 +47,8 @@
 @font-face {
   font-family: "Nexa Black Italic";
   src:
-    url("/Cv/fonts/NexaBlackItalic.woff2") format("woff2"),
-    url("/Cv/fonts/NexaBlackItalic.woff") format("woff");
+    url("/mig/fonts/NexaBlackItalic.woff2") format("woff2"),
+    url("/mig/fonts/NexaBlackItalic.woff") format("woff");
   font-style: italic;
   font-weight: 900;
   font-display: swap;

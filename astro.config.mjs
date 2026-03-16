@@ -8,7 +8,7 @@ import tailwindcss from "@tailwindcss/vite";
 // https://astro.build/config
 export default defineConfig({
   site: "https://ivanriho.github.io",
-  base: "/mig",
+  base: "/mig/",
   integrations: [icon(), sitemap()],
   prefetch: {
     defaultStrategy: "viewport",
