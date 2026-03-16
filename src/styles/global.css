@@ -59,7 +59,7 @@
     width: 0;
   }
   50%, 90% {
-    width: 12ch;
+    width: 18ch;
   }
 }
 
@@ -141,8 +141,8 @@
     clip-path: inset(-50px 0 -50px -50px);
     contain: layout style;
     animation:
-      typewriter 7s steps(12) 1s infinite normal both,
-      blinking-text-cursor 500ms steps(12) infinite normal;
+      typewriter 7s steps(18) 1s infinite normal both,
+      blinking-text-cursor 500ms steps(18) infinite normal;
   }
 
   @media (pointer: fine) {
@@ -207,7 +207,7 @@
   }
 
   .typewriter {
-    width: 12ch;
+    width: 18ch;
     border-right-color: transparent;
   }
 
