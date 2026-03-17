@@ -5,6 +5,7 @@ import blobComfy from "../../public/blobcomfy.png";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import AboutSection from "../components/AboutSection.astro";
 import Icon from "../components/Icon.astro";
+import TechCard from "../components/TechCard.astro";
 import TechGroup from "../components/TechGroup.astro";
 ---
 
@@ -69,6 +70,100 @@ import TechGroup from "../components/TechGroup.astro";
         >
       </p>
     </div>
+
+    <hr class="reveal w-1/2 border-white/15" />
+
+    <AboutSection title="Utvecklingsverktyg" icon="lightbulb" class="max-w-3xl">
+      <div class="flex flex-col gap-8">
+        <TechGroup
+          heading="Språk"
+          description="Primära språk för personliga och skolrelaterade projekt"
+        >
+          <div class="flex flex-wrap gap-2">
+            <TechCard name="python" label="Python" color="text-indigo-100" />
+            <TechCard name="rust" label="Rust" color="text-red-100" />
+            <TechCard name="java" label="Java" color="text-orange-200" />
+            <TechCard name="cpp" label="C++" color="text-purple-100" />
+          </div>
+        </TechGroup>
+
+        <TechGroup
+          heading="Webbutveckling"
+          description="Frontend-ramverk, bundlers och verktyg för webben"
+        >
+          <div class="flex flex-wrap gap-2">
+            <TechCard
+              name="javascript"
+              label="JavaScript"
+              color="text-yellow-200"
+            />
+            <TechCard
+              name="typescript"
+              label="TypeScript"
+              color="text-sky-200"
+            />
+            <TechCard name="html" label="HTML" color="text-orange-200" />
+            <TechCard name="css" label="CSS" color="text-purple-100" />
+            <TechCard name="react" label="React" color="text-sky-100" />
+            <TechCard name="nextjs" label="Next.js" color="text-slate-200" />
+            <TechCard name="astro" label="Astro" color="text-amber-100" />
+            <TechCard name="solidjs" label="SolidJS" color="text-blue-200" />
+            <TechCard name="vite" label="Vite" color="text-yellow-100" />
+            <TechCard name="webpack" label="Webpack" color="text-cyan-200" />
+            <TechCard
+              name="webassembly"
+              label="WebAssembly"
+              color="text-sky-100"
+            />
+          </div>
+        </TechGroup>
+
+        <TechGroup heading="Styling" description="Verktyg för layout och UI-styling">
+          <div class="flex flex-wrap gap-2">
+            <TechCard
+              name="tailwind"
+              label="Tailwind CSS"
+              color="text-sky-200"
+            />
+            <TechCard
+              name="bootstrap"
+              label="Bootstrap"
+              color="text-violet-200"
+            />
+            <TechCard name="shadcn" label="shadcn/ui" color="text-zinc-200" />
+          </div>
+        </TechGroup>
+
+        <TechGroup heading="Backend" description="Serverramverk och API-verktyg">
+          <div class="flex flex-wrap gap-2">
+            <span class="pill text-cyan-100">Flask & Quart</span>
+            <span class="pill text-teal-200">FastAPI</span>
+            <span class="pill text-red-100">Axum</span>
+          </div>
+        </TechGroup>
+
+        <TechGroup heading="Datahantering">
+          <div class="flex flex-wrap gap-2">
+            <span class="pill text-green-200">MongoDB</span>
+            <span class="pill text-indigo-100">SQLite</span>
+            <span class="pill text-orange-200">Cloudflare D1 & R2</span>
+          </div>
+        </TechGroup>
+
+        <TechGroup
+          heading="Bibliotek"
+          description="Bildbehandling, beräkningar och visualisering"
+        >
+          <div class="flex flex-wrap gap-2">
+            <span class="pill text-blue-100">OpenCV</span>
+            <span class="pill text-purple-100">NumPy</span>
+            <span class="pill text-green-200">SymPy</span>
+            <span class="pill text-orange-200">Matplotlib</span>
+            <span class="pill text-pink-100">Pillow</span>
+          </div>
+        </TechGroup>
+      </div>
+    </AboutSection>
 
     <hr class="reveal w-1/2 border-white/15" />
 
