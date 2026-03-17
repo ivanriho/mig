@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import StackCard from "../components/StackCard.astro";
+
+const randSkill = () => Math.floor(Math.random() * 16) + 85;
 ---
 
 <BaseLayout
@@ -74,7 +76,7 @@ import StackCard from "../components/StackCard.astro";
         category="Webbutveckling"
         href="https://developer.mozilla.org/en-US/docs/Web/HTML"
         linkLabel="MDN HTML"
-        skill={88}
+        skill={randSkill()}
       />
       <StackCard
         name="tailwind"
@@ -84,7 +86,7 @@ import StackCard from "../components/StackCard.astro";
         category="Styling"
         href="https://tailwindcss.com"
         linkLabel="TailwindCSS.com"
-        skill={82}
+        skill={randSkill()}
       />
       <StackCard
         name="typescript"
@@ -94,7 +96,7 @@ import StackCard from "../components/StackCard.astro";
         category="Webbutveckling"
         href="https://www.typescriptlang.org"
         linkLabel="TypeScriptLang.org"
-        skill={68}
+        skill={randSkill()}
       />
       <StackCard
         name="nextjs"
@@ -104,7 +106,7 @@ import StackCard from "../components/StackCard.astro";
         category="Webbutveckling"
         href="https://nextjs.org"
         linkLabel="NextJS.org"
-        skill={74}
+        skill={randSkill()}
       />
       <StackCard
         name="prisma"
@@ -116,7 +118,7 @@ import StackCard from "../components/StackCard.astro";
           { href: "https://www.prisma.io", label: "Prisma.io" },
           { href: "https://www.postgresql.org", label: "PostgreSQL.org" },
         ]}
-        skill={60}
+        skill={randSkill()}
       />
       <StackCard
         name="authjs"
@@ -126,7 +128,7 @@ import StackCard from "../components/StackCard.astro";
         category="Backend"
         href="https://authjs.dev"
         linkLabel="AuthJS.dev"
-        skill={53}
+        skill={randSkill()}
       />
       <StackCard
         name="git"
@@ -136,7 +138,7 @@ import StackCard from "../components/StackCard.astro";
         category="DevOps"
         href="https://git-scm.com"
         linkLabel="Git-SCM.com"
-        skill={79}
+        skill={randSkill()}
       />
       <StackCard
         name="github"
@@ -146,7 +148,7 @@ import StackCard from "../components/StackCard.astro";
         category="DevOps"
         href="https://github.com"
         linkLabel="GitHub.com"
-        skill={84}
+        skill={randSkill()}
       />
     </div>
   </div>
@@ -319,7 +321,7 @@ import StackCard from "../components/StackCard.astro";
       }
 
       function unlockStack() {
-        if (passwordInputEl.value === "hejpådig") {
+        if (passwordInputEl.value === "123") {
           gateEl.style.display = "none";
           stackContentEl.classList.remove("stack-locked");
           startParticles();
