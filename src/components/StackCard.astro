@@ -8,10 +8,30 @@ interface Props {
   description: string;
   category: string;
   href?: string;
+  linkLabel?: string;
+  links?: Array<{ href: string; label: string }>;
 }
 
-const { name, label, color = "text-white/80", description, category, href } =
-  Astro.props;
+const {
+  name,
+  label,
+  color = "text-white/80",
+  description,
+  category,
+  href,
+  linkLabel,
+  links,
+} = Astro.props;
+
+const fallbackLabel = href
+  ? href.replace(/^https?:\/\/(www\.)?/i, "").replace(/\/$/, "")
+  : "";
+
+const linkItems = links?.length
+  ? links
+  : href
+    ? [{ href, label: linkLabel ?? fallbackLabel }]
+    : [];
 ---
 
 <div
@@ -31,15 +51,19 @@ const { name, label, color = "text-white/80", description, category, href } =
     <span class="pill text-[0.65rem] text-white/50">{category}</span>
   </div>
   {
-    href && (
-      <a
-        href={href}
-        target="_blank"
-        rel="noreferrer"
-        class="text-xs font-semibold tracking-wide text-sky-200 transition-colors hover:text-sky-100"
-      >
-        Prisma.io
-      </a>
+    linkItems.length > 0 && (
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+        {linkItems.map(({ href: itemHref, label: itemLabel }) => (
+          <a
+            href={itemHref}
+            target="_blank"
+            rel="noreferrer"
+            class="text-xs font-semibold tracking-wide text-sky-200 transition-colors hover:text-sky-100"
+          >
+            {itemLabel}
+          </a>
+        ))}
+      </div>
     )
   }
 </div>

@@ -5,7 +5,7 @@ import StackCard from "../components/StackCard.astro";
 
 <BaseLayout
   title="Stack — Ivan Ristić Hofrén"
-  description="Verktyg och tekniker jag arbetar med."
+  description="Verktyg och tekniker jag kan just nu."
 >
   <div id="stack-gate" class="stack-gate-overlay">
     <div class="fade-in-up glass stack-gate-card">
@@ -72,13 +72,17 @@ import StackCard from "../components/StackCard.astro";
         color="text-orange-200"
         description="Semantisk markup som bildar grunden för välstrukturerade, tillgängliga och SEO-vänliga webbsidor."
         category="Webbutveckling"
+        href="https://developer.mozilla.org/en-US/docs/Web/HTML"
+        linkLabel="MDN HTML"
       />
       <StackCard
         name="tailwind"
-        label="Tailwind CSS v4"
+        label="Tailwind CSS"
         color="text-sky-200"
         description="Utility-first CSS-ramverk som gör det lätt att bygga responsiva och konsekventa gränssnitt direkt i markupen."
         category="Styling"
+        href="https://tailwindcss.com"
+        linkLabel="TailwindCSS.com"
       />
       <StackCard
         name="typescript"
@@ -86,13 +90,28 @@ import StackCard from "../components/StackCard.astro";
         color="text-sky-200"
         description="Typsäker JavaScript som ger bättre autokomplettering, säkrare refaktorering och färre runtime-fel i större projekt."
         category="Webbutveckling"
+        href="https://www.typescriptlang.org"
+        linkLabel="TypeScriptLang.org"
       />
       <StackCard
         name="nextjs"
-        label="Next.js"
+        label="Next.js (Frontend + Backend)"
         color="text-slate-200"
-        description="Mitt primära ramverk för fullstack-webbappar med App Router, Server Components och inbyggt stöd för TypeScript."
+        description="Mitt primära fullstack-ramverk för både frontend och backend med App Router, API routes, server actions och inbyggt stöd för TypeScript."
         category="Webbutveckling"
+        href="https://nextjs.org"
+        linkLabel="NextJS.org"
+      />
+      <StackCard
+        name="prisma"
+        label="Prisma + PostgreSQL"
+        color="text-violet-200"
+        description="TypeScript-first ORM (Prisma) tillsammans med PostgreSQL för typsäkra modeller, migreringar och robust datalagring."
+        category="Backend"
+        links={[
+          { href: "https://www.prisma.io", label: "Prisma.io" },
+          { href: "https://www.postgresql.org", label: "PostgreSQL.org" },
+        ]}
       />
       <StackCard
         name="authjs"
@@ -100,28 +119,8 @@ import StackCard from "../components/StackCard.astro";
         color="text-yellow-100"
         description="Flexibel autentiseringslösning med stöd för OAuth-leverantörer, e-postlänkar och credentials-inloggning."
         category="Backend"
-      />
-      <StackCard
-        name="prisma"
-        label="Prisma"
-        color="text-violet-200"
-        description="TypeScript-first ORM för databaser med typsäker klient, schema och migrationer."
-        category="Backend"
-        href="https://www.prisma.io"
-      />
-      <StackCard
-        name="postgresql"
-        label="PostgreSQL"
-        color="text-sky-200"
-        description="Relationsdatabas för robust datalagring, avancerade queries och stabil prestanda i produktion."
-        category="Backend"
-      />
-      <StackCard
-        name="github"
-        label="GitHub"
-        color="text-slate-200"
-        description="Plattformen jag använder för versionshantering, pull requests, kodgranskning och deployment-flöden i projekt."
-        category="DevOps"
+        href="https://authjs.dev"
+        linkLabel="AuthJS.dev"
       />
       <StackCard
         name="git"
@@ -129,6 +128,17 @@ import StackCard from "../components/StackCard.astro";
         color="text-emerald-200"
         description="Distribuerat versionshanteringssystem jag använder dagligen för branchar, commits, merges och historik i kodbaser."
         category="DevOps"
+        href="https://git-scm.com"
+        linkLabel="Git-SCM.com"
+      />
+      <StackCard
+        name="github"
+        label="GitHub"
+        color="text-slate-200"
+        description="Plattformen jag använder för versionshantering, pull requests, kodgranskning och deployment-flöden i projekt."
+        category="DevOps"
+        href="https://github.com"
+        linkLabel="GitHub.com"
       />
     </div>
   </div>
