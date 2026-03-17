@@ -13,14 +13,14 @@ const { name, label, color = "", class: className = "" } = Astro.props;
 
 <div
   class:list={[
-    "glass tech-card flex items-center gap-3 rounded-2xl px-4 py-3 transition-[scale,background-color,border-color] duration-300 hover:scale-[1.03] hover:bg-white/10",
+    "glass flex items-center gap-2 rounded-lg px-3 py-2 transition-[scale,background-color] duration-300 hover:scale-[1.05] hover:bg-white/10",
     className,
   ]}
 >
   <AstroIcon
     name={`stack/${name}`}
-    size="1.7em"
+    size="1.4em"
     class:list={["shrink-0", color]}
   />
-  {label && <span class:list={["text-base font-semibold", color]}>{label}</span>}
+  {label && <span class:list={["text-sm font-medium", color]}>{label}</span>}
 </div>

@@ -76,18 +76,6 @@ import TechGroup from "../components/TechGroup.astro";
     <AboutSection title="Utvecklingsverktyg" icon="lightbulb" class="max-w-3xl">
       <div class="flex flex-col gap-8">
         <TechGroup
-          heading="Språk"
-          description="Primära språk för personliga och skolrelaterade projekt"
-        >
-          <div class="flex flex-wrap gap-2">
-            <TechCard name="python" label="Python" color="text-indigo-100" />
-            <TechCard name="rust" label="Rust" color="text-red-100" />
-            <TechCard name="java" label="Java" color="text-orange-200" />
-            <TechCard name="cpp" label="C++" color="text-purple-100" />
-          </div>
-        </TechGroup>
-
-        <TechGroup
           heading="Webbutveckling"
           description="Frontend-ramverk, bundlers och verktyg för webben"
         >
@@ -136,17 +124,17 @@ import TechGroup from "../components/TechGroup.astro";
 
         <TechGroup heading="Backend" description="Serverramverk och API-verktyg">
           <div class="flex flex-wrap gap-2">
-            <span class="pill text-cyan-100">Flask & Quart</span>
-            <span class="pill text-teal-200">FastAPI</span>
-            <span class="pill text-red-100">Axum</span>
+            <TechCard name="flask" label="Flask" color="text-cyan-100" />
+            <TechCard name="fastapi" label="FastAPI" color="text-teal-200" />
+            <TechCard name="axum" label="Axum" color="text-red-100" />
           </div>
         </TechGroup>
 
         <TechGroup heading="Datahantering">
           <div class="flex flex-wrap gap-2">
-            <span class="pill text-green-200">MongoDB</span>
-            <span class="pill text-indigo-100">SQLite</span>
-            <span class="pill text-orange-200">Cloudflare D1 & R2</span>
+            <TechCard name="mongo" label="MongoDB" color="text-green-200" />
+            <TechCard name="sqlite" label="SQLite" color="text-indigo-100" />
+            <TechCard name="cloudflare" label="Cloudflare" color="text-orange-200" />
           </div>
         </TechGroup>
 
@@ -155,11 +143,11 @@ import TechGroup from "../components/TechGroup.astro";
           description="Bildbehandling, beräkningar och visualisering"
         >
           <div class="flex flex-wrap gap-2">
-            <span class="pill text-blue-100">OpenCV</span>
-            <span class="pill text-purple-100">NumPy</span>
-            <span class="pill text-green-200">SymPy</span>
-            <span class="pill text-orange-200">Matplotlib</span>
-            <span class="pill text-pink-100">Pillow</span>
+            <TechCard name="opencv" label="OpenCV" color="text-blue-100" />
+            <TechCard name="numpy" label="NumPy" color="text-purple-100" />
+            <TechCard name="sympy" label="SymPy" color="text-green-200" />
+            <TechCard name="matplotlib" label="Matplotlib" color="text-orange-200" />
+            <TechCard name="pillow" label="Pillow" color="text-pink-100" />
           </div>
         </TechGroup>
       </div>
