@@ -12,6 +12,10 @@
     "/^git ls-files \\| grep -i 'sommarjobb\\\\\\.pdf' \\|\\| true$/": {
       "approve": true,
       "matchCommandLine": true
+    },
+    "/^npx astro check 2>&1 \\| tail -20$/": {
+      "approve": true,
+      "matchCommandLine": true
     }
   }
 }

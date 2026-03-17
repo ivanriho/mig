@@ -10,6 +10,7 @@ interface Props {
   href?: string;
   linkLabel?: string;
   links?: Array<{ href: string; label: string }>;
+  skill?: number;
 }
 
 const {
@@ -21,6 +22,7 @@ const {
   href,
   linkLabel,
   links,
+  skill,
 } = Astro.props;
 
 const fallbackLabel = href
@@ -37,6 +39,7 @@ const linkItems = links?.length
 <div
   class="reveal glass flex flex-col gap-4 rounded-xl p-5 transition-[scale,background-color] duration-300 hover:scale-[1.02] hover:bg-white/10"
   data-tags={category.toLowerCase()}
+  data-name={name}
 >
   <div class="flex items-center gap-3">
     <AstroIcon
@@ -50,6 +53,16 @@ const linkItems = links?.length
   <div>
     <span class="pill text-[0.65rem] text-white/50">{category}</span>
   </div>
+  {
+    skill !== undefined && (
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-track">
+          <div class="skill-bar-fill" data-skill={skill} />
+        </div>
+        <span class="skill-label">{skill}%</span>
+      </div>
+    )
+  }
   {
     linkItems.length > 0 && (
       <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
@@ -67,3 +80,38 @@ const linkItems = links?.length
     )
   }
 </div>
+
+<style>
+  .skill-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .skill-bar-track {
+    flex: 1;
+    height: 2px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+  }
+
+  .skill-bar-fill {
+    height: 100%;
+    width: 0;
+    border-radius: 999px;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.2),
+      rgba(255, 255, 255, 0.55)
+    );
+    transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .skill-label {
+    font-size: 0.6rem;
+    color: rgba(255, 255, 255, 0.3);
+    min-width: 1.8rem;
+    text-align: right;
+  }
+</style>

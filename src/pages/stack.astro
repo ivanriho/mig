@@ -74,6 +74,7 @@ import StackCard from "../components/StackCard.astro";
         category="Webbutveckling"
         href="https://developer.mozilla.org/en-US/docs/Web/HTML"
         linkLabel="MDN HTML"
+        skill={88}
       />
       <StackCard
         name="tailwind"
@@ -83,6 +84,7 @@ import StackCard from "../components/StackCard.astro";
         category="Styling"
         href="https://tailwindcss.com"
         linkLabel="TailwindCSS.com"
+        skill={82}
       />
       <StackCard
         name="typescript"
@@ -92,6 +94,7 @@ import StackCard from "../components/StackCard.astro";
         category="Webbutveckling"
         href="https://www.typescriptlang.org"
         linkLabel="TypeScriptLang.org"
+        skill={68}
       />
       <StackCard
         name="nextjs"
@@ -101,6 +104,7 @@ import StackCard from "../components/StackCard.astro";
         category="Webbutveckling"
         href="https://nextjs.org"
         linkLabel="NextJS.org"
+        skill={74}
       />
       <StackCard
         name="prisma"
@@ -112,6 +116,7 @@ import StackCard from "../components/StackCard.astro";
           { href: "https://www.prisma.io", label: "Prisma.io" },
           { href: "https://www.postgresql.org", label: "PostgreSQL.org" },
         ]}
+        skill={60}
       />
       <StackCard
         name="authjs"
@@ -121,6 +126,7 @@ import StackCard from "../components/StackCard.astro";
         category="Backend"
         href="https://authjs.dev"
         linkLabel="AuthJS.dev"
+        skill={53}
       />
       <StackCard
         name="git"
@@ -130,6 +136,7 @@ import StackCard from "../components/StackCard.astro";
         category="DevOps"
         href="https://git-scm.com"
         linkLabel="Git-SCM.com"
+        skill={79}
       />
       <StackCard
         name="github"
@@ -139,6 +146,7 @@ import StackCard from "../components/StackCard.astro";
         category="DevOps"
         href="https://github.com"
         linkLabel="GitHub.com"
+        skill={84}
       />
     </div>
   </div>
@@ -245,10 +253,77 @@ import StackCard from "../components/StackCard.astro";
 
       stackContentEl.classList.add("stack-locked");
 
+      function animateSkillBars() {
+        const fills =
+          document.querySelectorAll<HTMLElement>(".skill-bar-fill");
+        fills.forEach((fill, i) => {
+          const skill = fill.dataset.skill;
+          if (!skill) return;
+          setTimeout(
+            () => {
+              fill.style.width = skill + "%";
+            },
+            300 + i * 70,
+          );
+        });
+      }
+
+      function startParticles() {
+        let canvas = document.getElementById(
+          "particle-canvas",
+        ) as HTMLCanvasElement | null;
+        if (canvas) return;
+        canvas = document.createElement("canvas");
+        canvas.id = "particle-canvas";
+        canvas.style.cssText =
+          "position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;";
+        document.body.appendChild(canvas);
+
+        const ctx = canvas.getContext("2d")!;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = Array.from({ length: 70 }, () => ({
+          x: Math.random() * canvas!.width,
+          y: Math.random() * canvas!.height,
+          r: Math.random() * 1.4 + 0.2,
+          dx: (Math.random() - 0.5) * 0.25,
+          dy: (Math.random() - 0.5) * 0.25,
+          alpha: Math.random() * 0.35 + 0.05,
+        }));
+
+        window.addEventListener("resize", () => {
+          if (!canvas) return;
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        });
+
+        function drawParticles() {
+          if (!canvas || !ctx) return;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          particles.forEach((p) => {
+            p.x += p.dx;
+            p.y += p.dy;
+            if (p.x < 0) p.x = canvas!.width;
+            if (p.x > canvas!.width) p.x = 0;
+            if (p.y < 0) p.y = canvas!.height;
+            if (p.y > canvas!.height) p.y = 0;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
+            ctx.fill();
+          });
+          requestAnimationFrame(drawParticles);
+        }
+        drawParticles();
+      }
+
       function unlockStack() {
         if (passwordInputEl.value === "hejpådig") {
           gateEl.style.display = "none";
           stackContentEl.classList.remove("stack-locked");
+          startParticles();
+          animateSkillBars();
           return;
         }
 
