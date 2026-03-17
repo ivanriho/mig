@@ -7,9 +7,10 @@ interface Props {
   color?: string;
   description: string;
   category: string;
+  href?: string;
 }
 
-const { name, label, color = "text-white/80", description, category } =
+const { name, label, color = "text-white/80", description, category, href } =
   Astro.props;
 ---
 
@@ -29,4 +30,16 @@ const { name, label, color = "text-white/80", description, category } =
   <div>
     <span class="pill text-[0.65rem] text-white/50">{category}</span>
   </div>
+  {
+    href && (
+      <a
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        class="text-xs font-semibold tracking-wide text-sky-200 transition-colors hover:text-sky-100"
+      >
+        Prisma.io
+      </a>
+    )
+  }
 </div>
