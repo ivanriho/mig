@@ -1,0 +1,32 @@
+---
+import { Icon as AstroIcon } from "astro-icon/components";
+
+interface Props {
+  name: string;
+  label: string;
+  color?: string;
+  description: string;
+  category: string;
+}
+
+const { name, label, color = "text-white/80", description, category } =
+  Astro.props;
+---
+
+<div
+  class="reveal glass flex flex-col gap-4 rounded-xl p-5 transition-[scale,background-color] duration-300 hover:scale-[1.02] hover:bg-white/10"
+  data-tags={category.toLowerCase()}
+>
+  <div class="flex items-center gap-3">
+    <AstroIcon
+      name={`stack/${name}`}
+      size="2em"
+      class:list={["shrink-0", color]}
+    />
+    <span class:list={["text-base font-bold", color]}>{label}</span>
+  </div>
+  <p class="flex-1 text-sm leading-relaxed text-white/60">{description}</p>
+  <div>
+    <span class="pill text-[0.65rem] text-white/50">{category}</span>
+  </div>
+</div>

@@ -1,0 +1,271 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import StackCard from "../components/StackCard.astro";
+---
+
+<BaseLayout
+  title="Stack — Ivan Ristić Hofrén"
+  description="Verktyg och tekniker jag arbetar med."
+>
+  <div
+    class="mt-8 mb-20 flex w-full max-w-5xl flex-col items-center gap-10 px-4 sm:mt-10 sm:px-6 sm:gap-14 lg:mt-20 lg:gap-18"
+  >
+    <div class="flex flex-col items-center gap-3 text-center">
+      <h1 class="page-title drop-shadow-lg">Stack</h1>
+      <p
+        class="fade-in text-base text-white/60 [animation-delay:0.15s] md:text-lg"
+      >
+        Verktyg och tekniker jag arbetar med
+      </p>
+    </div>
+
+    <div
+      id="stack-filters"
+      class="fade-in -mb-5 flex w-full items-baseline gap-3 [animation-delay:0.3s]"
+    >
+      <span class="filter-label shrink-0">Filtrera</span>
+      <div
+        id="filter-tags"
+        class="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-1"
+      >
+        <button class="filter-tag filter-active" data-tag="all">Alla</button>
+        <span class="filter-dot">&middot;</span>
+        <button class="filter-tag" data-tag="webbutveckling"
+          >Webbutveckling</button
+        >
+        <span class="filter-dot">&middot;</span>
+        <button class="filter-tag" data-tag="styling">Styling</button>
+        <span class="filter-dot">&middot;</span>
+        <button class="filter-tag" data-tag="backend">Backend</button>
+        <span class="filter-dot">&middot;</span>
+        <button class="filter-tag" data-tag="datahantering">Datahantering</button>
+        <span class="filter-dot">&middot;</span>
+        <button class="filter-tag" data-tag="devops">DevOps</button>
+      </div>
+    </div>
+
+    <div id="stack-grid" class="stagger-grid custom-grid">
+      <!-- Webbutveckling -->
+      <StackCard
+        name="nextjs"
+        label="Next.js"
+        color="text-slate-200"
+        description="Mitt primära ramverk för fullstack-webbappar med App Router, Server Components och inbyggt stöd för TypeScript."
+        category="Webbutveckling"
+      />
+      <StackCard
+        name="typescript"
+        label="TypeScript"
+        color="text-sky-200"
+        description="Typsäker JavaScript som ger bättre autokomplettering, säkrare refaktorering och färre runtime-fel i större projekt."
+        category="Webbutveckling"
+      />
+      <StackCard
+        name="html"
+        label="HTML5"
+        color="text-orange-200"
+        description="Semantisk markup som bildar grunden för välstrukturerade, tillgängliga och SEO-vänliga webbsidor."
+        category="Webbutveckling"
+      />
+      <StackCard
+        name="tanstack-query"
+        label="TanStack Query"
+        color="text-rose-200"
+        description="Kraftfullt bibliotek för server state-hantering, automatisk cachning och bakgrundssynkronisering av data."
+        category="Webbutveckling"
+      />
+      <StackCard
+        name="npm-pnpm"
+        label="npm / pnpm"
+        color="text-lime-200"
+        description="Pakethanterare för JavaScript-ekosystemet. Föredrar pnpm för snabbare installationer och effektivare diskanvändning."
+        category="Webbutveckling"
+      />
+      <!-- Styling -->
+      <StackCard
+        name="tailwind"
+        label="Tailwind CSS v4"
+        color="text-sky-200"
+        description="Utility-first CSS-ramverk som gör det lätt att bygga responsiva och konsekventa gränssnitt direkt i markupen."
+        category="Styling"
+      />
+      <StackCard
+        name="shadcn"
+        label="shadcn/ui"
+        color="text-zinc-200"
+        description="Tillgängliga och fullt anpassningsbara komponenter byggda på Radix UI och Tailwind CSS – kod man äger själv."
+        category="Styling"
+      />
+      <StackCard
+        name="lucide-react"
+        label="Lucide React"
+        color="text-slate-200"
+        description="Öppet källkod-ikonbibliotek med konsekventa och väldesignade ikoner i SVG-format för React-projekt."
+        category="Styling"
+      />
+      <!-- Backend -->
+      <StackCard
+        name="authjs"
+        label="Auth.js"
+        color="text-yellow-100"
+        description="Flexibel autentiseringslösning med stöd för OAuth-leverantörer, e-postlänkar och credentials-inloggning."
+        category="Backend"
+      />
+      <StackCard
+        name="nodejs"
+        label="Node.js"
+        color="text-green-200"
+        description="JavaScript-runtime för serverprojekt, CLI-verktyg och automatiserade scripts utanför webbläsaren."
+        category="Backend"
+      />
+      <StackCard
+        name="zod"
+        label="Zod"
+        color="text-indigo-200"
+        description="TypeScript-first schemavalidering för säker parsning och validering av ostrukturerade data från API:er och formulär."
+        category="Backend"
+      />
+      <StackCard
+        name="simple-git"
+        label="Simple-Git"
+        color="text-emerald-200"
+        description="Node-bibliotek för att köra Git-kommandon programmatiskt – används i automation och backend-scripts."
+        category="Backend"
+      />
+      <StackCard
+        name="bash-shell"
+        label="Bash / Shell"
+        color="text-orange-200"
+        description="Shell-scripting för att automatisera builds, deployments och repetitiva uppgifter i terminalen."
+        category="Backend"
+      />
+      <StackCard
+        name="nextjs-server-actions"
+        label="Server Actions"
+        color="text-slate-200"
+        description="Typsäkra serverfunktioner inbyggda i Next.js som anropas direkt från React-komponenter utan ett separat API-lager."
+        category="Backend"
+      />
+      <!-- Datahantering -->
+      <StackCard
+        name="postgresql"
+        label="PostgreSQL"
+        color="text-sky-200"
+        description="Kraftfull relationsdatabas som jag self-hostar via Coolify för full kontroll över data, prestanda och backup."
+        category="Datahantering"
+      />
+      <StackCard
+        name="prisma"
+        label="Prisma"
+        color="text-violet-200"
+        description="Modern ORM med typsäkerhet, intuitiv schemadefinition och smidiga migreringsverktyg för PostgreSQL."
+        category="Datahantering"
+      />
+      <StackCard
+        name="meilisearch"
+        label="Meilisearch"
+        color="text-amber-200"
+        description="Snabb och feltolerant söktjänst med stöd för fuzzy-sökning, filtreringsregler och relevansrankning."
+        category="Datahantering"
+      />
+      <StackCard
+        name="sql"
+        label="SQL"
+        color="text-indigo-100"
+        description="Frågespråk för relationsdatabaser – används för komplexa queries, joins och databasoptimering."
+        category="Datahantering"
+      />
+      <StackCard
+        name="markdown"
+        label="Markdown"
+        color="text-slate-200"
+        description="Lättviktigt markup-språk för dokumentation, README-filer och textbaserat innehåll i projekt."
+        category="Datahantering"
+      />
+      <!-- DevOps -->
+      <StackCard
+        name="coolify"
+        label="Coolify"
+        color="text-cyan-200"
+        description="Self-hosted PaaS som jag använder för att driftsätta appar, databaser och tjänster på egna servrar med full kontroll."
+        category="DevOps"
+      />
+    </div>
+  </div>
+
+  <style>
+    @reference '../styles/global.css';
+
+    .filter-label {
+      @apply text-[0.65rem] font-bold tracking-widest text-white/30 uppercase;
+    }
+
+    .filter-tag {
+      @apply cursor-pointer border-none bg-transparent px-1 py-0.5 text-xs text-white/40 transition-colors duration-150 hover:text-white/70;
+    }
+
+    .filter-tag.filter-active {
+      @apply text-white;
+    }
+
+    .filter-dot {
+      @apply select-none text-xs text-white/20;
+    }
+  </style>
+
+  <script>
+    document.addEventListener("astro:page-load", () => {
+      const filterBar = document.getElementById("stack-filters");
+      const grid = document.getElementById("stack-grid");
+      if (!filterBar || !grid) return;
+
+      const allBtn = filterBar.querySelector<HTMLButtonElement>(
+        '[data-tag="all"]',
+      );
+      const tagBtns = filterBar.querySelectorAll<HTMLButtonElement>(
+        "[data-tag]:not([data-tag='all'])",
+      );
+      const cards = grid.querySelectorAll<HTMLElement>("[data-tags]");
+      const activeTags = new Set<string>();
+
+      function updateFilter() {
+        cards.forEach((card) => {
+          const cardTags = card.dataset.tags?.split(",") ?? [];
+          const show =
+            activeTags.size === 0 ||
+            cardTags.some((t) => activeTags.has(t));
+          if (show) {
+            card.style.display = "";
+          } else {
+            card.style.display = "none";
+            card.classList.remove("visible");
+          }
+        });
+        allBtn?.classList.toggle("filter-active", activeTags.size === 0);
+        tagBtns.forEach((btn) => {
+          btn.classList.toggle(
+            "filter-active",
+            activeTags.has(btn.dataset.tag!),
+          );
+        });
+      }
+
+      allBtn?.addEventListener("click", () => {
+        activeTags.clear();
+        updateFilter();
+      });
+
+      tagBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const tag = btn.dataset.tag!;
+          if (activeTags.has(tag)) {
+            activeTags.delete(tag);
+          } else {
+            activeTags.add(tag);
+          }
+          updateFilter();
+        });
+      });
+    });
+  </script>
+</BaseLayout>

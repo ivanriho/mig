@@ -5,7 +5,6 @@ import blobComfy from "../../public/blobcomfy.png";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import AboutSection from "../components/AboutSection.astro";
 import Icon from "../components/Icon.astro";
-import TechCard from "../components/TechCard.astro";
 import TechGroup from "../components/TechGroup.astro";
 ---
 
@@ -70,86 +69,6 @@ import TechGroup from "../components/TechGroup.astro";
         >
       </p>
     </div>
-
-    <hr class="reveal w-1/2 border-white/15" />
-
-    <AboutSection title="Utvecklingsverktyg" icon="lightbulb" class="max-w-3xl">
-      <div class="flex flex-col gap-8">
-        <TechGroup heading="Webbutveckling">
-          <div class="flex flex-wrap gap-2">
-            <TechCard name="nextjs" label="Next.js (React)" color="text-slate-200" />
-            <TechCard
-              name="typescript"
-              label="TypeScript"
-              color="text-sky-200"
-            />
-            <TechCard name="html" label="HTML5" color="text-orange-200" />
-            <TechCard
-              name="tanstack-query"
-              label="TanStack Query"
-              color="text-rose-200"
-            />
-            <TechCard name="npm-pnpm" label="npm / pnpm" color="text-lime-200" />
-          </div>
-        </TechGroup>
-
-        <TechGroup heading="Styling">
-          <div class="flex flex-wrap gap-2">
-            <TechCard
-              name="tailwind"
-              label="Tailwind CSS v4"
-              color="text-sky-200"
-            />
-            <TechCard name="shadcn" label="shadcn/ui" color="text-zinc-200" />
-            <TechCard
-              name="lucide-react"
-              label="Lucide React"
-              color="text-slate-200"
-            />
-          </div>
-        </TechGroup>
-
-        <TechGroup heading="Backend">
-          <div class="flex flex-wrap gap-2">
-            <TechCard name="authjs" label="Auth.js" color="text-yellow-100" />
-            <TechCard name="nodejs" label="Node.js" color="text-green-200" />
-            <TechCard name="typescript" label="TypeScript" color="text-sky-200" />
-            <TechCard name="simple-git" label="Simple-Git" color="text-emerald-200" />
-            <TechCard name="zod" label="Zod" color="text-indigo-200" />
-            <TechCard name="bash-shell" label="Bash / Shell" color="text-orange-200" />
-            <TechCard
-              name="nextjs-server-actions"
-              label="Next.js Server Actions"
-              color="text-slate-200"
-            />
-          </div>
-        </TechGroup>
-
-        <TechGroup heading="Datahantering">
-          <div class="flex flex-wrap gap-2">
-            <TechCard
-              name="postgresql"
-              label="PostgreSQL"
-              color="text-sky-200"
-            />
-            <TechCard name="sql" label="SQL" color="text-indigo-100" />
-            <TechCard name="prisma" label="Prisma" color="text-violet-200" />
-            <TechCard
-              name="meilisearch"
-              label="Meilisearch"
-              color="text-amber-200"
-            />
-            <TechCard name="markdown" label="Markdown" color="text-slate-200" />
-          </div>
-        </TechGroup>
-
-        <TechGroup heading="DevOps & Hosting">
-          <div class="flex flex-wrap gap-2">
-            <TechCard name="coolify" label="Coolify" color="text-cyan-200" />
-          </div>
-        </TechGroup>
-      </div>
-    </AboutSection>
 
     <hr class="reveal w-1/2 border-white/15" />
 
