@@ -7,8 +7,31 @@ import StackCard from "../components/StackCard.astro";
   title="Stack — Ivan Ristić Hofrén"
   description="Verktyg och tekniker jag arbetar med."
 >
+  <div id="stack-gate" class="stack-gate-overlay">
+    <div class="fade-in-up glass stack-gate-card">
+      <h2 class="text-2xl font-bold text-white">Stack</h2>
+      <p class="mt-2 text-sm text-white/70 md:text-base">Ange lösenord för att fortsätta.</p>
+
+      <div class="mt-5 flex w-full flex-col gap-3 sm:flex-row">
+        <input
+          id="stack-password"
+          type="password"
+          placeholder="Lösenord"
+          class="stack-password-input"
+          autocomplete="off"
+        />
+        <button id="stack-unlock" class="stack-unlock-btn" type="button"
+          >Öppna</button
+        >
+      </div>
+
+      <p id="stack-error" class="mt-3 hidden text-sm text-rose-300"></p>
+    </div>
+  </div>
+
   <div
-    class="mt-8 mb-20 flex w-full max-w-5xl flex-col items-center gap-10 px-4 sm:mt-10 sm:px-6 sm:gap-14 lg:mt-20 lg:gap-18"
+    id="stack-content"
+    class="stack-locked mt-8 mb-20 flex w-full max-w-5xl flex-col items-center gap-10 px-4 sm:mt-10 sm:px-6 sm:gap-14 lg:mt-20 lg:gap-18"
   >
     <div class="flex flex-col items-center gap-3 text-center">
       <h1 class="page-title drop-shadow-lg">Stack</h1>
@@ -45,13 +68,19 @@ import StackCard from "../components/StackCard.astro";
     </div>
 
     <div id="stack-grid" class="stagger-grid custom-grid">
-      <!-- Webbutveckling -->
       <StackCard
-        name="nextjs"
-        label="Next.js"
-        color="text-slate-200"
-        description="Mitt primära ramverk för fullstack-webbappar med App Router, Server Components och inbyggt stöd för TypeScript."
+        name="html"
+        label="HTML5"
+        color="text-orange-200"
+        description="Semantisk markup som bildar grunden för välstrukturerade, tillgängliga och SEO-vänliga webbsidor."
         category="Webbutveckling"
+      />
+      <StackCard
+        name="tailwind"
+        label="Tailwind CSS v4"
+        color="text-sky-200"
+        description="Utility-first CSS-ramverk som gör det lätt att bygga responsiva och konsekventa gränssnitt direkt i markupen."
+        category="Styling"
       />
       <StackCard
         name="typescript"
@@ -61,33 +90,11 @@ import StackCard from "../components/StackCard.astro";
         category="Webbutveckling"
       />
       <StackCard
-        name="html"
-        label="HTML5"
-        color="text-orange-200"
-        description="Semantisk markup som bildar grunden för välstrukturerade, tillgängliga och SEO-vänliga webbsidor."
+        name="nextjs"
+        label="Next.js"
+        color="text-slate-200"
+        description="Mitt primära ramverk för fullstack-webbappar med App Router, Server Components och inbyggt stöd för TypeScript."
         category="Webbutveckling"
-      />
-      <StackCard
-        name="tanstack-query"
-        label="TanStack Query"
-        color="text-rose-200"
-        description="Kraftfullt bibliotek för server state-hantering, automatisk cachning och bakgrundssynkronisering av data."
-        category="Webbutveckling"
-      />
-      <StackCard
-        name="npm-pnpm"
-        label="npm / pnpm"
-        color="text-lime-200"
-        description="Pakethanterare för JavaScript-ekosystemet. Föredrar pnpm för snabbare installationer och effektivare diskanvändning."
-        category="Webbutveckling"
-      />
-      <!-- Styling -->
-      <StackCard
-        name="tailwind"
-        label="Tailwind CSS v4"
-        color="text-sky-200"
-        description="Utility-first CSS-ramverk som gör det lätt att bygga responsiva och konsekventa gränssnitt direkt i markupen."
-        category="Styling"
       />
       <StackCard
         name="shadcn"
@@ -103,12 +110,25 @@ import StackCard from "../components/StackCard.astro";
         description="Öppet källkod-ikonbibliotek med konsekventa och väldesignade ikoner i SVG-format för React-projekt."
         category="Styling"
       />
-      <!-- Backend -->
       <StackCard
-        name="authjs"
-        label="Auth.js"
-        color="text-yellow-100"
-        description="Flexibel autentiseringslösning med stöd för OAuth-leverantörer, e-postlänkar och credentials-inloggning."
+        name="tanstack-query"
+        label="TanStack Query"
+        color="text-rose-200"
+        description="Kraftfullt bibliotek för server state-hantering, automatisk cachning och bakgrundssynkronisering av data."
+        category="Webbutveckling"
+      />
+      <StackCard
+        name="markdown"
+        label="Markdown"
+        color="text-slate-200"
+        description="Lättviktigt markup-språk för dokumentation, README-filer och textbaserat innehåll i projekt."
+        category="Datahantering"
+      />
+      <StackCard
+        name="nextjs-server-actions"
+        label="Next.js Server Actions"
+        color="text-slate-200"
+        description="Typsäkra serverfunktioner inbyggda i Next.js som anropas direkt från React-komponenter utan ett separat API-lager."
         category="Backend"
       />
       <StackCard
@@ -119,10 +139,10 @@ import StackCard from "../components/StackCard.astro";
         category="Backend"
       />
       <StackCard
-        name="zod"
-        label="Zod"
-        color="text-indigo-200"
-        description="TypeScript-first schemavalidering för säker parsning och validering av ostrukturerade data från API:er och formulär."
+        name="authjs"
+        label="Auth.js"
+        color="text-yellow-100"
+        description="Flexibel autentiseringslösning med stöd för OAuth-leverantörer, e-postlänkar och credentials-inloggning."
         category="Backend"
       />
       <StackCard
@@ -133,6 +153,13 @@ import StackCard from "../components/StackCard.astro";
         category="Backend"
       />
       <StackCard
+        name="zod"
+        label="Zod"
+        color="text-indigo-200"
+        description="TypeScript-first schemavalidering för säker parsning och validering av ostrukturerade data från API:er och formulär."
+        category="Backend"
+      />
+      <StackCard
         name="bash-shell"
         label="Bash / Shell"
         color="text-orange-200"
@@ -140,18 +167,17 @@ import StackCard from "../components/StackCard.astro";
         category="Backend"
       />
       <StackCard
-        name="nextjs-server-actions"
-        label="Server Actions"
-        color="text-slate-200"
-        description="Typsäkra serverfunktioner inbyggda i Next.js som anropas direkt från React-komponenter utan ett separat API-lager."
-        category="Backend"
-      />
-      <!-- Datahantering -->
-      <StackCard
         name="postgresql"
         label="PostgreSQL"
         color="text-sky-200"
         description="Kraftfull relationsdatabas som jag self-hostar via Coolify för full kontroll över data, prestanda och backup."
+        category="Datahantering"
+      />
+      <StackCard
+        name="sql"
+        label="SQL"
+        color="text-indigo-100"
+        description="Frågespråk för relationsdatabaser – används för komplexa queries, joins och databasoptimering."
         category="Datahantering"
       />
       <StackCard
@@ -169,25 +195,24 @@ import StackCard from "../components/StackCard.astro";
         category="Datahantering"
       />
       <StackCard
-        name="sql"
-        label="SQL"
-        color="text-indigo-100"
-        description="Frågespråk för relationsdatabaser – används för komplexa queries, joins och databasoptimering."
-        category="Datahantering"
-      />
-      <StackCard
-        name="markdown"
-        label="Markdown"
-        color="text-slate-200"
-        description="Lättviktigt markup-språk för dokumentation, README-filer och textbaserat innehåll i projekt."
-        category="Datahantering"
-      />
-      <!-- DevOps -->
-      <StackCard
         name="coolify"
         label="Coolify"
         color="text-cyan-200"
         description="Self-hosted PaaS som jag använder för att driftsätta appar, databaser och tjänster på egna servrar med full kontroll."
+        category="DevOps"
+      />
+      <StackCard
+        name="github"
+        label="GitHub"
+        color="text-slate-200"
+        description="Plattformen jag använder för versionshantering, pull requests, kodgranskning och deployment-flöden i projekt."
+        category="DevOps"
+      />
+      <StackCard
+        name="git"
+        label="Git"
+        color="text-emerald-200"
+        description="Distribuerat versionshanteringssystem jag använder dagligen för branchar, commits, merges och historik i kodbaser."
         category="DevOps"
       />
     </div>
@@ -211,21 +236,127 @@ import StackCard from "../components/StackCard.astro";
     .filter-dot {
       @apply select-none text-xs text-white/20;
     }
+
+    .stack-locked {
+      filter: blur(9px);
+      pointer-events: none;
+    }
+
+    .stack-gate-overlay {
+      @apply fixed inset-0 z-40 flex items-center justify-center px-4;
+    }
+
+    .stack-gate-card {
+      @apply w-full max-w-xl rounded-2xl p-8 text-center;
+    }
+
+    .stack-password-input {
+      @apply w-full rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-sm text-white outline-none transition-colors focus:border-white/40;
+    }
+
+    .stack-unlock-btn {
+      @apply rounded-xl bg-white/15 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/25;
+    }
+
+    .stack-gate-card.shake {
+      animation: stack-shake 360ms ease;
+    }
+
+    @keyframes stack-shake {
+      0% {
+        transform: translateX(0);
+      }
+      20% {
+        transform: translateX(-8px);
+      }
+      40% {
+        transform: translateX(8px);
+      }
+      60% {
+        transform: translateX(-6px);
+      }
+      80% {
+        transform: translateX(6px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
   </style>
 
   <script>
-    document.addEventListener("astro:page-load", () => {
+    function initStackPage() {
+      const gate = document.getElementById("stack-gate");
+      const gateCard = gate?.querySelector(".stack-gate-card");
+      const stackContent = document.getElementById("stack-content");
+      const passwordInput = document.getElementById("stack-password");
+      const unlockBtn = document.getElementById("stack-unlock");
+      const errorText = document.getElementById("stack-error");
       const filterBar = document.getElementById("stack-filters");
       const grid = document.getElementById("stack-grid");
-      if (!filterBar || !grid) return;
 
-      const allBtn = filterBar.querySelector<HTMLButtonElement>(
+      if (
+        !gate ||
+        !stackContent ||
+        !(passwordInput instanceof HTMLInputElement) ||
+        !(unlockBtn instanceof HTMLButtonElement) ||
+        !(errorText instanceof HTMLElement) ||
+        !filterBar ||
+        !grid
+      ) {
+        return;
+      }
+
+      const gateEl = gate;
+      const stackContentEl = stackContent;
+      const passwordInputEl = passwordInput;
+      const unlockBtnEl = unlockBtn;
+      const errorTextEl = errorText;
+      const filterBarEl = filterBar;
+      const gridEl = grid;
+
+      if (gateEl.dataset.initialized === "true") return;
+      gateEl.dataset.initialized = "true";
+
+      stackContentEl.classList.add("stack-locked");
+
+      function unlockStack() {
+        if (passwordInputEl.value === "hejpådig") {
+          gateEl.style.display = "none";
+          stackContentEl.classList.remove("stack-locked");
+          return;
+        }
+
+        errorTextEl.textContent = "Fel lösenord. Försök igen?";
+        errorTextEl.classList.remove("hidden");
+        if (gateCard instanceof HTMLElement) {
+          gateCard.classList.remove("shake");
+          void gateCard.offsetWidth;
+          gateCard.classList.add("shake");
+        }
+        passwordInputEl.focus();
+        passwordInputEl.select();
+      }
+
+      unlockBtnEl.addEventListener("click", unlockStack);
+      passwordInputEl.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          unlockStack();
+        }
+      });
+      passwordInputEl.addEventListener("input", () => {
+        errorTextEl.classList.add("hidden");
+      });
+      passwordInputEl.focus();
+
+      const allBtn = filterBarEl.querySelector<HTMLButtonElement>(
         '[data-tag="all"]',
       );
-      const tagBtns = filterBar.querySelectorAll<HTMLButtonElement>(
+      const tagBtns = filterBarEl.querySelectorAll<HTMLButtonElement>(
         "[data-tag]:not([data-tag='all'])",
       );
-      const cards = grid.querySelectorAll<HTMLElement>("[data-tags]");
+      const cards = gridEl.querySelectorAll<HTMLElement>("[data-tags]");
       const activeTags = new Set<string>();
 
       function updateFilter() {
@@ -245,7 +376,7 @@ import StackCard from "../components/StackCard.astro";
         tagBtns.forEach((btn) => {
           btn.classList.toggle(
             "filter-active",
-            activeTags.has(btn.dataset.tag!),
+            activeTags.has(btn.dataset.tag || ""),
           );
         });
       }
@@ -257,7 +388,8 @@ import StackCard from "../components/StackCard.astro";
 
       tagBtns.forEach((btn) => {
         btn.addEventListener("click", () => {
-          const tag = btn.dataset.tag!;
+          const tag = btn.dataset.tag;
+          if (!tag) return;
           if (activeTags.has(tag)) {
             activeTags.delete(tag);
           } else {
@@ -266,6 +398,16 @@ import StackCard from "../components/StackCard.astro";
           updateFilter();
         });
       });
-    });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initStackPage, {
+        once: true,
+      });
+    } else {
+      initStackPage();
+    }
+
+    document.addEventListener("astro:page-load", initStackPage);
   </script>
 </BaseLayout>
