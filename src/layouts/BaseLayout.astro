@@ -32,20 +32,20 @@ const { title, description } = Astro.props;
       ENABLE_PASSWORD_PROTECTION && (
         <div id="password-gate" class="stack-gate-overlay" aria-modal="true" role="dialog">
           <form id="password-gate-form" class="fade-in-up glass stack-gate-card">
-            <h2 class="text-2xl font-bold text-white">Lösenord kravs</h2>
-            <p class="mt-2 text-sm text-white/70 md:text-base">Ange lösenord for att fortsätta.</p>
+            <h2 class="text-2xl font-bold text-white">Lösenord krävs</h2>
+            <p class="mt-2 text-sm text-white/70 md:text-base">Ange lösenord för att fortsätta.</p>
 
             <div class="mt-5 flex w-full flex-col gap-3 sm:flex-row">
               <input
                 id="password-gate-input"
                 name="password"
                 type="password"
-                placeholder="Losenord"
+                placeholder="Lösenord"
                 class="stack-password-input"
                 autocomplete="current-password"
                 required
               />
-              <button class="stack-unlock-btn" type="submit">Oppna</button>
+              <button class="stack-unlock-btn" type="submit">Öppna</button>
             </div>
 
             <p id="password-gate-error" class="mt-3 hidden text-sm text-rose-300" aria-live="polite"></p>
