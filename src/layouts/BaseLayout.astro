@@ -2,6 +2,7 @@
 import MainHead from "../components/MainHead.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import AiChat from "../components/AiChat.astro";
 import {
   ENABLE_PASSWORD_PROTECTION,
   PASSWORD_SESSION_KEY,
@@ -69,6 +70,8 @@ const { title, description } = Astro.props;
     </main>
 
     <Footer />
+
+    <AiChat />
 
     <div class="squares" aria-hidden="true">
       <div class="glass"></div>
