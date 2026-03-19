@@ -519,6 +519,8 @@ Mål:
       messagesEl.removeChild(typingEl);
       appendMessage("assistant", assistantText);
       history.push({ role: "assistant", content: assistantText });
+    // Cap history to last 20 messages to avoid token limits
+    if (history.length > 20) history.splice(0, history.length - 20);
     } catch (err) {
       messagesEl.removeChild(typingEl);
       appendMessage(
