@@ -3,11 +3,6 @@ import MainHead from "../components/MainHead.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import AiChat from "../components/AiChat.astro";
-import {
-  ENABLE_PASSWORD_PROTECTION,
-  PASSWORD_SESSION_KEY,
-  SITE_PASSWORD,
-} from "../config/security";
 
 import "../styles/global.css";
 
@@ -23,37 +18,7 @@ const { title, description } = Astro.props;
   <head>
     <MainHead title={title} description={description} />
   </head>
-  <body
-    class="flex min-h-svh flex-col bg-gray-800 bg-linear-to-tr from-violet-500 to-orange-300 bg-fixed"
-    data-password-protection-enabled={ENABLE_PASSWORD_PROTECTION ? "true" : "false"}
-    data-password={ENABLE_PASSWORD_PROTECTION ? SITE_PASSWORD : ""}
-    data-password-session-key={PASSWORD_SESSION_KEY}
-  >
-    {
-      ENABLE_PASSWORD_PROTECTION && (
-        <div id="password-gate" class="stack-gate-overlay" aria-modal="true" role="dialog">
-          <form id="password-gate-form" class="fade-in-up glass stack-gate-card">
-            <h2 class="text-2xl font-bold text-white">Lösenord krävs</h2>
-            <p class="mt-2 text-sm text-white/70 md:text-base">Ange lösenord för att fortsätta.</p>
-
-            <div class="mt-5 flex w-full flex-col gap-3 sm:flex-row">
-              <input
-                id="password-gate-input"
-                name="password"
-                type="password"
-                placeholder="Lösenord"
-                class="stack-password-input"
-                autocomplete="current-password"
-                required
-              />
-              <button class="stack-unlock-btn" type="submit">Öppna</button>
-            </div>
-
-            <p id="password-gate-error" class="mt-3 hidden text-sm text-rose-300" aria-live="polite"></p>
-          </form>
-        </div>
-      )
-    }
+  <body class="flex min-h-svh flex-col bg-gray-800 bg-linear-to-tr from-violet-500 to-orange-300 bg-fixed">
 
     <header class="sticky top-0 z-50 flex-none">
       <Nav
@@ -89,75 +54,6 @@ const { title, description } = Astro.props;
 </html>
 
 <script>
-  // Password gate initialization
-  const initPasswordGate = () => {
-    const enabled = document.body.dataset.passwordProtectionEnabled === "true";
-    if (!enabled) {
-      return;
-    }
-
-    const gate = document.getElementById("password-gate");
-    const form = document.getElementById("password-gate-form") as HTMLFormElement | null;
-    const input = document.getElementById("password-gate-input") as HTMLInputElement | null;
-    const error = document.getElementById("password-gate-error");
-
-    if (!gate || !form || !input || !error) {
-      return;
-    }
-
-    const expectedPassword = document.body.dataset.password ?? "";
-    const storageKey = document.body.dataset.passwordSessionKey ?? "mig-site-password-ok";
-
-    const gateState = window as Window & { __passwordReloadHandled?: boolean };
-
-    if (!gateState.__passwordReloadHandled) {
-      const navigationEntry = performance.getEntriesByType("navigation")[0] as
-        | PerformanceNavigationTiming
-        | undefined;
-      const isReload = navigationEntry?.type === "reload"
-        || (performance as Performance & { navigation?: { type?: number } }).navigation?.type === 1;
-
-      if (isReload) {
-        sessionStorage.removeItem(storageKey);
-      }
-
-      gateState.__passwordReloadHandled = true;
-    }
-
-    if (sessionStorage.getItem(storageKey) === "true") {
-      gate.classList.add("hidden");
-      return;
-    }
-
-    gate.classList.remove("hidden");
-    input.focus();
-
-    const onSubmit = (event: SubmitEvent) => {
-      event.preventDefault();
-      if (input.value === expectedPassword) {
-        sessionStorage.setItem(storageKey, "true");
-        gate.classList.add("hidden");
-        error.textContent = "";
-        error.classList.add("hidden");
-        input.value = "";
-        return;
-      }
-
-      error.textContent = "Fel lösenord, forsök igen.";
-      error.classList.remove("hidden");
-      form.classList.remove("shake");
-      void form.offsetWidth;
-      form.classList.add("shake");
-      input.value = "";
-      input.focus();
-    };
-
-    if (!form.dataset.bound) {
-      form.addEventListener("submit", onSubmit);
-      form.dataset.bound = "true";
-    }
-  };
-
   let prevObserver: IntersectionObserver | null = null;
 
   const initRevealAnimations = () => {
@@ -200,12 +96,9 @@ const { title, description } = Astro.props;
 
   document.addEventListener("astro:page-load", initRevealAnimations);
   document.addEventListener("DOMContentLoaded", initRevealAnimations);
-  document.addEventListener("astro:page-load", initPasswordGate);
-  document.addEventListener("DOMContentLoaded", initPasswordGate);
 
   if (document.readyState !== "loading") {
     queueMicrotask(initRevealAnimations);
-    queueMicrotask(initPasswordGate);
   }
 
   // ── Cursor trail ────────────────────────────────────────────
@@ -475,51 +368,6 @@ const { title, description } = Astro.props;
     height: 150px;
     animation-delay: 0s;
     animation-duration: 11s;
-  }
-
-  .stack-gate-overlay {
-    @apply fixed inset-0 z-9999 flex items-center justify-center bg-black/55 px-4 backdrop-blur-sm;
-  }
-
-  .stack-gate-overlay.hidden {
-    @apply hidden;
-  }
-
-  .stack-gate-card {
-    @apply w-full max-w-xl rounded-2xl p-8 text-center;
-  }
-
-  .stack-password-input {
-    @apply w-full rounded-xl border border-white/20 bg-white/5 px-4 py-3 text-sm text-white outline-none transition-colors focus:border-white/40;
-  }
-
-  .stack-unlock-btn {
-    @apply rounded-xl bg-white/15 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/25;
-  }
-
-  .stack-gate-card.shake {
-    animation: stack-shake 360ms ease;
-  }
-
-  @keyframes stack-shake {
-    0% {
-      transform: translateX(0);
-    }
-    20% {
-      transform: translateX(-8px);
-    }
-    40% {
-      transform: translateX(8px);
-    }
-    60% {
-      transform: translateX(-6px);
-    }
-    80% {
-      transform: translateX(6px);
-    }
-    100% {
-      transform: translateX(0);
-    }
   }
 
   @keyframes squares {

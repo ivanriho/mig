@@ -330,7 +330,7 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
   }
 </style>
 
-<script define:vars={{ OPENAI_API_KEY }}>
+<script is:inline define:vars={{ OPENAI_API_KEY }}>
   const KEY = OPENAI_API_KEY;
 
   const SYSTEM_PROMPT = `Du är en vänlig och korrekt AI-assistent för Ivan Ristić Hofréns portfolio.
@@ -341,7 +341,7 @@ Språk och stil:
 - Hitta inte på fakta. Om något saknas på hemsidan, säg det tydligt.
 
 Begränsning:
-- Du får endast svara på frågor som handlar om Ivan Ristić Hofrén, hans bakgrund, hans erfarenhet, hans hemsida, hans CV och hans tekniska stack.
+- Du får endast svara på saker som hej, hur mår du och sådant och frågor som handlar om Ivan Ristić Hofrén, hans bakgrund, hans erfarenhet, hans hemsida, hans CV och hans tekniska stack.
 - Om frågan inte handlar om Ivan eller hans hemsida ska du inte besvara frågan.
 - Vid frågor utanför detta område ska du alltid svara exakt:
   "Jag svarar bara på frågor om Ivan. Om du vill prata om annat, använd ChatGPT."
@@ -472,24 +472,6 @@ Mål:
     history.push({ role: "user", content: userText });
 
     // Show typing indicator
-    const typingWrapper = messagesEl.lastElementChild?.closest?.(".ai-typing")
-      ?? (() => {
-        const w = document.createElement("div");
-        w.className = "ai-msg ai-msg--assistant ai-typing";
-        const lbl = document.createElement("span");
-        lbl.className = "ai-msg-label";
-        lbl.textContent = "AI";
-        const b = document.createElement("p");
-        b.className = "ai-msg-text";
-        for (let i = 0; i < 3; i++) {
-          const d = document.createElement("span");
-          d.className = "dot";
-          b.appendChild(d);
-        }
-        w.appendChild(lbl);
-        w.appendChild(b);
-        return w;
-      })();
     const typingEl = document.createElement("div");
     typingEl.className = "ai-msg ai-msg--assistant ai-typing";
     const typingLbl = document.createElement("span");
