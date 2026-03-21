@@ -6,11 +6,22 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import AboutSection from "../components/AboutSection.astro";
 import Icon from "../components/Icon.astro";
 import TechGroup from "../components/TechGroup.astro";
+import { defaultLang, getSiteCopy, normalizeLang, type SiteLang } from "../i18n";
+
+interface Props {
+  lang?: SiteLang;
+}
+
+const { lang: rawLang = defaultLang } = Astro.props;
+const lang = normalizeLang(rawLang);
+const copy = getSiteCopy(lang);
 ---
 
 <BaseLayout
-  title="Om mig — Ivan Ristić Hofrén"
-  description="Om mig — 15-årig elev & fritidsutvecklare."
+  title={copy.about.metaTitle}
+  description={copy.about.description}
+  lang={lang}
+  pageKey="about"
 >
   <div
     id="about-page"
@@ -32,7 +43,7 @@ import TechGroup from "../components/TechGroup.astro";
       </div>
       <div class="flex flex-col gap-3">
         <h1 class="page-title drop-shadow-lg [animation-delay:0.1s]">
-          Om mig
+          {copy.about.title}
         </h1>
         <h2
           class="fade-in-up text-2xl font-bold text-yellow-100 drop-shadow-lg [animation-delay:0.18s] md:text-3xl"
@@ -43,9 +54,9 @@ import TechGroup from "../components/TechGroup.astro";
           class="fade-in flex flex-wrap justify-center gap-2 [animation-delay:0.25s] md:justify-start"
         >
           <div class="pill text-white/80">
-            15 år gammal
+            {copy.about.age}
           </div>
-          <div class="pill text-white/80">Fågelbacksskolan</div>
+          <div class="pill text-white/80">{copy.about.school}</div>
         </div>
       </div>
     </div>
@@ -53,9 +64,7 @@ import TechGroup from "../components/TechGroup.astro";
     <div
       class="fade-in-up content-block w-full max-w-3xl py-3 text-base drop-shadow-lg [animation-delay:0.3s] md:text-lg"
     >
-      <p>
-        Jag är 15 år och bor i Malmö. Jag går på Fågelbacksskolan och beskriver mig själv som en social och ansvarstagande person som också fungerar bra med att arbeta självständigt. Jag är tekniskt intresserad och tycker om att arbeta med webbutveckling på min fritid. Jag tävlingssimmar i Vellinge och tycker om att träning. Jag har också en hund och tycker om att vara med djur. Tidigare har jag praoat i två veckor på ICA där jag fick hjälpa till med olika uppgifter i butiken, till exempel att fylla på varor, fronta hyllor och hjälpa kunder.
-      </p>
+      <p>{copy.about.intro}</p>
     </div>
 
     <div
@@ -63,7 +72,7 @@ import TechGroup from "../components/TechGroup.astro";
     >
       <Icon size="1.5em" img="lightbulb" />
       <p>
-        Hemsidan är byggd pa <span class="text-orange-200">HTML</span>,
+        {copy.about.builtWith} <span class="text-orange-200">HTML</span>,
         <span class="text-sky-200">Astro</span> och <span
           class="text-yellow-100">JavaScript</span
         >
@@ -72,21 +81,30 @@ import TechGroup from "../components/TechGroup.astro";
 
     <hr class="reveal w-1/2 border-white/15" />
 
-    <AboutSection title="Hobbyer" icon="home" class="max-w-3xl">
+    <AboutSection title={copy.about.hobbiesTitle} icon="home" class="max-w-3xl">
       <div class="flex flex-col gap-8">
         <div class="reveal content-block py-2">
-          <p>
-            Mina hobbies är djur, webbutveckling, simning, resa och att umgås med vänner. Jag har en hund och tycker om att vara med djur. På fritiden arbetar jag också med webbutveckling, till exempel att skapa och designa hemsidor. Dessutom tävlingssimmar jag, vilket jag tycker är både roligt och utvecklande.
-          </p>
+          <p>{copy.about.hobbiesText}</p>
         </div>
 
-        <TechGroup heading="Intressen">
+        <TechGroup heading={copy.about.interestsHeading}>
           <div class="flex flex-wrap gap-2">
-            <span class="pill text-blue-100">Djur</span>
-            <span class="pill text-green-100">Webbutveckling</span>
-            <span class="pill text-yellow-100">Simning</span>
-            <span class="pill text-rose-100">Resa</span>
-            <span class="pill text-purple-100">Umgås</span>
+            {copy.about.interests.map((interest, index) => (
+              <span
+                class:list={[
+                  "pill",
+                  [
+                    "text-blue-100",
+                    "text-green-100",
+                    "text-yellow-100",
+                    "text-rose-100",
+                    "text-purple-100",
+                  ][index],
+                ]}
+              >
+                {interest}
+              </span>
+            ))}
           </div>
         </TechGroup>
       </div>
@@ -94,21 +112,30 @@ import TechGroup from "../components/TechGroup.astro";
 
     <hr class="reveal w-1/2 border-white/15" />
 
-    <AboutSection title="Tidigare jobb" icon="lightbulb" class="max-w-3xl">
+    <AboutSection title={copy.about.workTitle} icon="lightbulb" class="max-w-3xl">
       <div class="flex flex-col gap-8">
         <div class="reveal content-block py-2">
-          <p>
-            Jag praoade i två veckor på ICA och fick prova på många olika arbetsuppgifter i butiken. Jag plockade upp varor och fyllde på hyllor, frontade varor så att det såg snyggt ut i butiken, hjälpte till i kassan, sorterade och packade upp leveranser i lagret samt hjälpte kunder som behövde hitta varor. Jag fick också hjälpa till att hålla ordning i butiken och se till att allt var rent och organiserat.
-          </p>
+          <p>{copy.about.workText}</p>
         </div>
 
-        <TechGroup heading="Lärdomar">
+        <TechGroup heading={copy.about.lessonsHeading}>
           <div class="flex flex-wrap gap-2">
-            <span class="pill text-blue-100">Kassa</span>
-            <span class="pill text-green-100">Varuplock</span>
-            <span class="pill text-yellow-100">Kundservice</span>
-            <span class="pill text-rose-100">Lager</span>
-            <span class="pill text-purple-100">Butiksordning</span>
+            {copy.about.lessons.map((lesson, index) => (
+              <span
+                class:list={[
+                  "pill",
+                  [
+                    "text-blue-100",
+                    "text-green-100",
+                    "text-yellow-100",
+                    "text-rose-100",
+                    "text-purple-100",
+                  ][index],
+                ]}
+              >
+                {lesson}
+              </span>
+            ))}
           </div>
         </TechGroup>
       </div>

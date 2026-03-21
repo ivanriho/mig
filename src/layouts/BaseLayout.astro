@@ -3,40 +3,52 @@ import MainHead from "../components/MainHead.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import AiChat from "../components/AiChat.astro";
+import {
+  defaultLang,
+  getNavPages,
+  getSiteCopy,
+  normalizeLang,
+  type RouteKey,
+  type SiteLang,
+} from "../i18n";
 
 import "../styles/global.css";
 
 interface Props {
   title: string;
   description: string;
+  lang?: SiteLang;
+  pageKey: RouteKey;
 }
 
-const { title, description } = Astro.props;
+const {
+  title,
+  description,
+  lang: rawLang = defaultLang,
+  pageKey,
+} = Astro.props;
+const lang = normalizeLang(rawLang);
+const copy = getSiteCopy(lang);
+const basePath = import.meta.env.BASE_URL;
 ---
 
-<html lang="sv" transition:animate="none">
+<html lang={lang} transition:animate="none">
   <head>
     <MainHead title={title} description={description} />
   </head>
   <body class="flex min-h-svh flex-col bg-gray-800 bg-linear-to-tr from-violet-500 to-orange-300 bg-fixed">
 
     <header class="sticky top-0 z-50 flex-none">
-      <Nav
-        pages={[
-          { name: "Om mig", url: "about" },
-          { name: "CV", url: "cv" },
-          { name: "Stack", url: "stack" },
-        ]}
-      />
+      <Nav pages={getNavPages(basePath, lang)} lang={lang} routeKey={pageKey} />
     </header>
 
     <main class="flex grow flex-col items-center">
       <slot />
     </main>
 
-    <Footer />
+    <Footer lang={lang} text={copy.footer.text} />
 
-    <AiChat />
+    <AiChat lang={lang} />
 
     <div class="squares" aria-hidden="true">
       <div class="glass"></div>

@@ -2,19 +2,30 @@
 import { Icon as AstroIcon } from "astro-icon/components";
 
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { defaultLang, getSiteCopy, normalizeLang, type SiteLang } from "../i18n";
+
+interface Props {
+  lang?: SiteLang;
+}
+
+const { lang: rawLang = defaultLang } = Astro.props;
+const lang = normalizeLang(rawLang);
+const copy = getSiteCopy(lang);
 
 const cvFile = `${import.meta.env.BASE_URL}cv.pdf`;
 ---
 
 <BaseLayout
-  title="CV — Ivan Ristić Hofrén"
-  description="Ladda ner CV för Ivan Ristić Hofrén"
+  title={copy.cv.metaTitle}
+  description={copy.cv.description}
+  lang={lang}
+  pageKey="cv"
 >
   <div class="mt-16 mb-28 flex w-full max-w-4xl flex-col items-center gap-10 px-6 text-center lg:mt-20">
-    <h1 class="page-title">CV</h1>
+    <h1 class="page-title">{copy.cv.title}</h1>
 
     <p class="fade-in max-w-2xl text-base text-white/80 [animation-delay:0.2s] md:text-lg">
-      Här kan du ladda ner mitt CV direkt som PDF.
+      {copy.cv.intro}
     </p>
 
     <div class="fade-in-up glass flex w-full max-w-xl flex-col items-center gap-6 rounded-2xl p-8 [animation-delay:0.3s]">
@@ -29,7 +40,7 @@ const cvFile = `${import.meta.env.BASE_URL}cv.pdf`;
         class="glass glass-cta inline-flex items-center gap-3 px-6 py-3 text-base font-semibold text-yellow-100 hover:text-white"
       >
         <AstroIcon name="link" size="1.2em" />
-        Ladda ner CV
+        {copy.cv.download}
       </a>
 
       <a
@@ -39,7 +50,7 @@ const cvFile = `${import.meta.env.BASE_URL}cv.pdf`;
         class="inline-flex items-center gap-2 text-sm text-white/70 underline decoration-white/40 underline-offset-4 hover:text-white"
       >
         <AstroIcon name="home" size="1em" />
-        Öppna PDF i ny flik
+        {copy.cv.openPdf}
       </a>
     </div>
   </div>

@@ -1,0 +1,12 @@
+---
+import HomePage from "../index.astro";
+import { nonDefaultLanguages, normalizeLang } from "../../i18n";
+
+export function getStaticPaths() {
+  return nonDefaultLanguages.map((lang) => ({ params: { lang } }));
+}
+
+const lang = normalizeLang(Astro.params.lang);
+---
+
+<HomePage lang={lang} />

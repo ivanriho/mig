@@ -1,24 +1,41 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import StackCard from "../components/StackCard.astro";
+import { defaultLang, getSiteCopy, normalizeLang, type SiteLang } from "../i18n";
+
+interface Props {
+  lang?: SiteLang;
+}
+
+const { lang: rawLang = defaultLang } = Astro.props;
+const lang = normalizeLang(rawLang);
+const copy = getSiteCopy(lang);
+const stackCards = copy.stack.cards.map((card) => ({
+  ...card,
+  href: "href" in card ? card.href : undefined,
+  linkLabel: "linkLabel" in card ? card.linkLabel : undefined,
+  links: "links" in card ? [...card.links] : undefined,
+}));
 
 const randSkill = () => Math.floor(Math.random() * 16) + 85;
 ---
 
 <BaseLayout
-  title="Stack — Ivan Ristić Hofrén"
-  description="Verktyg och tekniker jag kan just nu."
+  title={copy.stack.metaTitle}
+  description={copy.stack.description}
+  lang={lang}
+  pageKey="stack"
 >
   <div
     id="stack-content"
     class="mt-8 mb-20 flex w-full max-w-5xl flex-col items-center gap-10 px-4 sm:mt-10 sm:px-6 sm:gap-14 lg:mt-20 lg:gap-18"
   >
     <div class="flex flex-col items-center gap-3 text-center">
-      <h1 class="page-title drop-shadow-lg">Stack</h1>
+      <h1 class="page-title drop-shadow-lg">{copy.stack.title}</h1>
       <p
         class="fade-in text-base text-white/60 [animation-delay:0.15s] md:text-lg"
       >
-        Verktyg och tekniker jag arbetar med
+        {copy.stack.intro}
       </p>
     </div>
 
@@ -26,108 +43,42 @@ const randSkill = () => Math.floor(Math.random() * 16) + 85;
       id="stack-filters"
       class="fade-in -mb-5 flex w-full items-baseline gap-3 [animation-delay:0.3s]"
     >
-      <span class="filter-label shrink-0">Filtrera</span>
+      <span class="filter-label shrink-0">{copy.stack.filterLabel}</span>
       <div
         id="filter-tags"
         class="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-1"
       >
-        <button class="filter-tag filter-active" data-tag="all">Alla</button>
+        <button class="filter-tag filter-active" data-tag="all">{copy.stack.filters.all}</button>
         <span class="filter-dot">&middot;</span>
-        <button class="filter-tag" data-tag="webbutveckling"
-          >Webbutveckling</button
+        <button class="filter-tag" data-tag="web"
+          >{copy.stack.filters.web}</button
         >
         <span class="filter-dot">&middot;</span>
-        <button class="filter-tag" data-tag="styling">Styling</button>
+        <button class="filter-tag" data-tag="styling">{copy.stack.filters.styling}</button>
         <span class="filter-dot">&middot;</span>
-        <button class="filter-tag" data-tag="backend">Backend</button>
+        <button class="filter-tag" data-tag="backend">{copy.stack.filters.backend}</button>
         <span class="filter-dot">&middot;</span>
-        <button class="filter-tag" data-tag="devops">DevOps</button>
+        <button class="filter-tag" data-tag="devops">{copy.stack.filters.devops}</button>
       </div>
     </div>
 
     <div id="stack-grid" class="stagger-grid custom-grid">
-      <StackCard
-        name="html"
-        label="HTML5"
-        color="text-orange-200"
-        description="Semantisk markup som bildar grunden för välstrukturerade, tillgängliga och SEO-vänliga webbsidor."
-        category="Webbutveckling"
-        href="https://developer.mozilla.org/en-US/docs/Web/HTML"
-        linkLabel="MDN HTML"
-        skill={randSkill()}
-      />
-      <StackCard
-        name="tailwind"
-        label="Tailwind CSS"
-        color="text-sky-200"
-        description="Utility-first CSS-ramverk som gör det lätt att bygga responsiva och konsekventa gränssnitt direkt i markupen."
-        category="Styling"
-        href="https://tailwindcss.com"
-        linkLabel="TailwindCSS.com"
-        skill={randSkill()}
-      />
-      <StackCard
-        name="typescript"
-        label="TypeScript"
-        color="text-sky-200"
-        description="Typsäker JavaScript som ger bättre autokomplettering, säkrare refaktorering och färre runtime-fel i större projekt."
-        category="Webbutveckling"
-        href="https://www.typescriptlang.org"
-        linkLabel="TypeScriptLang.org"
-        skill={randSkill()}
-      />
-      <StackCard
-        name="nextjs"
-        label="Next.js (Frontend + Backend)"
-        color="text-slate-200"
-        description="Mitt primära fullstack-ramverk för både frontend och backend med App Router, API routes, server actions och inbyggt stöd för TypeScript."
-        category="Webbutveckling"
-        href="https://nextjs.org"
-        linkLabel="NextJS.org"
-        skill={randSkill()}
-      />
-      <StackCard
-        name="prisma"
-        label="Prisma + PostgreSQL"
-        color="text-violet-200"
-        description="TypeScript-first ORM (Prisma) tillsammans med PostgreSQL för typsäkra modeller, migreringar och robust datalagring."
-        category="Backend"
-        links={[
-          { href: "https://www.prisma.io", label: "Prisma.io" },
-          { href: "https://www.postgresql.org", label: "PostgreSQL.org" },
-        ]}
-        skill={randSkill()}
-      />
-      <StackCard
-        name="authjs"
-        label="Auth.js"
-        color="text-yellow-100"
-        description="Flexibel autentiseringslösning med stöd för OAuth-leverantörer, e-postlänkar och credentials-inloggning."
-        category="Backend"
-        href="https://authjs.dev"
-        linkLabel="AuthJS.dev"
-        skill={randSkill()}
-      />
-      <StackCard
-        name="git"
-        label="Git"
-        color="text-emerald-200"
-        description="Distribuerat versionshanteringssystem jag använder dagligen för branchar, commits, merges och historik i kodbaser."
-        category="DevOps"
-        href="https://git-scm.com"
-        linkLabel="Git-SCM.com"
-        skill={randSkill()}
-      />
-      <StackCard
-        name="github"
-        label="GitHub"
-        color="text-slate-200"
-        description="Plattformen jag använder för versionshantering, pull requests, kodgranskning och deployment-flöden i projekt."
-        category="DevOps"
-        href="https://github.com"
-        linkLabel="GitHub.com"
-        skill={randSkill()}
-      />
+      {
+        stackCards.map((card) => (
+          <StackCard
+            name={card.name}
+            label={card.label}
+            color={card.color}
+            description={card.description}
+            categoryKey={card.categoryKey}
+            categoryLabel={card.categoryLabel}
+            href={card.href}
+            linkLabel={card.linkLabel}
+            links={card.links}
+            skill={randSkill()}
+          />
+        ))
+      }
     </div>
   </div>
 

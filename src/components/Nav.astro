@@ -1,57 +1,151 @@
 ---
 import Icon from "./Icon.astro";
+import {
+  defaultLang,
+  getLocalePath,
+  getSiteCopy,
+  languageOptions,
+  normalizeLang,
+  type RouteKey,
+  type SiteLang,
+} from "../i18n";
 
 interface NavItem {
   name: string;
-  url?: string;
+  href: string;
 }
 
 interface Props {
   pages: NavItem[];
+  lang?: SiteLang;
+  routeKey: RouteKey;
 }
 
-const { pages = [] } = Astro.props;
+const {
+  pages = [],
+  lang: rawLang = defaultLang,
+  routeKey,
+} = Astro.props;
+const lang = normalizeLang(rawLang);
 const currentPath = Astro.url.pathname;
 const basePath = import.meta.env.BASE_URL;
+const copy = getSiteCopy(lang);
+const normalizePath = (value: string) => value.replace(/\/+$/, "") || "/";
+const activePath = normalizePath(currentPath);
+const homeHref = getLocalePath(basePath, lang, "home");
+const languages = languageOptions.map((option) => ({
+  ...option,
+  href: getLocalePath(basePath, option.code, routeKey),
+  active: option.code === lang,
+}));
 ---
 
 <nav
   id="main-nav"
-  class="nav-glass font-soft flex flex-wrap items-center gap-4 p-3 transition-[background-color,backdrop-filter,border-color,box-shadow] duration-500 md:gap-6 md:px-6 md:py-4"
+  class="nav-glass font-soft flex items-center justify-between gap-3 p-3 transition-[background-color,backdrop-filter,border-color,box-shadow] duration-500 md:gap-6 md:px-6 md:py-4"
 >
-  <Icon
-    size="2em"
-    img="home"
-    href={basePath}
-    target="_self"
-    class="h-6 w-6 md:h-7 md:w-7"
-    color="text-white"
-    label="Hem"
-  />
-  <div class="flex flex-wrap items-center gap-4 md:gap-7">
-    {
-      pages.map((page) => {
-        const href = `${basePath}${(page.url || `/${page.name.toLowerCase()}`).replace(/^\//, "")}`;
-        const isActive =
-          currentPath === href || currentPath.startsWith(href + "/");
+  <div class="flex min-w-0 flex-wrap items-center gap-4 md:gap-6">
+    <Icon
+      size="2em"
+      img="home"
+      href={homeHref}
+      target="_self"
+      class="h-6 w-6 md:h-7 md:w-7"
+      color="text-white"
+      label={copy.nav.home}
+    />
+    <div class="flex flex-wrap items-center gap-4 md:gap-7">
+      {
+        pages.map((page) => {
+          const isActive =
+            activePath === normalizePath(page.href) ||
+            activePath.startsWith(normalizePath(page.href) + "/");
 
-        return (
-          <a
-            class="nav-link text-sm tracking-wide md:text-base"
-            href={href}
-            data-text={page.name}
-            aria-current={isActive ? "page" : undefined}
-          >
-            {page.name}
-          </a>
-        );
-      })
-    }
+          return (
+            <a
+              class="nav-link text-sm tracking-wide md:text-base"
+              href={page.href}
+              data-text={page.name}
+              aria-current={isActive ? "page" : undefined}
+            >
+              {page.name}
+            </a>
+          );
+        })
+      }
+    </div>
+  </div>
+  <div class="relative ml-auto shrink-0">
+    <button
+      type="button"
+      class="translate-toggle glass"
+      aria-expanded="false"
+      aria-controls="translate-menu"
+      aria-label={copy.nav.chooseLanguage}
+    >
+      <svg
+        class="translate-toggle__icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="9"></circle>
+        <path d="M3 12h18"></path>
+        <path d="M12 3c2.7 2.5 4.2 5.7 4.2 9s-1.5 6.5-4.2 9c-2.7-2.5-4.2-5.7-4.2-9S9.3 5.5 12 3Z"></path>
+      </svg>
+      <span class="translate-toggle__label">{copy.nav.translate}</span>
+    </button>
+
+    <div
+      id="translate-menu"
+      class="translate-menu"
+      hidden
+      role="menu"
+      aria-label={copy.nav.chooseLanguage}
+    >
+      <p class="translate-menu__title">{copy.nav.chooseLanguage}</p>
+      <div class="translate-menu__list">
+        {
+          languages.map(({ code, label, href, active }) => (
+            <a
+              class:list={["translate-option", active && "translate-option--active"]}
+              href={href}
+              role="menuitem"
+              hreflang={code}
+              lang={code}
+              aria-current={active ? "true" : undefined}
+            >
+              {label}
+            </a>
+          ))
+        }
+      </div>
+    </div>
   </div>
 </nav>
 
 <style>
   @reference '../styles/global.css';
+
+  @keyframes translate-pulse {
+    0%,
+    100% {
+      box-shadow:
+        inset 0 2px 10px rgba(255, 255, 255, 0.08),
+        0 8px 24px rgba(0, 0, 0, 0.18),
+        0 0 0 0 rgba(254, 240, 138, 0);
+    }
+    50% {
+      box-shadow:
+        inset 0 2px 12px rgba(255, 255, 255, 0.12),
+        0 10px 28px rgba(0, 0, 0, 0.2),
+        0 0 0 8px rgba(254, 240, 138, 0.08);
+    }
+  }
 
   .nav-link {
     @apply inline-flex flex-col items-center justify-center border-b-2 border-white/30 font-normal text-white/80;
@@ -94,15 +188,244 @@ const basePath = import.meta.env.BASE_URL;
       inset 0 0.5px 0 0 rgba(255, 255, 255, 0.2),
       0 1px 8px rgba(0, 0, 0, 0.04);
   }
+
+  .translate-toggle {
+    @apply relative inline-flex min-h-10 min-w-[7.5rem] shrink-0 items-center justify-center gap-2 overflow-hidden rounded-full px-3.5 py-2 text-sm font-semibold tracking-wide text-white/80 transition-[background-color,border-color,color,transform,box-shadow] duration-300;
+    box-shadow:
+      inset 0 2px 10px rgba(255, 255, 255, 0.08),
+      0 8px 24px rgba(0, 0, 0, 0.18);
+  }
+
+  .translate-toggle:hover,
+  .translate-toggle[aria-expanded="true"] {
+    @apply border-white/30 bg-white/12 text-white;
+    transform: translateY(-1px);
+  }
+
+  .translate-toggle[aria-expanded="true"] {
+    animation: translate-pulse 1.8s ease-in-out infinite;
+  }
+
+  .translate-toggle__icon {
+    @apply h-[1.15em] w-[1.15em] text-yellow-100 drop-shadow-[0_0_10px_rgba(254,240,138,0.25)] transition-transform duration-300;
+  }
+
+  .translate-toggle[aria-expanded="true"] .translate-toggle__icon {
+    transform: rotate(-14deg) scale(1.08);
+  }
+
+  .translate-toggle__label {
+    @apply inline-block;
+  }
+
+  .translate-menu {
+    @apply absolute right-0 top-[calc(100%+0.75rem)] w-[min(16rem,calc(100vw-2rem))] overflow-hidden rounded-[1.6rem] border border-white/28 bg-white/[0.07] p-3 text-white shadow-2xl backdrop-blur-md;
+    box-shadow:
+      inset 0 4px 20px rgba(255, 255, 255, 0.08),
+      0 8px 40px rgba(0, 0, 0, 0.28);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-0.35rem) scale(0.96);
+    transform-origin: top right;
+    transition:
+      opacity 220ms ease,
+      transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+      filter 280ms cubic-bezier(0.22, 1, 0.36, 1);
+    filter: saturate(92%) blur(0px);
+  }
+
+  .translate-menu[data-state="open"] {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+    filter: saturate(108%) blur(0px);
+  }
+
+  .translate-menu[data-state="closing"] {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-0.2rem) scale(0.985);
+  }
+
+  .translate-menu::after {
+    @apply absolute top-0 left-0 -z-1 h-full w-full rounded-[inherit] bg-white/4 opacity-40 backdrop-blur-[1px] content-[''];
+    box-shadow:
+      inset -10px -8px 0px -11px rgba(255, 255, 255, 0.5),
+      inset 0px -9px 0px -8px rgba(255, 255, 255, 0.5);
+    filter: blur(1px) drop-shadow(10px 4px 6px rgba(0, 0, 0, 0.3)) brightness(110%);
+    pointer-events: none;
+  }
+
+  .translate-menu::before {
+    content: "";
+    @apply absolute -top-2 right-5 h-4 w-4 rotate-45 border-l border-t border-white/28 bg-white/10;
+  }
+
+  .translate-menu__title {
+    @apply mb-3 px-2 text-xs uppercase tracking-[0.28em] text-white/45;
+  }
+
+  .translate-menu__list {
+    @apply grid gap-2;
+  }
+
+  .translate-option {
+    @apply rounded-2xl border border-white/14 bg-white/6 px-4 py-2.5 text-sm text-white/78 transition-[background-color,border-color,color,transform,box-shadow] duration-200;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    opacity: 0;
+    transform: translateY(0.5rem) scale(0.98);
+    transition:
+      opacity 260ms ease,
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 200ms ease,
+      border-color 200ms ease,
+      color 200ms ease,
+      box-shadow 200ms ease;
+  }
+
+  .translate-menu[data-state="open"] .translate-option {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .translate-menu[data-state="open"] .translate-option:nth-child(1) {
+    transition-delay: 40ms;
+  }
+
+  .translate-menu[data-state="open"] .translate-option:nth-child(2) {
+    transition-delay: 80ms;
+  }
+
+  .translate-menu[data-state="open"] .translate-option:nth-child(3) {
+    transition-delay: 120ms;
+  }
+
+  .translate-menu[data-state="open"] .translate-option:nth-child(4) {
+    transition-delay: 160ms;
+  }
+
+  .translate-menu[data-state="open"] .translate-option:nth-child(5) {
+    transition-delay: 200ms;
+  }
+
+  .translate-menu[data-state="open"] .translate-option:nth-child(6) {
+    transition-delay: 240ms;
+  }
+
+  .translate-menu[data-state="open"] .translate-option:nth-child(7) {
+    transition-delay: 280ms;
+  }
+
+  .translate-option:hover,
+  .translate-option:focus-visible {
+    @apply border-white/28 bg-white/12 text-white outline-none;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      0 10px 20px rgba(0, 0, 0, 0.12);
+    transform: translateX(2px) scale(1.01);
+  }
+
+  .translate-option--active {
+    @apply border-white/32 bg-white/14 text-white;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      0 10px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .translate-toggle[aria-expanded="true"] {
+      animation: none;
+    }
+
+    .translate-toggle__icon {
+      transition: none;
+    }
+
+    .translate-menu {
+      transition: none;
+    }
+
+    .translate-option {
+      opacity: 1;
+      transform: none;
+      transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease, box-shadow 200ms ease;
+    }
+  }
 </style>
 
 <script>
   let prevScrollHandler: (() => void) | null = null;
+  let prevUiController: AbortController | null = null;
+  let menuHideTimer: number | null = null;
 
-  document.addEventListener("astro:page-load", () => {
+  const initNavUi = () => {
     const nav = document.getElementById("main-nav");
     if (!nav) {
       return;
+    }
+
+    prevUiController?.abort();
+    const uiController = new AbortController();
+    prevUiController = uiController;
+
+    const translateButton = nav.querySelector<HTMLButtonElement>(".translate-toggle");
+    const translateMenu = nav.querySelector<HTMLElement>("#translate-menu");
+    const languageLinks = nav.querySelectorAll<HTMLAnchorElement>(".translate-option");
+
+    if (translateButton && translateMenu) {
+      const setMenuState = (isOpen: boolean) => {
+        if (menuHideTimer) {
+          window.clearTimeout(menuHideTimer);
+          menuHideTimer = null;
+        }
+
+        translateButton.setAttribute("aria-expanded", String(isOpen));
+
+        if (isOpen) {
+          translateMenu.hidden = false;
+          requestAnimationFrame(() => {
+            translateMenu.dataset.state = "open";
+          });
+          return;
+        }
+
+        translateMenu.dataset.state = "closing";
+
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const hideDelay = prefersReducedMotion ? 0 : 220;
+
+        menuHideTimer = window.setTimeout(() => {
+          translateMenu.hidden = true;
+          translateMenu.dataset.state = "closed";
+          menuHideTimer = null;
+        }, hideDelay);
+      };
+
+      setMenuState(false);
+      translateMenu.dataset.state = "closed";
+
+      translateButton.addEventListener("click", () => {
+        const isOpen = translateButton.getAttribute("aria-expanded") === "true";
+        setMenuState(!isOpen);
+      }, { signal: uiController.signal });
+
+      document.addEventListener("click", (event) => {
+        if (!nav.contains(event.target as Node)) {
+          setMenuState(false);
+        }
+      }, { signal: uiController.signal });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          setMenuState(false);
+        }
+      }, { signal: uiController.signal });
+
+      languageLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          setMenuState(false);
+        }, { signal: uiController.signal });
+      });
     }
 
     const currentPath = window.location.pathname;
@@ -143,5 +466,12 @@ const basePath = import.meta.env.BASE_URL;
 
     onScroll();
     scrollEl.addEventListener("scroll", onScroll, { passive: true });
-  });
+  };
+
+  document.addEventListener("astro:page-load", initNavUi);
+  document.addEventListener("DOMContentLoaded", initNavUi);
+
+  if (document.readyState !== "loading") {
+    queueMicrotask(initNavUi);
+  }
 </script>

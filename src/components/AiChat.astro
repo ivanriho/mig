@@ -1,12 +1,87 @@
 ---
 // AiChat.astro – floating AI chat widget
+import { defaultLang, getSiteCopy, normalizeLang, type SiteLang } from "../i18n";
+
+interface Props {
+  lang?: SiteLang;
+}
+
+const { lang: rawLang = defaultLang } = Astro.props;
+const lang = normalizeLang(rawLang);
+const chatCopy = getSiteCopy(lang).chat;
+
+const outOfScopeReplyByLang: Record<SiteLang, string> = {
+  sv: "Jag svarar bara på frågor om Ivan. Om du vill prata om annat, använd ChatGPT.",
+  ja: "私はIvanに関する質問にのみ回答します。ほかの話題はChatGPTを使ってください。",
+  sr: "Одговарам само на питања о Ивану. Ако желиш да причаш о нечему другом, користи ChatGPT.",
+  en: "I only answer questions about Ivan. If you want to talk about something else, use ChatGPT.",
+  ru: "Я отвечаю только на вопросы об Иване. Если хочешь обсудить что-то другое, используй ChatGPT.",
+  ko: "저는 Ivan에 관한 질문에만 답합니다. 다른 주제를 원하면 ChatGPT를 사용해 주세요.",
+  es: "Solo respondo preguntas sobre Ivan. Si quieres hablar de otra cosa, usa ChatGPT.",
+  fr: "Je réponds uniquement aux questions sur Ivan. Si tu veux parler d'autre chose, utilise ChatGPT.",
+  ar: "أنا أجيب فقط على الأسئلة المتعلقة بـ Ivan. إذا أردت التحدث عن شيء آخر، استخدم ChatGPT.",
+  "pt-BR": "Eu só respondo perguntas sobre o Ivan. Se quiser falar sobre outro assunto, use o ChatGPT.",
+  "zh-CN": "我只回答与 Ivan 相关的问题。如果你想聊其他内容，请使用 ChatGPT。",
+  da: "Jeg svarer kun på spørgsmål om Ivan. Hvis du vil tale om noget andet, så brug ChatGPT.",
+  de: "Ich beantworte nur Fragen über Ivan. Wenn du über etwas anderes sprechen willst, nutze ChatGPT.",
+};
+
+const preferredLanguageLabelByLang: Record<SiteLang, string> = {
+  sv: "Swedish",
+  ja: "Japanese",
+  sr: "Serbian (Cyrillic)",
+  en: "English",
+  ru: "Russian",
+  ko: "Korean",
+  es: "Spanish",
+  fr: "French",
+  ar: "Arabic",
+  "pt-BR": "Brazilian Portuguese",
+  "zh-CN": "Simplified Chinese",
+  da: "Danish",
+  de: "German",
+};
+
+const SYSTEM_PROMPT_TEXT = `You are a friendly and accurate AI assistant for Ivan Ristic Hofren's portfolio website.
+
+Language:
+- Primary response language: ${preferredLanguageLabelByLang[lang]}.
+- If the user writes in another language, you may respond in that language as long as the topic is still Ivan.
+- Keep answers short, clear, and factual.
+
+Scope restriction:
+- You may only answer greetings and questions about Ivan Ristic Hofren, his background, experience, website, CV, and technical stack.
+- If the question is outside this scope, reply with this exact sentence:
+  "${outOfScopeReplyByLang[lang]}"
+
+Facts you can use:
+- Name: Ivan Ristic Hofren.
+- Age: 15 (born 2010).
+- Lives in: Malmo, Sweden.
+- Role: student and hobby developer.
+- School: Fagelbacksskolan.
+- Personal profile: social, responsible, independent, interested in technology.
+- Hobbies: web development, competitive swimming in Vellinge, animals (has a dog), travel, spending time with friends.
+- Experience: two-week internship at ICA; tasks included restocking, shelf fronting, checkout support, stockroom sorting/unpacking, customer service, and keeping store order.
+- Website pages: About, CV, Stack.
+- CV is available as a PDF (download or open in new tab).
+- Stack includes HTML5, Tailwind CSS, TypeScript, Next.js, Astro, JavaScript, Prisma + PostgreSQL, Auth.js, Git, GitHub.
+
+Behavior:
+- Do not invent facts. If information is missing, say so clearly.
+- If asked about contact, suggest checking the social icons/footer (email, GitHub, Discord).
+- Help visitors quickly understand who Ivan is, what he can do, and what page to open next.`;
+const chatClientConfig = {
+  ...chatCopy,
+  systemPrompt: SYSTEM_PROMPT_TEXT,
+};
 const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
 ---
 
 <!-- ── Toggle button (always visible) ──────────────────────────── -->
 <button
   id="ai-chat-toggle"
-  aria-label="Öppna AI-chat"
+  aria-label={chatCopy.toggleAriaLabel}
   aria-expanded="false"
   aria-controls="ai-chat-panel"
   class="ai-toggle"
@@ -53,7 +128,7 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
 <aside
   id="ai-chat-panel"
   role="dialog"
-  aria-label="AI-chat"
+  aria-label={chatCopy.panelAriaLabel}
   aria-modal="false"
   class="ai-panel"
   data-open="false"
@@ -76,12 +151,12 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
           d="M12 2a1 1 0 0 1 .95.68l1.6 4.84 4.84 1.6a1 1 0 0 1 0 1.9l-4.84 1.6-1.6 4.84a1 1 0 0 1-1.9 0l-1.6-4.84-4.84-1.6a1 1 0 0 1 0-1.9l4.84-1.6 1.6-4.84A1 1 0 0 1 12 2Z"
         ></path>
       </svg>
-      AI-assistent
+      {chatCopy.title}
     </span>
     <button
       id="ai-chat-minimize"
       class="ai-minimize-btn"
-      aria-label="Minimera chat"
+      aria-label={chatCopy.minimize}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -101,11 +176,8 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
   <!-- Messages -->
   <div id="ai-chat-messages" class="ai-messages" aria-live="polite" aria-atomic="false">
     <div class="ai-msg ai-msg--assistant">
-      <span class="ai-msg-label">AI</span>
-      <p class="ai-msg-text">
-        Hej! Jag är Ivans AI-assistent. Fråga mig vad du vill om Ivan, hans
-        projekt eller kompetenser.
-      </p>
+      <span class="ai-msg-label">{chatCopy.assistantLabel}</span>
+      <p class="ai-msg-text">{chatCopy.greeting}</p>
     </div>
   </div>
 
@@ -115,13 +187,13 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
       id="ai-chat-input"
       class="ai-input"
       type="text"
-      placeholder="Skriv ett meddelande…"
+      placeholder={chatCopy.inputPlaceholder}
       maxlength="500"
       autocomplete="off"
       spellcheck="false"
       required
     />
-    <button type="submit" class="ai-send-btn" aria-label="Skicka">
+    <button type="submit" class="ai-send-btn" aria-label={chatCopy.send}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -330,57 +402,10 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
   }
 </style>
 
-<script is:inline define:vars={{ OPENAI_API_KEY }}>
+<script is:inline define:vars={{ OPENAI_API_KEY, CHAT_COPY: chatClientConfig }}>
   const KEY = OPENAI_API_KEY;
-
-  const SYSTEM_PROMPT = `Du är en vänlig och korrekt AI-assistent för Ivan Ristić Hofréns portfolio.
-
-Språk och stil:
-- Svara alltid på samma språk som användaren skriver.
-- Håll svar korta, tydliga och sakliga.
-- Hitta inte på fakta. Om något saknas på hemsidan, säg det tydligt.
-
-Begränsning:
-- Du får endast svara på saker som hej, hur mår du och sådant och frågor som handlar om Ivan Ristić Hofrén, hans bakgrund, hans erfarenhet, hans hemsida, hans CV och hans tekniska stack.
-- Om frågan inte handlar om Ivan eller hans hemsida ska du inte besvara frågan.
-- Vid frågor utanför detta område ska du alltid svara exakt:
-  "Jag svarar bara på frågor om Ivan. Om du vill prata om annat, använd ChatGPT."
-- Du får prata andra språk med användaren om det fortfarande gäller Ivan, du behöver strikt inte bara skriva om ivan men håll dig till ämnet 
-
-Detta vet du om Ivan (enligt hemsidan):
-- Namn: Ivan Ristić Hofrén.
-- Ålder: 15 år (född 2010).
-- Bor i: Malmö, Sverige.
-- Roll: Elev och fritidsutvecklare.
-- Skola: Fågelbacksskolan.
-
-Personligt:
-- Ivan beskriver sig som social, ansvarstagande och självständig.
-- Han är tekniskt intresserad och bygger webbsidor på fritiden.
-- Han tävlingssimmar i Vellinge.
-- Han gillar djur och har en hund.
-- Han gillar att resa och att umgås med vänner.
-
-Erfarenhet:
-- PRAO i två veckor på ICA.
-- Arbetsuppgifter: varuplock, frontning av hyllor, hjälp i kassa, sortering/uppackning i lager, kundservice och ordning i butik.
-
-Hemsidan:
-- Har sidorna: Om mig, CV och Stack.
-- CV finns som PDF och kan laddas ner eller öppnas i ny flik.
-
-Teknisk profil och stack:
-- Frontend och web: HTML5, Tailwind CSS, TypeScript, Next.js, Astro, JavaScript.
-- Backend/data: Prisma + PostgreSQL, Auth.js.
-- DevOps/verktyg: Git och GitHub.
-- Ivan arbetar med moderna webbprojekt och fullstacklösningar.
-
-När du svarar om kompetens:
-- Beskriv styrkor och relevanta tekniker på ett konkret sätt.
-- Om någon frågar om kontakt, föreslå att se sociala ikoner/footer på hemsidan (e-post, GitHub, Discord).
-
-Mål:
-- Hjälp besökare att snabbt förstå vem Ivan är, vad han kan och hur de kan gå vidare (t.ex. läsa stacken eller ladda ner CV).`;
+  const UI = CHAT_COPY;
+  const SYSTEM_PROMPT = UI.systemPrompt;
 
   /** @type {{ role: 'user' | 'assistant'; content: string }[]} */
   const history = [];
@@ -439,7 +464,7 @@ Mål:
 
     const label = document.createElement("span");
     label.className = "ai-msg-label";
-    label.textContent = role === "user" ? "Du" : "AI";
+    label.textContent = role === "user" ? UI.userLabel : UI.assistantLabel;
 
     const bubble = document.createElement("p");
     bubble.className = "ai-msg-text";
@@ -477,7 +502,7 @@ Mål:
     typingEl.className = "ai-msg ai-msg--assistant ai-typing";
     const typingLbl = document.createElement("span");
     typingLbl.className = "ai-msg-label";
-    typingLbl.textContent = "AI";
+    typingLbl.textContent = UI.assistantLabel;
     const typingBubble = document.createElement("p");
     typingBubble.className = "ai-msg-text";
     for (let i = 0; i < 3; i++) {
@@ -514,7 +539,7 @@ Mål:
       const data = await response.json();
       const assistantText =
         data.choices?.[0]?.message?.content?.trim() ??
-        "Tyvärr fick jag inget svar.";
+        UI.noResponse;
 
       // Remove typing indicator and show real reply
       messagesEl.removeChild(typingEl);
@@ -524,10 +549,7 @@ Mål:
     if (history.length > 20) history.splice(0, history.length - 20);
     } catch (err) {
       messagesEl.removeChild(typingEl);
-      appendMessage(
-        "assistant",
-        "Något gick fel. Kontrollera din anslutning och försök igen."
-      );
+      appendMessage("assistant", UI.apiError);
       console.error(err);
     } finally {
       sendBtn.disabled = false;
