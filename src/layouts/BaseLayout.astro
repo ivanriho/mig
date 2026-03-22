@@ -5,8 +5,10 @@ import Footer from "../components/Footer.astro";
 import AiChat from "../components/AiChat.astro";
 import {
   defaultLang,
+  getLocalePath,
   getNavPages,
   getSiteCopy,
+  languageOptions,
   normalizeLang,
   type RouteKey,
   type SiteLang,
@@ -30,6 +32,26 @@ const {
 const lang = normalizeLang(rawLang);
 const copy = getSiteCopy(lang);
 const basePath = import.meta.env.BASE_URL;
+const mobileBlockContentByLang: Record<SiteLang, { title: string; text: string }> = {
+  sv: {
+    title: "Endast dator",
+    text: "Den här hemsidan är just nu bara tillgänglig på dator. Öppna den på en desktop eller laptop.",
+  },
+  ja: {
+    title: "PCのみ対応",
+    text: "このサイトは現在、PC（デスクトップ/ノート）でのみ利用できます。",
+  },
+  en: {
+    title: "Desktop Only",
+    text: "This website is currently available on desktop/laptop only.",
+  },
+};
+const mobileBlockContent = mobileBlockContentByLang[lang];
+const mobileLanguageLinks = languageOptions.map((option) => ({
+  ...option,
+  href: getLocalePath(basePath, option.code, pageKey),
+  active: option.code === lang,
+}));
 ---
 
 <html lang={lang} transition:animate="none">
@@ -37,6 +59,28 @@ const basePath = import.meta.env.BASE_URL;
     <MainHead title={title} description={description} />
   </head>
   <body class="flex min-h-svh flex-col bg-gray-800 bg-linear-to-tr from-violet-500 to-orange-300 bg-fixed">
+    <div class="device-blocker" role="alert" aria-live="polite">
+      <div class="device-blocker__card glass">
+        <h1 class="device-blocker__title">{mobileBlockContent.title}</h1>
+        <p class="device-blocker__text">{mobileBlockContent.text}</p>
+        <p class="device-blocker__lang-label">{copy.nav.chooseLanguage}</p>
+        <div class="device-blocker__lang-list" role="list">
+          {
+            mobileLanguageLinks.map(({ code, label, href, active }) => (
+              <a
+                class:list={["device-blocker__lang-link", active && "device-blocker__lang-link--active"]}
+                href={href}
+                hreflang={code}
+                lang={code}
+                aria-current={active ? "true" : undefined}
+              >
+                {label}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
 
     <header class="sticky top-0 z-50 flex-none">
       <Nav pages={getNavPages(basePath, lang)} lang={lang} routeKey={pageKey} />
@@ -65,8 +109,116 @@ const basePath = import.meta.env.BASE_URL;
   </body>
 </html>
 
+<style is:global>
+  .device-blocker {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.12), transparent 42%),
+      radial-gradient(circle at 80% 90%, rgba(255, 255, 255, 0.12), transparent 40%),
+      linear-gradient(130deg, rgba(114, 65, 209, 0.95), rgba(241, 164, 120, 0.95));
+    backdrop-filter: blur(6px);
+  }
+
+  .device-blocker__card {
+    max-width: 36rem;
+    width: min(100%, 36rem);
+    border-radius: 1.6rem;
+    padding: 1.3rem 1.2rem;
+    color: rgba(255, 255, 255, 0.95);
+    text-align: center;
+  }
+
+  .device-blocker__title {
+    margin: 0;
+    font-size: clamp(1.35rem, 4.6vw, 1.95rem);
+    font-weight: 700;
+  }
+
+  .device-blocker__text {
+    margin: 0.6rem 0 0;
+    font-size: clamp(0.95rem, 3.6vw, 1.05rem);
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.86);
+  }
+
+  .device-blocker__lang-label {
+    margin: 1rem 0 0;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.68);
+  }
+
+  .device-blocker__lang-list {
+    margin-top: 0.7rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.55rem;
+  }
+
+  .device-blocker__lang-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 5.4rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.38rem 0.8rem;
+    font-size: 0.86rem;
+    color: rgba(255, 255, 255, 0.92);
+    text-decoration: none;
+  }
+
+  .device-blocker__lang-link--active {
+    border-color: rgba(255, 255, 255, 0.48);
+    background: rgba(255, 255, 255, 0.2);
+    font-weight: 700;
+  }
+
+  body.device-blocked {
+    overflow: hidden;
+  }
+
+  body.device-blocked > * {
+    display: none !important;
+  }
+
+  body.device-blocked > .device-blocker {
+    display: flex !important;
+  }
+</style>
+
 <script>
   let prevObserver: IntersectionObserver | null = null;
+  let cleanupDesktopOnly: (() => void) | null = null;
+
+  const initDesktopOnlyGuard = () => {
+    cleanupDesktopOnly?.();
+
+    const query = window.matchMedia("(max-width: 900px), (pointer: coarse)");
+    const apply = () => {
+      document.body.classList.toggle("device-blocked", query.matches);
+    };
+
+    apply();
+
+    if (typeof query.addEventListener === "function") {
+      query.addEventListener("change", apply);
+      cleanupDesktopOnly = () => query.removeEventListener("change", apply);
+      return;
+    }
+
+    query.addListener(apply);
+    cleanupDesktopOnly = () => query.removeListener(apply);
+  };
 
   const initRevealAnimations = () => {
     prevObserver?.disconnect();
@@ -106,11 +258,21 @@ const basePath = import.meta.env.BASE_URL;
     prevObserver = observer;
   };
 
-  document.addEventListener("astro:page-load", initRevealAnimations);
-  document.addEventListener("DOMContentLoaded", initRevealAnimations);
+  document.addEventListener("astro:page-load", () => {
+    initDesktopOnlyGuard();
+    initRevealAnimations();
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    initDesktopOnlyGuard();
+    initRevealAnimations();
+  });
 
   if (document.readyState !== "loading") {
-    queueMicrotask(initRevealAnimations);
+    queueMicrotask(() => {
+      initDesktopOnlyGuard();
+      initRevealAnimations();
+    });
   }
 
   // ── Cursor trail ────────────────────────────────────────────
