@@ -32,18 +32,27 @@ const {
 const lang = normalizeLang(rawLang);
 const copy = getSiteCopy(lang);
 const basePath = import.meta.env.BASE_URL;
-const mobileBlockContentByLang: Record<SiteLang, { title: string; text: string }> = {
+const mobileBlockContentByLang: Record<
+  SiteLang,
+  { title: string; text: string; continueText: string; continueButton: string }
+> = {
   sv: {
     title: "Endast dator",
     text: "Den här hemsidan är just nu bara tillgänglig på dator. Öppna den på en desktop eller laptop.",
+    continueText: "Om du inte har en dator kan du öppna sidan ändå, men kom ihåg att den inte är gjord för telefon.",
+    continueButton: "Öppna ändå",
   },
   ja: {
     title: "PCのみ対応",
     text: "このサイトは現在、PC（デスクトップ/ノート）でのみ利用できます。",
+    continueText: "PCがない場合はこのまま開けますが、このサイトはスマホ向けには作られていません。",
+    continueButton: "このまま開く",
   },
   en: {
     title: "Desktop Only",
     text: "This website is currently available on desktop/laptop only.",
+    continueText: "If you do not have a computer, you can still open the site, but keep in mind it is not designed for phones.",
+    continueButton: "Open anyway",
   },
 };
 const mobileBlockContent = mobileBlockContentByLang[lang];
@@ -63,6 +72,10 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
       <div class="device-blocker__card glass">
         <h1 class="device-blocker__title">{mobileBlockContent.title}</h1>
         <p class="device-blocker__text">{mobileBlockContent.text}</p>
+        <p class="device-blocker__continue-text">{mobileBlockContent.continueText}</p>
+        <button type="button" class="device-blocker__continue-button">
+          {mobileBlockContent.continueButton}
+        </button>
         <p class="device-blocker__lang-label">{copy.nav.chooseLanguage}</p>
         <div class="device-blocker__lang-list" role="list">
           {
@@ -147,6 +160,31 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
     color: rgba(255, 255, 255, 0.86);
   }
 
+  .device-blocker__continue-text {
+    margin: 0.8rem 0 0;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 0.93rem;
+    line-height: 1.45;
+  }
+
+  .device-blocker__continue-button {
+    margin-top: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.36);
+    background: rgba(255, 255, 255, 0.14);
+    padding: 0.68rem 1rem;
+    min-width: 10rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 1);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.18),
+      0 10px 28px rgba(0, 0, 0, 0.16);
+  }
+
   .device-blocker__lang-label {
     margin: 1rem 0 0;
     font-size: 0.78rem;
@@ -199,13 +237,15 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
 <script>
   let prevObserver: IntersectionObserver | null = null;
   let cleanupDesktopOnly: (() => void) | null = null;
+  const mobileBypassStorageKey = "allow-mobile-view";
 
   const initDesktopOnlyGuard = () => {
     cleanupDesktopOnly?.();
 
     const query = window.matchMedia("(max-width: 900px), (pointer: coarse)");
     const apply = () => {
-      document.body.classList.toggle("device-blocked", query.matches);
+      const allowMobileView = window.sessionStorage.getItem(mobileBypassStorageKey) === "true";
+      document.body.classList.toggle("device-blocked", query.matches && !allowMobileView);
     };
 
     apply();
@@ -218,6 +258,18 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
 
     query.addListener(apply);
     cleanupDesktopOnly = () => query.removeListener(apply);
+  };
+
+  const initMobileContinueButton = () => {
+    const button = document.querySelector<HTMLButtonElement>(".device-blocker__continue-button");
+    if (!button) {
+      return;
+    }
+
+    button.onclick = () => {
+      window.sessionStorage.setItem(mobileBypassStorageKey, "true");
+      document.body.classList.remove("device-blocked");
+    };
   };
 
   const initRevealAnimations = () => {
@@ -260,17 +312,20 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
 
   document.addEventListener("astro:page-load", () => {
     initDesktopOnlyGuard();
+    initMobileContinueButton();
     initRevealAnimations();
   });
 
   document.addEventListener("DOMContentLoaded", () => {
     initDesktopOnlyGuard();
+    initMobileContinueButton();
     initRevealAnimations();
   });
 
   if (document.readyState !== "loading") {
     queueMicrotask(() => {
       initDesktopOnlyGuard();
+      initMobileContinueButton();
       initRevealAnimations();
     });
   }
