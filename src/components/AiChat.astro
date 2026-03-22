@@ -13,33 +13,13 @@ const chatCopy = getSiteCopy(lang).chat;
 const outOfScopeReplyByLang: Record<SiteLang, string> = {
   sv: "Jag svarar bara på frågor om Ivan. Om du vill prata om annat, använd ChatGPT.",
   ja: "私はIvanに関する質問にのみ回答します。ほかの話題はChatGPTを使ってください。",
-  sr: "Одговарам само на питања о Ивану. Ако желиш да причаш о нечему другом, користи ChatGPT.",
   en: "I only answer questions about Ivan. If you want to talk about something else, use ChatGPT.",
-  ru: "Я отвечаю только на вопросы об Иване. Если хочешь обсудить что-то другое, используй ChatGPT.",
-  ko: "저는 Ivan에 관한 질문에만 답합니다. 다른 주제를 원하면 ChatGPT를 사용해 주세요.",
-  es: "Solo respondo preguntas sobre Ivan. Si quieres hablar de otra cosa, usa ChatGPT.",
-  fr: "Je réponds uniquement aux questions sur Ivan. Si tu veux parler d'autre chose, utilise ChatGPT.",
-  ar: "أنا أجيب فقط على الأسئلة المتعلقة بـ Ivan. إذا أردت التحدث عن شيء آخر، استخدم ChatGPT.",
-  "pt-BR": "Eu só respondo perguntas sobre o Ivan. Se quiser falar sobre outro assunto, use o ChatGPT.",
-  "zh-CN": "我只回答与 Ivan 相关的问题。如果你想聊其他内容，请使用 ChatGPT。",
-  da: "Jeg svarer kun på spørgsmål om Ivan. Hvis du vil tale om noget andet, så brug ChatGPT.",
-  de: "Ich beantworte nur Fragen über Ivan. Wenn du über etwas anderes sprechen willst, nutze ChatGPT.",
 };
 
 const preferredLanguageLabelByLang: Record<SiteLang, string> = {
   sv: "Swedish",
   ja: "Japanese",
-  sr: "Serbian (Cyrillic)",
   en: "English",
-  ru: "Russian",
-  ko: "Korean",
-  es: "Spanish",
-  fr: "French",
-  ar: "Arabic",
-  "pt-BR": "Brazilian Portuguese",
-  "zh-CN": "Simplified Chinese",
-  da: "Danish",
-  de: "German",
 };
 
 const SYSTEM_PROMPT_TEXT = `You are a friendly and accurate AI assistant for Ivan Ristic Hofren's portfolio website.
