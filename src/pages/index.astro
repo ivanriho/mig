@@ -58,7 +58,7 @@ const basePath = import.meta.env.BASE_URL;
           [
             { href: getLocalePath(basePath, lang, "about"), icon: "lightbulb", label: copy.home.ctas.about },
             { href: getLocalePath(basePath, lang, "cv"), icon: "link", label: copy.home.ctas.cv },
-            { href: getLocalePath(basePath, lang, "stack"), icon: "home", label: copy.home.ctas.stack },
+            { href: getLocalePath(basePath, lang, "stack"), icon: "layers", label: copy.home.ctas.stack },
           ].map(({ href, icon, label }) => (
             <a href={href} class="hero-btn glass">
               <AstroIcon name={icon} size="1.2em" />
