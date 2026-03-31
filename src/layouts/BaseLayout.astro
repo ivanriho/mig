@@ -66,8 +66,14 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
 <html lang={lang} transition:animate="none">
   <head>
     <MainHead title={title} description={description} />
+    <script is:inline>
+      (function () {
+        var t = localStorage.getItem("site-theme") || "mystic";
+        document.documentElement.dataset.theme = t;
+      })();
+    </script>
   </head>
-  <body class="flex min-h-svh flex-col bg-gray-800 bg-linear-to-tr from-violet-500 to-orange-300 bg-fixed">
+  <body class="flex min-h-svh flex-col">
     <div class="device-blocker" role="alert" aria-live="polite">
       <div class="device-blocker__card glass">
         <h1 class="device-blocker__title">{mobileBlockContent.title}</h1>
@@ -132,10 +138,10 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
     justify-content: center;
     padding: 1.5rem;
     background:
-      radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.12), transparent 42%),
-      radial-gradient(circle at 80% 90%, rgba(255, 255, 255, 0.12), transparent 40%),
-      linear-gradient(130deg, rgba(114, 65, 209, 0.95), rgba(241, 164, 120, 0.95));
-    backdrop-filter: blur(6px);
+      radial-gradient(circle at 20% 10%, rgba(88, 28, 135, 0.25), transparent 42%),
+      radial-gradient(circle at 80% 90%, rgba(55, 15, 100, 0.22), transparent 40%),
+      linear-gradient(130deg, rgba(8, 4, 20, 0.97), rgba(15, 8, 35, 0.97));
+    backdrop-filter: blur(10px);
   }
 
   .device-blocker__card {
@@ -314,12 +320,14 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
     initDesktopOnlyGuard();
     initMobileContinueButton();
     initRevealAnimations();
+    initThemeToggle();
   });
 
   document.addEventListener("DOMContentLoaded", () => {
     initDesktopOnlyGuard();
     initMobileContinueButton();
     initRevealAnimations();
+    initThemeToggle();
   });
 
   if (document.readyState !== "loading") {
@@ -327,6 +335,7 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
       initDesktopOnlyGuard();
       initMobileContinueButton();
       initRevealAnimations();
+      initThemeToggle();
     });
   }
 
@@ -334,6 +343,21 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
   function initCursorTrail() {
     if (window.matchMedia("(pointer: coarse)").matches) return;
     if (document.getElementById("cursor-trail-wrap")) return;
+
+    const _orig = document.documentElement.dataset.theme !== "mystic";
+    const _rc  = _orig ? "rgba(255,210,80,0.7)"  : "rgba(103,232,249,0.65)";
+    const _rg  = _orig
+      ? "0 0 8px 2px rgba(255,190,40,0.25),inset 0 0 6px rgba(255,210,80,0.15)"
+      : "0 0 8px 2px rgba(34,211,238,0.22),inset 0 0 6px rgba(103,232,249,0.12)";
+    const _rcc = _orig ? "rgba(255,180,40,0.9)"  : "rgba(103,232,249,0.9)";
+    const _rcg = _orig
+      ? "0 0 14px 4px rgba(255,190,40,0.45),inset 0 0 8px rgba(255,210,80,0.25)"
+      : "0 0 14px 4px rgba(34,211,238,0.4),inset 0 0 8px rgba(103,232,249,0.2)";
+    const _sc  = _orig ? "rgba(255,230,120,0.9)" : "rgba(103,232,249,0.85)";
+    const _sg  = _orig ? "0 0 4px 1px rgba(255,210,60,0.6)" : "0 0 5px 2px rgba(34,211,238,0.5)";
+    const _tbg = (t: number) => _orig
+      ? `rgba(255,220,80,${(t * 0.55).toFixed(2)})`
+      : `rgba(34,211,238,${(t * 0.5).toFixed(2)})`;
 
     const wrap = document.createElement("div");
     wrap.id = "cursor-trail-wrap";
@@ -348,8 +372,8 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
       "width:28px",
       "height:28px",
       "border-radius:50%",
-      "border:1.5px solid rgba(255,210,80,0.7)",
-      "box-shadow:0 0 8px 2px rgba(255,190,40,0.25),inset 0 0 6px rgba(255,210,80,0.15)",
+        `border:1.5px solid ${_rc}`,
+        `box-shadow:${_rg}`,
       "transform:translate(-50%,-50%)",
       "will-change:transform",
       "transition:width 0.18s,height 0.18s,border-color 0.18s,box-shadow 0.18s",
@@ -368,7 +392,8 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
         `width:${size}px`,
         `height:${size}px`,
         "border-radius:50%",
-        `background:radial-gradient(circle,rgba(255,220,80,${(t * 0.55).toFixed(2)}) 0%,transparent 70%)`,
+        `background:radial-gradient(circle,${_tbg(t)} 0%,transparent 70%)`,
+        _orig ? "filter:none" : `filter:blur(${Math.round((1-t)*1.5)}px)`,
         "transform:translate(-50%,-50%)",
         "will-change:transform",
         "pointer-events:none",
@@ -396,8 +421,8 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
         "width:3px",
         "height:3px",
         "border-radius:50%",
-        "background:rgba(255,230,120,0.9)",
-        "box-shadow:0 0 4px 1px rgba(255,210,60,0.6)",
+        `background:${_sc}`,
+        `box-shadow:${_sg}`,
         "transform:translate(-50%,-50%)",
         "will-change:transform,opacity",
         "pointer-events:none",
@@ -419,14 +444,14 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
     document.addEventListener("mousedown", () => {
       ring.style.width = "38px";
       ring.style.height = "38px";
-      ring.style.borderColor = "rgba(255,180,40,0.9)";
-      ring.style.boxShadow = "0 0 14px 4px rgba(255,190,40,0.45),inset 0 0 8px rgba(255,210,80,0.25)";
+      ring.style.borderColor = _rcc;
+      ring.style.boxShadow = _rcg;
     });
     document.addEventListener("mouseup", () => {
       ring.style.width = "28px";
       ring.style.height = "28px";
-      ring.style.borderColor = "rgba(255,210,80,0.7)";
-      ring.style.boxShadow = "0 0 8px 2px rgba(255,190,40,0.25),inset 0 0 6px rgba(255,210,80,0.15)";
+      ring.style.borderColor = _rc;
+      ring.style.boxShadow = _rg;
     });
 
     function emitSpark(x: number, y: number) {
@@ -496,6 +521,35 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
 
   initCursorTrail();
   document.addEventListener("astro:page-load", initCursorTrail);
+
+  // ── Theme toggle ────────────────────────────────────────────
+  function initThemeToggle() {
+    const btn = document.getElementById("theme-toggle") as HTMLButtonElement | null;
+    if (!btn) return;
+
+    const update = (theme: string) => {
+      const labels: Record<string, string> = {
+        mystic: "Switch to warm theme",
+        original: "Switch to aurora theme",
+        aurora: "Switch to mystic theme",
+      };
+      btn.setAttribute("aria-label", labels[theme] ?? "Switch theme");
+    };
+
+    update(document.documentElement.dataset.theme || "mystic");
+
+    btn.onclick = () => {
+      const themes = ["mystic", "original", "aurora"] as const;
+      const current = document.documentElement.dataset.theme || "mystic";
+      const idx = themes.indexOf(current as (typeof themes)[number]);
+      const next = themes[(idx + 1) % themes.length];
+      document.documentElement.dataset.theme = next;
+      localStorage.setItem("site-theme", next);
+      update(next);
+      document.getElementById("cursor-trail-wrap")?.remove();
+      initCursorTrail();
+    };
+  }
 </script>
 
 <style>
@@ -512,7 +566,20 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
   }
 
   .squares .glass {
-    @apply overflow-visible border border-white/35 bg-white/15 backdrop-blur-none;
+    @apply overflow-visible border border-cyan-950/50 bg-cyan-950/[0.06] backdrop-blur-none;
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.04);
+  }
+
+  :global([data-theme="original"]) .squares .glass {
+    border-color: rgba(255, 255, 255, 0.35);
+    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: none;
+  }
+
+  :global([data-theme="aurora"]) .squares .glass {
+    border-color: rgba(255, 255, 255, 0.35);
+    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: none;
   }
 
   .squares .glass::after {

@@ -39,7 +39,7 @@ const linkItems = links?.length
 ---
 
 <div
-  class="reveal glass flex flex-col gap-4 rounded-xl p-5 transition-[scale,background-color] duration-300 hover:scale-[1.02] hover:bg-white/10"
+  class="reveal glass flex flex-col gap-4 rounded-xl p-5 transition-[scale,background-color,box-shadow] duration-300 hover:scale-[1.02] hover:bg-white/[0.06] hover:shadow-[0_0_20px_rgba(0,0,0,0.3)]"
   data-tags={categoryKey.toLowerCase()}
   data-name={name}
 >
@@ -73,7 +73,7 @@ const linkItems = links?.length
             href={itemHref}
             target="_blank"
             rel="noreferrer"
-            class="text-xs font-semibold tracking-wide text-sky-200 transition-colors hover:text-sky-100"
+            class="text-xs font-semibold tracking-wide text-cyan-400/70 transition-colors hover:text-cyan-300"
           >
             {itemLabel}
           </a>
@@ -104,9 +104,10 @@ const linkItems = links?.length
     border-radius: 999px;
     background: linear-gradient(
       to right,
-      rgba(255, 255, 255, 0.2),
-      rgba(255, 255, 255, 0.55)
+      rgba(34, 211, 238, 0.25),
+      rgba(103, 232, 249, 0.6)
     );
+    box-shadow: 0 0 6px rgba(103, 232, 249, 0.15);
     transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1);
   }
 

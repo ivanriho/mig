@@ -75,54 +75,86 @@ const languages = languageOptions.map((option) => ({
       }
     </div>
   </div>
-  <div class="relative ml-auto shrink-0">
+  <div class="ml-auto flex shrink-0 items-center gap-2">
     <button
+      id="theme-toggle"
       type="button"
-      class="translate-toggle glass"
-      aria-expanded="false"
-      aria-controls="translate-menu"
-      aria-label={copy.nav.chooseLanguage}
+      class="theme-toggle glass"
+      aria-label="Switch to warm theme"
     >
-      <svg
-        class="translate-toggle__icon"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-      >
-        <circle cx="12" cy="12" r="9"></circle>
-        <path d="M3 12h18"></path>
-        <path d="M12 3c2.7 2.5 4.2 5.7 4.2 9s-1.5 6.5-4.2 9c-2.7-2.5-4.2-5.7-4.2-9S9.3 5.5 12 3Z"></path>
+      <!-- Moon = mystic active -->
+      <svg class="theme-icon theme-icon-mystic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
       </svg>
-      <span class="translate-toggle__label">{copy.nav.translate}</span>
+      <!-- Sun = original active -->
+      <svg class="theme-icon theme-icon-original" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+      <!-- Rainbow = aurora active -->
+      <svg class="theme-icon theme-icon-aurora" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 17a9 9 0 0 1 18 0"></path>
+        <path d="M6 17a6 6 0 0 1 12 0"></path>
+        <path d="M9 17a3 3 0 0 1 6 0"></path>
+      </svg>
     </button>
 
-    <div
-      id="translate-menu"
-      class="translate-menu"
-      hidden
-      role="menu"
-      aria-label={copy.nav.chooseLanguage}
-    >
-      <p class="translate-menu__title">{copy.nav.chooseLanguage}</p>
-      <div class="translate-menu__list">
-        {
-          languages.map(({ code, label, href, active }) => (
-            <a
-              class:list={["translate-option", active && "translate-option--active"]}
-              href={href}
-              role="menuitem"
-              hreflang={code}
-              lang={code}
-              aria-current={active ? "true" : undefined}
-            >
-              {label}
-            </a>
-          ))
-        }
+    <div class="relative">
+      <button
+        type="button"
+        class="translate-toggle glass"
+        aria-expanded="false"
+        aria-controls="translate-menu"
+        aria-label={copy.nav.chooseLanguage}
+      >
+        <svg
+          class="translate-toggle__icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="M3 12h18"></path>
+          <path d="M12 3c2.7 2.5 4.2 5.7 4.2 9s-1.5 6.5-4.2 9c-2.7-2.5-4.2-5.7-4.2-9S9.3 5.5 12 3Z"></path>
+        </svg>
+        <span class="translate-toggle__label">{copy.nav.translate}</span>
+      </button>
+
+      <div
+        id="translate-menu"
+        class="translate-menu"
+        hidden
+        role="menu"
+        aria-label={copy.nav.chooseLanguage}
+      >
+        <p class="translate-menu__title">{copy.nav.chooseLanguage}</p>
+        <div class="translate-menu__list">
+          {
+            languages.map(({ code, label, href, active }) => (
+              <a
+                class:list={["translate-option", active && "translate-option--active"]}
+                href={href}
+                role="menuitem"
+                hreflang={code}
+                lang={code}
+                aria-current={active ? "true" : undefined}
+              >
+                {label}
+              </a>
+            ))
+          }
+        </div>
       </div>
     </div>
   </div>
@@ -131,24 +163,212 @@ const languages = languageOptions.map((option) => ({
 <style>
   @reference '../styles/global.css';
 
+  /* ── Theme toggle ───────────────────────────────── */
+  .theme-toggle {
+    @apply relative inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-full text-white/60 transition-[transform,color,background-color,border-color] duration-300;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 4px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  @media (hover: hover) {
+    .theme-toggle:hover {
+      @apply text-white;
+      transform: translateY(-1px) rotate(-18deg);
+    }
+  }
+
+  .theme-icon {
+    @apply h-[1.05em] w-[1.05em];
+  }
+
+  /* default: mystic active → show moon, hide sun + rainbow */
+  .theme-icon-original {
+    display: none;
+  }
+
+  .theme-icon-aurora {
+    display: none;
+  }
+
+  /* when original theme active → hide moon + rainbow, show sun */
+  :global([data-theme="original"]) .theme-icon-mystic {
+    display: none;
+  }
+
+  :global([data-theme="original"]) .theme-icon-original {
+    display: block;
+  }
+
+  :global([data-theme="original"]) .theme-toggle {
+    color: rgb(254 240 138);
+  }
+
+  /* when aurora theme active → hide moon + sun, show rainbow */
+  :global([data-theme="aurora"]) .theme-icon-mystic {
+    display: none;
+  }
+
+  :global([data-theme="aurora"]) .theme-icon-original {
+    display: none;
+  }
+
+  :global([data-theme="aurora"]) .theme-icon-aurora {
+    display: block;
+  }
+
+  :global([data-theme="aurora"]) .theme-toggle {
+    color: rgb(254 240 138);
+  }
+
+  /* ── Original warm theme: nav overrides ───────────── */
+  :global([data-theme="original"]) .nav-link {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  :global([data-theme="original"]) .nav-link:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+    color: white;
+  }
+
+  :global([data-theme="original"]) .nav-link[aria-current="page"] {
+    border-color: white;
+    color: white;
+    text-shadow: none;
+    font-weight: 700;
+  }
+
+  :global([data-theme="original"]) .nav-glass.scrolled {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-bottom-color: rgba(255, 255, 255, 0.15);
+    box-shadow:
+      inset 0 0.5px 0 0 rgba(255, 255, 255, 0.2),
+      0 1px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  :global([data-theme="original"]) .translate-toggle__icon {
+    color: rgb(254 240 138);
+    filter: drop-shadow(0 0 8px rgba(254, 240, 138, 0.3));
+  }
+
+  :global([data-theme="original"]) .translate-menu {
+    background-color: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow:
+      inset 0 4px 20px rgba(255, 255, 255, 0.08),
+      0 8px 40px rgba(0, 0, 0, 0.28);
+  }
+
+  :global([data-theme="original"]) .translate-menu::before {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.28);
+  }
+
+  :global([data-theme="original"]) .translate-option {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.14);
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  :global([data-theme="original"]) .translate-option:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.28);
+    color: white;
+  }
+
+  :global([data-theme="original"]) .translate-option--active {
+    background-color: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.32);
+    color: white;
+  }
+
+  :global([data-theme="original"]) .translate-menu__title {
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  /* ── Aurora bright theme: nav overrides ───────────── */
+  :global([data-theme="aurora"]) .nav-link {
+    border-color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  :global([data-theme="aurora"]) .nav-link:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+    color: white;
+  }
+
+  :global([data-theme="aurora"]) .nav-link[aria-current="page"] {
+    border-color: white;
+    color: white;
+    text-shadow: none;
+    font-weight: 700;
+  }
+
+  :global([data-theme="aurora"]) .nav-glass.scrolled {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-bottom-color: rgba(255, 255, 255, 0.15);
+    box-shadow:
+      inset 0 0.5px 0 0 rgba(255, 255, 255, 0.2),
+      0 1px 8px rgba(0, 0, 0, 0.04);
+  }
+
+  :global([data-theme="aurora"]) .translate-toggle__icon {
+    color: rgb(254 240 138);
+    filter: drop-shadow(0 0 8px rgba(254, 240, 138, 0.3));
+  }
+
+  :global([data-theme="aurora"]) .translate-menu {
+    background-color: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow:
+      inset 0 4px 20px rgba(255, 255, 255, 0.08),
+      0 8px 40px rgba(0, 0, 0, 0.28);
+  }
+
+  :global([data-theme="aurora"]) .translate-menu::before {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.28);
+  }
+
+  :global([data-theme="aurora"]) .translate-option {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.14);
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  :global([data-theme="aurora"]) .translate-option:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.28);
+    color: white;
+  }
+
+  :global([data-theme="aurora"]) .translate-option--active {
+    background-color: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.32);
+    color: white;
+  }
+
+  :global([data-theme="aurora"]) .translate-menu__title {
+    color: rgba(255, 255, 255, 0.45);
+  }
+
   @keyframes translate-pulse {
     0%,
     100% {
       box-shadow:
-        inset 0 2px 10px rgba(255, 255, 255, 0.08),
-        0 8px 24px rgba(0, 0, 0, 0.18),
-        0 0 0 0 rgba(254, 240, 138, 0);
+        inset 0 2px 10px rgba(255, 255, 255, 0.04),
+        0 8px 24px rgba(0, 0, 0, 0.4),
+        0 0 0 0 rgba(255, 255, 255, 0);
     }
     50% {
       box-shadow:
-        inset 0 2px 12px rgba(255, 255, 255, 0.12),
-        0 10px 28px rgba(0, 0, 0, 0.2),
-        0 0 0 8px rgba(254, 240, 138, 0.08);
+        inset 0 2px 12px rgba(255, 255, 255, 0.07),
+        0 10px 28px rgba(0, 0, 0, 0.45),
+        0 0 0 8px rgba(255, 255, 255, 0.04);
     }
   }
 
   .nav-link {
-    @apply inline-flex flex-col items-center justify-center border-b-2 border-white/30 font-normal text-white/80;
+    @apply inline-flex flex-col items-center justify-center border-b-2 border-white/15 font-normal text-white/55;
   }
 
   @media (hover: hover) {
@@ -157,7 +377,7 @@ const languages = languageOptions.map((option) => ({
     }
 
     .nav-link:hover {
-      @apply border-white/80 text-white;
+      @apply border-white/50 text-white/90;
     }
   }
 
@@ -169,7 +389,8 @@ const languages = languageOptions.map((option) => ({
   }
 
   .nav-link[aria-current="page"] {
-    @apply border-white font-bold text-white;
+    @apply border-cyan-400/60 font-bold text-cyan-300;
+    text-shadow: 0 0 18px rgba(103, 232, 249, 0.25);
   }
 
   .nav-link::after {
@@ -182,11 +403,11 @@ const languages = languageOptions.map((option) => ({
   }
 
   .nav-glass.scrolled {
-    @apply border-b-[0.5px] border-white/15 bg-white/6;
-    backdrop-filter: saturate(110%);
+    @apply border-b-[0.5px] border-cyan-950/50 bg-black/75;
+    backdrop-filter: blur(16px);
     box-shadow:
-      inset 0 0.5px 0 0 rgba(255, 255, 255, 0.2),
-      0 1px 8px rgba(0, 0, 0, 0.04);
+      inset 0 0.5px 0 0 rgba(103, 232, 249, 0.04),
+      0 1px 20px rgba(0, 0, 0, 0.7);
   }
 
   .translate-toggle {
@@ -198,7 +419,7 @@ const languages = languageOptions.map((option) => ({
 
   .translate-toggle:hover,
   .translate-toggle[aria-expanded="true"] {
-    @apply border-white/30 bg-white/12 text-white;
+    @apply border-white/12 bg-black/80 text-white;
     transform: translateY(-1px);
   }
 
@@ -207,7 +428,7 @@ const languages = languageOptions.map((option) => ({
   }
 
   .translate-toggle__icon {
-    @apply h-[1.15em] w-[1.15em] text-yellow-100 drop-shadow-[0_0_10px_rgba(254,240,138,0.25)] transition-transform duration-300;
+    @apply h-[1.15em] w-[1.15em] text-cyan-400/65 transition-transform duration-300;
   }
 
   .translate-toggle[aria-expanded="true"] .translate-toggle__icon {
@@ -219,10 +440,10 @@ const languages = languageOptions.map((option) => ({
   }
 
   .translate-menu {
-    @apply absolute right-0 top-[calc(100%+0.75rem)] w-[min(16rem,calc(100vw-2rem))] overflow-hidden rounded-[1.6rem] border border-white/28 bg-white/[0.07] p-3 text-white shadow-2xl backdrop-blur-md;
+    @apply absolute right-0 top-[calc(100%+0.75rem)] w-[min(16rem,calc(100vw-2rem))] overflow-hidden rounded-[1.6rem] border border-white/10 bg-black/85 p-3 text-white shadow-2xl backdrop-blur-md;
     box-shadow:
-      inset 0 4px 20px rgba(255, 255, 255, 0.08),
-      0 8px 40px rgba(0, 0, 0, 0.28);
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 8px 40px rgba(0, 0, 0, 0.7);
     opacity: 0;
     pointer-events: none;
     transform: translateY(-0.35rem) scale(0.96);
@@ -248,21 +469,21 @@ const languages = languageOptions.map((option) => ({
   }
 
   .translate-menu::after {
-    @apply absolute top-0 left-0 -z-1 h-full w-full rounded-[inherit] bg-white/4 opacity-40 backdrop-blur-[1px] content-[''];
+    @apply absolute top-0 left-0 -z-1 h-full w-full rounded-[inherit] bg-transparent opacity-100 backdrop-blur-[1px] content-[''];
     box-shadow:
-      inset -10px -8px 0px -11px rgba(255, 255, 255, 0.5),
-      inset 0px -9px 0px -8px rgba(255, 255, 255, 0.5);
-    filter: blur(1px) drop-shadow(10px 4px 6px rgba(0, 0, 0, 0.3)) brightness(110%);
+      inset -10px -8px 0px -11px rgba(255, 255, 255, 0.08),
+      inset 0px -9px 0px -8px rgba(255, 255, 255, 0.06);
+    filter: blur(1px) drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.5));
     pointer-events: none;
   }
 
   .translate-menu::before {
     content: "";
-    @apply absolute -top-2 right-5 h-4 w-4 rotate-45 border-l border-t border-white/28 bg-white/10;
+    @apply absolute -top-2 right-5 h-4 w-4 rotate-45 border-l border-t border-white/10 bg-black/85;
   }
 
   .translate-menu__title {
-    @apply mb-3 px-2 text-xs uppercase tracking-[0.28em] text-white/45;
+    @apply mb-3 px-2 text-xs uppercase tracking-[0.28em] text-white/30;
   }
 
   .translate-menu__list {
@@ -270,8 +491,8 @@ const languages = languageOptions.map((option) => ({
   }
 
   .translate-option {
-    @apply rounded-2xl border border-white/14 bg-white/6 px-4 py-2.5 text-sm text-white/78 transition-[background-color,border-color,color,transform,box-shadow] duration-200;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    @apply rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-2.5 text-sm text-white/60 transition-[background-color,border-color,color,transform,box-shadow] duration-200;
+    box-shadow: none;
     opacity: 0;
     transform: translateY(0.5rem) scale(0.98);
     transition:
@@ -318,18 +539,14 @@ const languages = languageOptions.map((option) => ({
 
   .translate-option:hover,
   .translate-option:focus-visible {
-    @apply border-white/28 bg-white/12 text-white outline-none;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.12),
-      0 10px 20px rgba(0, 0, 0, 0.12);
+    @apply border-white/18 bg-white/[0.07] text-white outline-none;
+    box-shadow: none;
     transform: translateX(2px) scale(1.01);
   }
 
   .translate-option--active {
-    @apply border-white/32 bg-white/14 text-white;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.12),
-      0 10px 24px rgba(0, 0, 0, 0.12);
+    @apply border-white/20 bg-white/[0.08] text-white;
+    box-shadow: none;
   }
 
   @media (prefers-reduced-motion: reduce) {
