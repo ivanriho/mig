@@ -188,6 +188,7 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
         <line x1="22" y1="2" x2="11" y2="13"></line>
         <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
       </svg>
+      <span class="ai-send-label">{chatCopy.send}</span>
     </button>
   </form>
 </aside>
@@ -353,7 +354,7 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
   }
 
   .ai-send-btn {
-    @apply flex h-9 w-9 flex-none cursor-pointer items-center justify-center rounded-xl border border-white/8 bg-white/4 text-white/55 transition-all duration-200;
+    @apply flex h-9 flex-none cursor-pointer items-center gap-1.5 rounded-xl border border-white/8 bg-white/4 px-3 text-white/55 transition-all duration-200;
   }
 
   @media (hover: hover) {
@@ -367,7 +368,11 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
   }
 
   .ai-send-icon {
-    @apply h-4 w-4;
+    @apply h-4 w-4 flex-none;
+  }
+
+  .ai-send-label {
+    @apply text-xs font-semibold tracking-wide;
   }
 
   /* ── Mobile: full-width on very small screens ────────────── */
