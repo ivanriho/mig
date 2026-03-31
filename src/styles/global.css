@@ -55,11 +55,20 @@
 }
 
 @keyframes typewriter {
-  from {
+  0% {
     width: 0;
+    animation-timing-function: steps(5, end);
   }
-  to {
+  35% {
     width: 5ch;
+    animation-timing-function: steps(1, end);
+  }
+  65% {
+    width: 5ch;
+    animation-timing-function: steps(5, end);
+  }
+  100% {
+    width: 0;
   }
 }
 
@@ -163,7 +172,7 @@
     clip-path: inset(-50px 0 -50px -50px);
     contain: layout style;
     animation:
-      typewriter 0.7s steps(5) 0.4s forwards,
+      typewriter 4s 0.4s infinite,
       blinking-text-cursor 500ms steps(1) infinite normal;
   }
 
