@@ -50,7 +50,7 @@ const translations = {
       intro: "Hej, jag heter",
       role: "Elev & fritidsutvecklare",
       stats: {
-        age: "15 år gammal (2010)",
+        age: "Född 2010",
       },
       ctas: {
         about: "Om mig",
@@ -61,8 +61,8 @@ const translations = {
     about: {
       title: "Om mig",
       metaTitle: "Om mig — Ivan",
-      description: "Om mig — 15-årig elev & fritidsutvecklare.",
-      age: "15 år gammal",
+      description: "Om mig — elev & fritidsutvecklare.",
+      age: "Född 2010",
       school: "Fågelbacksskolan",
       intro:
         "Jag är 15 år och bor i Malmö. Jag går på Fågelbacksskolan och beskriver mig själv som en social och ansvarstagande person som också fungerar bra med att arbeta självständigt. Jag är tekniskt intresserad och tycker om att arbeta med webbutveckling på min fritid. Jag tävlingssimmar i Vellinge och tycker om träning. Jag har också en hund och tycker om att vara med djur. Tidigare har jag praoat i två veckor på ICA där jag fick hjälpa till med olika uppgifter i butiken, till exempel att fylla på varor, fronta hyllor och hjälpa kunder.",
@@ -230,7 +230,7 @@ const translations = {
       intro: "こんにちは、私は",
       role: "学生・個人開発者",
       stats: {
-        age: "15歳 (2010年生まれ)",
+        age: "2010年生まれ",
       },
       ctas: {
         about: "私について",
@@ -241,8 +241,8 @@ const translations = {
     about: {
       title: "私について",
       metaTitle: "私について — Ivan",
-      description: "15歳の学生であり個人開発者である Ivan の紹介。",
-      age: "15歳",
+      description: "2010年生まれの学生であり個人開発者である Ivan の紹介。",
+      age: "2010年生まれ",
       school: "Fågelbacksskolan",
       intro:
         "私は15歳で、マルメに住んでいます。Fågelbacksskolan に通っており、社交的で責任感があり、自立して働くこともできる人間だと自分を表現しています。技術に強い関心があり、自由時間にはウェブ開発に取り組むのが好きです。Vellinge で競泳をしており、運動も好きです。犬を飼っていて、動物と過ごす時間も大切にしています。以前は ICA で2週間の職場体験をし、商品の補充、棚の整理、接客などさまざまな仕事を経験しました。",
@@ -410,7 +410,7 @@ const translations = {
       intro: "Hi, my name is",
       role: "Student & hobby developer",
       stats: {
-        age: "15 years old (2010)",
+        age: "Born 2010",
       },
       ctas: {
         about: "About Me",
@@ -421,8 +421,8 @@ const translations = {
     about: {
       title: "About Me",
       metaTitle: "About Me — Ivan",
-      description: "About me — 15-year-old student and hobby developer.",
-      age: "15 years old",
+      description: "About me — student and hobby developer.",
+      age: "Born 2010",
       school: "Fågelbacksskolan",
       intro:
         "I am 15 years old and live in Malmö. I attend Fågelbacksskolan and describe myself as a social and responsible person who also works well independently. I am interested in technology and enjoy working with web development in my spare time. I compete in swimming in Vellinge and enjoy training. I also have a dog and like being around animals. Previously, I did a two-week internship at ICA where I helped with different tasks in the store, such as restocking items, facing shelves and helping customers.",
