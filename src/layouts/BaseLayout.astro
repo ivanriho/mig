@@ -316,6 +316,12 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
     prevObserver = observer;
   };
 
+  // ── Persist theme across View Transitions ───────────────
+  document.addEventListener("astro:before-swap", (e) => {
+    const theme = localStorage.getItem("site-theme") || "mystic";
+    (e as any).newDocument.documentElement.dataset.theme = theme;
+  });
+
   document.addEventListener("astro:page-load", () => {
     initDesktopOnlyGuard();
     initMobileContinueButton();
@@ -345,19 +351,26 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
     if (document.getElementById("cursor-trail-wrap")) return;
 
     const _orig = document.documentElement.dataset.theme !== "mystic";
-    const _rc  = _orig ? "rgba(255,210,80,0.7)"  : "rgba(103,232,249,0.65)";
-    const _rg  = _orig
+    const _mat  = document.documentElement.dataset.theme === "matrix";
+    const _rc  = _mat ? "rgba(74,222,128,0.75)" : _orig ? "rgba(255,210,80,0.7)"  : "rgba(255,255,255,0.6)";
+    const _rg  = _mat
+      ? "0 0 8px 2px rgba(34,197,94,0.3),inset 0 0 6px rgba(74,222,128,0.15)"
+      : _orig
       ? "0 0 8px 2px rgba(255,190,40,0.25),inset 0 0 6px rgba(255,210,80,0.15)"
-      : "0 0 8px 2px rgba(34,211,238,0.22),inset 0 0 6px rgba(103,232,249,0.12)";
-    const _rcc = _orig ? "rgba(255,180,40,0.9)"  : "rgba(103,232,249,0.9)";
-    const _rcg = _orig
+      : "0 0 8px 2px rgba(255,255,255,0.12),inset 0 0 6px rgba(255,255,255,0.06)";
+    const _rcc = _mat ? "rgba(74,222,128,0.92)"  : _orig ? "rgba(255,180,40,0.9)"  : "rgba(255,255,255,0.88)";
+    const _rcg = _mat
+      ? "0 0 16px 4px rgba(34,197,94,0.55),inset 0 0 8px rgba(74,222,128,0.25)"
+      : _orig
       ? "0 0 14px 4px rgba(255,190,40,0.45),inset 0 0 8px rgba(255,210,80,0.25)"
-      : "0 0 14px 4px rgba(34,211,238,0.4),inset 0 0 8px rgba(103,232,249,0.2)";
-    const _sc  = _orig ? "rgba(255,230,120,0.9)" : "rgba(103,232,249,0.85)";
-    const _sg  = _orig ? "0 0 4px 1px rgba(255,210,60,0.6)" : "0 0 5px 2px rgba(34,211,238,0.5)";
-    const _tbg = (t: number) => _orig
+      : "0 0 14px 4px rgba(255,255,255,0.3),inset 0 0 8px rgba(255,255,255,0.12)";
+    const _sc  = _mat ? "rgba(74,222,128,0.9)"   : _orig ? "rgba(255,230,120,0.9)" : "rgba(255,255,255,0.8)";
+    const _sg  = _mat ? "0 0 5px 2px rgba(34,197,94,0.6)" : _orig ? "0 0 4px 1px rgba(255,210,60,0.6)" : "0 0 5px 2px rgba(255,255,255,0.4)";
+    const _tbg = (t: number) => _mat
+      ? `rgba(34,197,94,${(t * 0.55).toFixed(2)})`
+      : _orig
       ? `rgba(255,220,80,${(t * 0.55).toFixed(2)})`
-      : `rgba(34,211,238,${(t * 0.5).toFixed(2)})`;
+      : `rgba(255,255,255,${(t * 0.4).toFixed(2)})`;
 
     const wrap = document.createElement("div");
     wrap.id = "cursor-trail-wrap";
@@ -531,7 +544,8 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
       const labels: Record<string, string> = {
         mystic: "Switch to warm theme",
         original: "Switch to aurora theme",
-        aurora: "Switch to mystic theme",
+        aurora: "Switch to matrix theme",
+        matrix: "Switch to mystic theme",
       };
       btn.setAttribute("aria-label", labels[theme] ?? "Switch theme");
     };
@@ -539,7 +553,7 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
     update(document.documentElement.dataset.theme || "mystic");
 
     btn.onclick = () => {
-      const themes = ["mystic", "original", "aurora"] as const;
+      const themes = ["mystic", "original", "aurora", "matrix"] as const;
       const current = document.documentElement.dataset.theme || "mystic";
       const idx = themes.indexOf(current as (typeof themes)[number]);
       const next = themes[(idx + 1) % themes.length];
@@ -566,8 +580,8 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
   }
 
   .squares .glass {
-    @apply overflow-visible border border-cyan-950/50 bg-cyan-950/[0.06] backdrop-blur-none;
-    box-shadow: 0 0 10px rgba(34, 211, 238, 0.04);
+    @apply overflow-visible border border-white/[0.06] bg-white/[0.02] backdrop-blur-none;
+    box-shadow: none;
   }
 
   :global([data-theme="original"]) .squares .glass {
@@ -580,6 +594,12 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
     border-color: rgba(255, 255, 255, 0.35);
     background-color: rgba(255, 255, 255, 0.15);
     box-shadow: none;
+  }
+
+  :global([data-theme="matrix"]) .squares .glass {
+    border-color: rgba(34, 197, 94, 0.18);
+    background-color: rgba(0, 20, 0, 0.4);
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.06);
   }
 
   .squares .glass::after {

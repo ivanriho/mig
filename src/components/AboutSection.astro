@@ -13,7 +13,7 @@ const { title, icon, class: className } = Astro.props;
 <section class:list={["flex w-full flex-col gap-6", className]}>
   <div class="reveal flex flex-col gap-3">
     <h2
-      class="flex flex-wrap items-center gap-3 text-3xl font-extrabold text-cyan-300 mystic-glow drop-shadow-lg md:text-4xl"
+      class="flex flex-wrap items-center gap-3 text-3xl font-extrabold text-white mystic-glow drop-shadow-lg md:text-4xl"
     >
       {title}
       <Icon size="1em" img={icon} class="pointer-events-none" />
@@ -25,7 +25,7 @@ const { title, icon, class: className } = Astro.props;
 
 <style>
   .mystic-glow {
-    text-shadow: 0 0 28px rgba(103, 232, 249, 0.2);
+    text-shadow: none;
   }
 
   :global([data-theme="original"]) .mystic-glow {

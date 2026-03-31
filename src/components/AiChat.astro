@@ -197,10 +197,10 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
 
   /* ── Toggle button ───────────────────────────────────────── */
   .ai-toggle {
-    @apply fixed bottom-6 right-6 z-50 flex h-13 w-13 cursor-pointer items-center justify-center rounded-full border border-cyan-900/40 bg-cyan-950/[0.25] text-cyan-300/80 shadow-lg backdrop-blur-md transition-all duration-300;
+    @apply fixed bottom-6 right-6 z-50 flex h-13 w-13 cursor-pointer items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.05] text-white/65 shadow-lg backdrop-blur-md transition-all duration-300;
     box-shadow:
-      inset 0 1px 0 rgba(103, 232, 249, 0.06),
-      0 4px 24px rgba(0, 0, 0, 0.7);
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 4px 24px rgba(0, 0, 0, 0.8);
   }
 
   .ai-toggle svg {
@@ -209,17 +209,16 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
 
   @media (hover: hover) {
     .ai-toggle:hover {
-      @apply scale-110 bg-cyan-950/40 text-cyan-200;
+      @apply scale-110 bg-white/[0.09] text-white;
     }
   }
 
   /* ── Chat panel ──────────────────────────────────────────── */
   .ai-panel {
-    @apply fixed bottom-24 right-6 z-50 flex w-80 flex-col overflow-hidden rounded-2xl border border-violet-800/40 bg-black/80 text-white shadow-2xl backdrop-blur-md;
+    @apply fixed bottom-24 right-6 z-50 flex w-80 flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-black/90 text-white shadow-2xl backdrop-blur-md;
     box-shadow:
-      inset 0 4px 20px rgba(109, 40, 217, 0.06),
-      0 8px 40px rgba(0, 0, 0, 0.7),
-      0 0 0 0.5px rgba(139, 92, 246, 0.12);
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      0 8px 40px rgba(0, 0, 0, 0.95);
     /* panel height cap */
     max-height: min(520px, calc(100svh - 7rem));
     /* hidden state */
@@ -254,7 +253,7 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
   }
 
   .ai-panel-title {
-    @apply flex items-center gap-2 text-sm font-semibold tracking-wide text-cyan-300/80;
+    @apply flex items-center gap-2 text-sm font-semibold tracking-wide text-white/75;
   }
 
   .ai-header-icon {
@@ -317,7 +316,7 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
   }
 
   .ai-typing .dot {
-    @apply h-1.5 w-1.5 rounded-full bg-cyan-400/55;
+    @apply h-1.5 w-1.5 rounded-full bg-white/40;
     animation: dot-pulse 1.2s ease-in-out infinite;
   }
 
@@ -354,12 +353,12 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
   }
 
   .ai-send-btn {
-    @apply flex h-9 w-9 flex-none cursor-pointer items-center justify-center rounded-xl border border-cyan-900/35 bg-cyan-950/[0.2] text-cyan-400/65 transition-all duration-200;
+    @apply flex h-9 w-9 flex-none cursor-pointer items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.04] text-white/55 transition-all duration-200;
   }
 
   @media (hover: hover) {
     .ai-send-btn:hover:not(:disabled) {
-      @apply scale-105 bg-cyan-950/40 text-cyan-300;
+      @apply scale-105 bg-white/[0.09] text-white/85;
     }
   }
 
