@@ -37,7 +37,7 @@ const translations = {
       chooseLanguage: "Välj språk",
     },
     footer: {
-      text: `Ivan Ristić Hofrén ${new Date().getFullYear()}`,
+      text: `Ivan ${new Date().getFullYear()}`,
       socials: {
         email: "E-post",
         github: "GitHub",
@@ -45,8 +45,8 @@ const translations = {
       },
     },
     home: {
-      title: "Ivan Ristić Hofrén",
-      description: "Personlig webbplats för Ivan Ristić Hofrén.",
+      title: "Ivan",
+      description: "Personlig webbplats för Ivan.",
       intro: "Hej, jag heter",
       role: "Elev & fritidsutvecklare",
       stats: {
@@ -60,7 +60,7 @@ const translations = {
     },
     about: {
       title: "Om mig",
-      metaTitle: "Om mig — Ivan Ristić Hofrén",
+      metaTitle: "Om mig — Ivan",
       description: "Om mig — 15-årig elev & fritidsutvecklare.",
       age: "15 år gammal",
       school: "Fågelbacksskolan",
@@ -80,15 +80,15 @@ const translations = {
     },
     cv: {
       title: "CV",
-      metaTitle: "CV — Ivan Ristić Hofrén",
-      description: "Ladda ner CV för Ivan Ristić Hofrén",
+      metaTitle: "CV — Ivan",
+      description: "Ladda ner CV för Ivan",
       intro: "Här kan du ladda ner mitt CV direkt som PDF.",
       download: "Ladda ner CV",
       openPdf: "Öppna PDF i ny flik",
     },
     stack: {
       title: "Stack",
-      metaTitle: "Stack — Ivan Ristić Hofrén",
+      metaTitle: "Stack — Ivan",
       description: "Verktyg och tekniker jag kan just nu.",
       intro: "Verktyg och tekniker jag arbetar med",
       filterLabel: "Filtrera",
@@ -217,7 +217,7 @@ const translations = {
       chooseLanguage: "言語を選択",
     },
     footer: {
-      text: `Ivan Ristić Hofrén ${new Date().getFullYear()}`,
+      text: `Ivan ${new Date().getFullYear()}`,
       socials: {
         email: "メール",
         github: "GitHub",
@@ -225,8 +225,8 @@ const translations = {
       },
     },
     home: {
-      title: "Ivan Ristić Hofrén",
-      description: "Ivan Ristić Hofrén の個人ウェブサイト。",
+      title: "Ivan",
+      description: "Ivan の個人ウェブサイト。",
       intro: "こんにちは、私は",
       role: "学生・個人開発者",
       stats: {
@@ -240,7 +240,7 @@ const translations = {
     },
     about: {
       title: "私について",
-      metaTitle: "私について — Ivan Ristić Hofrén",
+      metaTitle: "私について — Ivan",
       description: "15歳の学生であり個人開発者である Ivan の紹介。",
       age: "15歳",
       school: "Fågelbacksskolan",
@@ -260,15 +260,15 @@ const translations = {
     },
     cv: {
       title: "履歴書",
-      metaTitle: "履歴書 — Ivan Ristić Hofrén",
-      description: "Ivan Ristić Hofrén の履歴書をダウンロード。",
+      metaTitle: "履歴書 — Ivan",
+      description: "Ivan の履歴書をダウンロード。",
       intro: "ここから私の履歴書を PDF で直接ダウンロードできます。",
       download: "履歴書をダウンロード",
       openPdf: "PDF を新しいタブで開く",
     },
     stack: {
       title: "技術スタック",
-      metaTitle: "技術スタック — Ivan Ristić Hofrén",
+      metaTitle: "技術スタック — Ivan",
       description: "現在扱っているツールと技術。",
       intro: "私が扱っているツールと技術",
       filterLabel: "絞り込み",
@@ -397,7 +397,7 @@ const translations = {
       chooseLanguage: "Choose language",
     },
     footer: {
-      text: `Ivan Ristić Hofrén ${new Date().getFullYear()}`,
+      text: `Ivan ${new Date().getFullYear()}`,
       socials: {
         email: "Email",
         github: "GitHub",
@@ -405,8 +405,8 @@ const translations = {
       },
     },
     home: {
-      title: "Ivan Ristić Hofrén",
-      description: "Personal website for Ivan Ristić Hofrén.",
+      title: "Ivan",
+      description: "Personal website for Ivan.",
       intro: "Hi, my name is",
       role: "Student & hobby developer",
       stats: {
@@ -420,7 +420,7 @@ const translations = {
     },
     about: {
       title: "About Me",
-      metaTitle: "About Me — Ivan Ristić Hofrén",
+      metaTitle: "About Me — Ivan",
       description: "About me — 15-year-old student and hobby developer.",
       age: "15 years old",
       school: "Fågelbacksskolan",
@@ -440,15 +440,15 @@ const translations = {
     },
     cv: {
       title: "CV",
-      metaTitle: "CV — Ivan Ristić Hofrén",
-      description: "Download Ivan Ristić Hofrén's CV",
+      metaTitle: "CV — Ivan",
+      description: "Download Ivan's CV",
       intro: "Here you can download my CV directly as a PDF.",
       download: "Download CV",
       openPdf: "Open PDF in new tab",
     },
     stack: {
       title: "Stack",
-      metaTitle: "Stack — Ivan Ristić Hofrén",
+      metaTitle: "Stack — Ivan",
       description: "Tools and technologies I work with right now.",
       intro: "Tools and technologies I work with",
       filterLabel: "Filter",

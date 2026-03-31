@@ -22,7 +22,7 @@ const preferredLanguageLabelByLang: Record<SiteLang, string> = {
   en: "English",
 };
 
-const SYSTEM_PROMPT_TEXT = `You are a friendly and accurate AI assistant for Ivan Ristic Hofren's portfolio website.
+const SYSTEM_PROMPT_TEXT = `You are a friendly and accurate AI assistant for Ivan's portfolio website.
 
 Language:
 - Primary response language: ${preferredLanguageLabelByLang[lang]}.
@@ -30,12 +30,12 @@ Language:
 - Keep answers short, clear, and factual.
 
 Scope restriction:
-- You may only answer greetings and questions about Ivan Ristic Hofren, his background, experience, website, CV, and technical stack.
+- You may only answer greetings and questions about Ivan, his background, experience, website, CV, and technical stack.
 - If the question is outside this scope, reply with this exact sentence:
   "${outOfScopeReplyByLang[lang]}"
 
 Facts you can use:
-- Name: Ivan Ristic Hofren.
+- Name: Ivan.
 - Age: 15 (born 2010).
 - Lives in: Malmo, Sweden.
 - Role: student and hobby developer.
@@ -197,7 +197,7 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
 
   /* ── Toggle button ───────────────────────────────────────── */
   .ai-toggle {
-    @apply fixed bottom-6 right-6 z-50 flex h-13 w-13 cursor-pointer items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.05] text-white/65 shadow-lg backdrop-blur-md transition-all duration-300;
+    @apply fixed bottom-6 right-6 z-50 flex h-13 w-13 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/65 shadow-lg backdrop-blur-md transition-all duration-300;
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.06),
       0 4px 24px rgba(0, 0, 0, 0.8);
@@ -209,13 +209,13 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
 
   @media (hover: hover) {
     .ai-toggle:hover {
-      @apply scale-110 bg-white/[0.09] text-white;
+      @apply scale-110 bg-white/9 text-white;
     }
   }
 
   /* ── Chat panel ──────────────────────────────────────────── */
   .ai-panel {
-    @apply fixed bottom-24 right-6 z-50 flex w-80 flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-black/90 text-white shadow-2xl backdrop-blur-md;
+    @apply fixed bottom-24 right-6 z-50 flex w-80 flex-col overflow-hidden rounded-2xl border border-white/8 bg-black/90 text-white shadow-2xl backdrop-blur-md;
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.05),
       0 8px 40px rgba(0, 0, 0, 0.95);
@@ -261,12 +261,12 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
   }
 
   .ai-minimize-btn {
-    @apply flex h-7 w-7 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white/40 transition-colors duration-200;
+    @apply flex h-7 w-7 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-white/4 text-white/40 transition-colors duration-200;
   }
 
   @media (hover: hover) {
     .ai-minimize-btn:hover {
-      @apply bg-white/[0.08] text-white/70;
+      @apply bg-white/8 text-white/70;
     }
   }
 
@@ -303,11 +303,11 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
   }
 
   .ai-msg--user .ai-msg-text {
-    @apply rounded-tr-sm border border-white/12 bg-white/[0.07];
+    @apply rounded-tr-sm border border-white/12 bg-white/7;
   }
 
   .ai-msg--assistant .ai-msg-text {
-    @apply rounded-tl-sm border border-white/8 bg-white/[0.03];
+    @apply rounded-tl-sm border border-white/8 bg-white/3;
   }
 
   /* typing indicator dots */
@@ -345,20 +345,20 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
   }
 
   .ai-input {
-    @apply min-w-0 flex-1 rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-2 text-sm text-white placeholder-white/25 outline-none transition-colors duration-200;
+    @apply min-w-0 flex-1 rounded-xl border border-white/10 bg-white/4 px-3.5 py-2 text-sm text-white placeholder-white/25 outline-none transition-colors duration-200;
   }
 
   .ai-input:focus {
-    @apply border-white/22 bg-white/[0.07];
+    @apply border-white/22 bg-white/7;
   }
 
   .ai-send-btn {
-    @apply flex h-9 w-9 flex-none cursor-pointer items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.04] text-white/55 transition-all duration-200;
+    @apply flex h-9 w-9 flex-none cursor-pointer items-center justify-center rounded-xl border border-white/8 bg-white/4 text-white/55 transition-all duration-200;
   }
 
   @media (hover: hover) {
     .ai-send-btn:hover:not(:disabled) {
-      @apply scale-105 bg-white/[0.09] text-white/85;
+      @apply scale-105 bg-white/9 text-white/85;
     }
   }
 

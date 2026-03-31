@@ -174,7 +174,7 @@
   }
 
   .glass {
-    @apply relative border border-white/[0.08] bg-white/[0.03] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-[3px];
+    @apply relative border border-white/8 bg-white/3 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-[3px];
   }
 
   .glass::after {
@@ -190,7 +190,7 @@
   }
 
   .pill {
-    @apply inline-flex items-center gap-1 rounded-full border-[0.5px] border-white/[0.08] bg-white/[0.04] px-2.5 py-0.5 text-xs font-semibold backdrop-blur-md;
+    @apply inline-flex items-center gap-1 rounded-full border-[0.5px] border-white/8 bg-white/4 px-2.5 py-0.5 text-xs font-semibold backdrop-blur-md;
   }
 
   .page-title {
