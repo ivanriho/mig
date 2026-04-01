@@ -38,38 +38,38 @@ const mobileBlockContentByLang: Record<
 > = {
   sv: {
     title: "Endast dator",
-    text: "Den här hemsidan är just nu bara tillgänglig på dator. Öppna den på en desktop eller laptop.",
-    continueText: "Om du inte har en dator kan du öppna sidan ändå, men kom ihåg att den inte är gjord för telefon.",
+    text: "För den fullständiga upplevelsen, besök <strong>bit.ly/ivan-riho</strong> på din dator.",
+    continueText: "Sidan är ännu inte helt anpassad för mobiler, men du är välkommen att kika runt ändå!",
     continueButton: "Öppna ändå",
   },
   ja: {
     title: "PCのみ対応",
-    text: "このサイトは現在、PC（デスクトップ/ノート）でのみ利用できます。",
-    continueText: "PCがない場合はこのまま開けますが、このサイトはスマホ向けには作られていません。",
+    text: "最高の体験のために、パソコンで <strong>bit.ly/ivan-riho</strong> を開いてください。",
+    continueText: "このサイトはまだスマホに完全対応していませんが、ぜひ見てみてください！",
     continueButton: "このまま開く",
   },
   en: {
     title: "Desktop Only",
-    text: "This website is currently available on desktop/laptop only.",
-    continueText: "If you do not have a computer, you can still open the site, but keep in mind it is not designed for phones.",
+    text: "For the full experience, visit <strong>bit.ly/ivan-riho</strong> on your computer.",
+    continueText: "The site isn't fully optimised for mobile yet, but you're welcome to look around anyway!",
     continueButton: "Open anyway",
   },
   fr: {
     title: "Bureau uniquement",
-    text: "Ce site est actuellement disponible uniquement sur ordinateur de bureau ou portable.",
-    continueText: "Si vous n'avez pas d'ordinateur, vous pouvez quand même ouvrir le site, mais gardez à l'esprit qu'il n'est pas conçu pour les téléphones.",
+    text: "Pour une expérience complète, visitez <strong>bit.ly/ivan-riho</strong> sur votre ordinateur.",
+    continueText: "Le site n'est pas encore entièrement adapté aux mobiles, mais vous êtes libre de jeter un œil quand même !",
     continueButton: "Ouvrir quand même",
   },
   ru: {
     title: "Только для ПК",
-    text: "Этот сайт в настоящее время доступен только на настольных компьютерах и ноутбуках.",
-    continueText: "Если у вас нет компьютера, вы всё равно можете открыть сайт, но имейте в виду, что он не предназначен для телефонов.",
+    text: "Для полного опыта откройте <strong>bit.ly/ivan-riho</strong> на компьютере.",
+    continueText: "Сайт пока не полностью адаптирован для телефонов, но вы можете посмотреть его в любом случае!",
     continueButton: "Открыть всё равно",
   },
   es: {
     title: "Solo escritorio",
-    text: "Este sitio web está disponible actualmente solo en ordenadores de escritorio o portátiles.",
-    continueText: "Si no tienes un ordenador, puedes abrir el sitio de todas formas, pero ten en cuenta que no está diseñado para teléfonos.",
+    text: "Para la experiencia completa, visita <strong>bit.ly/ivan-riho</strong> en tu ordenador.",
+    continueText: "El sitio aún no está completamente adaptado para móviles, ¡pero eres bienvenido a echar un vistazo de todas formas!",
     continueButton: "Abrir de todas formas",
   },
 };
@@ -95,7 +95,7 @@ const mobileLanguageLinks = languageOptions.map((option) => ({
     <div class="device-blocker" role="alert" aria-live="polite">
       <div class="device-blocker__card glass">
         <h1 class="device-blocker__title">{mobileBlockContent.title}</h1>
-        <p class="device-blocker__text">{mobileBlockContent.text}</p>
+        <p class="device-blocker__text" set:html={mobileBlockContent.text} />
         <p class="device-blocker__continue-text">{mobileBlockContent.continueText}</p>
         <button type="button" class="device-blocker__continue-button">
           {mobileBlockContent.continueButton}
