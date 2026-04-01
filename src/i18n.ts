@@ -65,13 +65,13 @@ const translations = {
       age: "Född 2010",
       school: "Grundskola i Malmö",
       intro:
-        "Jag är 15 år och bor i Malmö. Jag går på en grundskola i Malmö och beskriver mig själv som en social och ansvarstagande person som också fungerar bra med att arbeta självständigt. Jag är tekniskt intresserad och tycker om att arbeta med webbutveckling på min fritid. Jag tävlingssimmar i Vellinge och tycker om träning. Jag har också en hund och tycker om att vara med djur. Tidigare har jag praoat i två veckor på ICA där jag fick hjälpa till med olika uppgifter i butiken, till exempel att fylla på varor, fronta hyllor och hjälpa kunder.",
+        "Jag är 15 år och bor i Malmö. Jag går på en grundskola i Malmö och beskriver mig själv som en social och ansvarstagande person som också fungerar bra med att arbeta självständigt. Jag är tekniskt intresserad och tycker om att arbeta med webbutveckling på min fritid. Jag tävlingssimmar och spelar golf, och tycker om träning. Jag har också en hund och tycker om att vara med djur. Tidigare har jag praoat i två veckor på ICA där jag fick hjälpa till med olika uppgifter i butiken, till exempel att fylla på varor, fronta hyllor och hjälpa kunder.",
       builtWith: "Hemsidan är byggd på",
       hobbiesTitle: "Hobbyer",
       hobbiesText:
-        "Mina hobbies är djur, webbutveckling, simning, att resa och att umgås med vänner. Jag har en hund och tycker om att vara med djur. På fritiden arbetar jag också med webbutveckling, till exempel att skapa och designa hemsidor. Dessutom tävlingssimmar jag, vilket jag tycker är både roligt och utvecklande.",
+        "Mina hobbies är djur, webbutveckling, simning, golf, att resa och att umgås med vänner. Jag har en hund och tycker om att vara med djur. På fritiden arbetar jag också med webbutveckling, till exempel att skapa och designa hemsidor. Dessutom tävlingssimmar jag och spelar golf, vilket jag tycker är både roligt och utvecklande.",
       interestsHeading: "Intressen",
-      interests: ["Djur", "Webbutveckling", "Simning", "Resa", "Umgås"],
+      interests: ["Djur", "Webbutveckling", "Simning", "Golf", "Resa", "Umgås"],
       workTitle: "Tidigare jobb",
       workText:
         "Jag praoade i två veckor på ICA och fick prova på många olika arbetsuppgifter i butiken. Jag plockade upp varor och fyllde på hyllor, frontade varor så att det såg snyggt ut i butiken, hjälpte till i kassan, sorterade och packade upp leveranser i lagret samt hjälpte kunder som behövde hitta varor. Jag fick också hjälpa till att hålla ordning i butiken och se till att allt var rent och organiserat.",
@@ -245,13 +245,13 @@ const translations = {
       age: "2010年生まれ",
       school: "マルメの基礎学校",
       intro:
-        "私は15歳で、マルメに住んでいます。マルメの基礎学校に通っており、社交的で責任感があり、自立して働くこともできる人間だと自分を表現しています。技術に強い関心があり、自由時間にはウェブ開発に取り組むのが好きです。Vellinge で競泳をしており、運動も好きです。犬を飼っていて、動物と過ごす時間も大切にしています。以前は ICA で2週間の職場体験をし、商品の補充、棚の整理、接客などさまざまな仕事を経験しました。",
+        "私は15歳で、マルメに住んでいます。マルメの基礎学校に通っており、社交的で責任感があり、自立して働くこともできる人間だと自分を表現しています。技術に強い関心があり、自由時間にはウェブ開発に取り組むのが好きです。競泳をしており、ゴルフも楽しんでいます。犬を飼っていて、動物と過ごす時間も大切にしています。以前は ICA で2週間の職場体験をし、商品の補充、棚の整理、接客などさまざまな仕事を経験しました。",
       builtWith: "このサイトは",
       hobbiesTitle: "趣味",
       hobbiesText:
-        "私の趣味は動物、ウェブ開発、水泳、旅行、そして友人と過ごすことです。犬を飼っていて、動物と関わるのが好きです。自由時間にはウェブサイトを作成したりデザインしたりしています。また競泳にも取り組んでおり、とても楽しく、自分を成長させてくれる活動だと感じています。",
+        "私の趣味は動物、ウェブ開発、水泳、ゴルフ、旅行、そして友人と過ごすことです。犬を飼っていて、動物と関わるのが好きです。自由時間にはウェブサイトを作成したりデザインしたりしています。また競泳やゴルフにも取り組んでおり、とても楽しく、自分を成長させてくれる活動だと感じています。",
       interestsHeading: "興味分野",
-      interests: ["動物", "ウェブ開発", "水泳", "旅行", "交流"],
+      interests: ["動物", "ウェブ開発", "水泳", "ゴルフ", "旅行", "交流"],
       workTitle: "これまでの仕事",
       workText:
         "ICA で2週間の職場体験を行い、店舗内のさまざまな業務を経験しました。商品の補充、棚の見栄えを整える作業、レジ補助、倉庫での荷物の仕分けと開梱、商品を探しているお客様の案内などを担当しました。また、店内を清潔で整理された状態に保つ手伝いもしました。",
@@ -425,13 +425,13 @@ const translations = {
       age: "Born 2010",
       school: "Primary school in Malmö",
       intro:
-        "I am 15 years old and live in Malmö. I attend a primary school in Malmö and describe myself as a social and responsible person who also works well independently. I am interested in technology and enjoy working with web development in my spare time. I compete in swimming in Vellinge and enjoy training. I also have a dog and like being around animals. Previously, I did a two-week internship at ICA where I helped with different tasks in the store, such as restocking items, facing shelves and helping customers.",
+        "I am 15 years old and live in Malmö. I attend a primary school in Malmö and describe myself as a social and responsible person who also works well independently. I am interested in technology and enjoy working with web development in my spare time. I compete in swimming and play golf, and enjoy training. I also have a dog and like being around animals. Previously, I did a two-week internship at ICA where I helped with different tasks in the store, such as restocking items, facing shelves and helping customers.",
       builtWith: "The website is built with",
       hobbiesTitle: "Hobbies",
       hobbiesText:
-        "My hobbies are animals, web development, swimming, traveling and spending time with friends. I have a dog and enjoy being around animals. In my spare time I also work with web development, for example creating and designing websites. I also compete in swimming, which I find both fun and rewarding.",
+        "My hobbies are animals, web development, swimming, golf, traveling and spending time with friends. I have a dog and enjoy being around animals. In my spare time I also work with web development, for example creating and designing websites. I also compete in swimming and play golf, which I find both fun and rewarding.",
       interestsHeading: "Interests",
-      interests: ["Animals", "Web Development", "Swimming", "Travel", "Socializing"],
+      interests: ["Animals", "Web Development", "Swimming", "Golf", "Travel", "Socializing"],
       workTitle: "Previous Work",
       workText:
         "I completed a two-week internship at ICA and got to try many different tasks in the store. I stocked shelves, arranged products so the store looked neat, helped at the checkout, sorted and unpacked deliveries in the stockroom, and helped customers find products. I also helped keep the store clean, tidy and organized.",
