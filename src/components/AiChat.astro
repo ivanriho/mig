@@ -176,8 +176,9 @@ const OPENAI_API_KEY = import.meta.env.OPENAI_API_KEY ?? "";
       autocomplete="off"
       spellcheck="false"
       required
+      disabled
     />
-    <button type="submit" class="ai-send-btn" aria-label={chatCopy.send}>
+    <button type="submit" class="ai-send-btn" aria-label={chatCopy.send} disabled>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

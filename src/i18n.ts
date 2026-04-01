@@ -202,7 +202,7 @@ const translations = {
       title: "AI-assistent",
       minimize: "Minimera chat",
       greeting:
-        "Hej! Jag är Ivans AI-assistent. Fråga mig vad du vill om Ivan, hans projekt eller kompetenser.",
+        "Chatboten är ej tillgänglig just nu.",
       inputPlaceholder: "Skriv ett meddelande…",
       send: "Skicka",
       assistantLabel: "AI",
@@ -382,7 +382,7 @@ const translations = {
       title: "AI Assistant",
       minimize: "Minimize chat",
       greeting:
-        "Hi. I'm Ivan's AI assistant. Ask me anything about Ivan, his projects or his skills.",
+        "The chatbot is not available right now.",
       inputPlaceholder: "Type a message…",
       send: "Send",
       assistantLabel: "AI",
@@ -562,7 +562,7 @@ const translations = {
       title: "Assistant IA",
       minimize: "Réduire le chat",
       greeting:
-        "Bonjour ! Je suis l'assistant IA d'Ivan. Posez-moi des questions sur Ivan, ses projets ou ses compétences.",
+        "Le chatbot n'est pas disponible pour le moment.",
       inputPlaceholder: "Écrire un message…",
       send: "Envoyer",
       assistantLabel: "IA",
@@ -742,7 +742,7 @@ const translations = {
       title: "Asistente IA",
       minimize: "Minimizar chat",
       greeting:
-        "¡Hola! Soy el asistente IA de Ivan. Pregúntame lo que quieras sobre Ivan, sus proyectos o sus habilidades.",
+        "El chatbot no está disponible en este momento.",
       inputPlaceholder: "Escribe un mensaje…",
       send: "Enviar",
       assistantLabel: "IA",
@@ -922,7 +922,7 @@ const translations = {
       title: "AI 助手",
       minimize: "最小化聊天",
       greeting:
-        "你好！我是 Ivan 的 AI 助手。欢迎向我提问关于 Ivan、他的项目或技能的任何问题。",
+        "聊天机器人暂时不可用。",
       inputPlaceholder: "输入消息…",
       send: "发送",
       assistantLabel: "AI",
