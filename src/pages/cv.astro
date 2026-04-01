@@ -12,7 +12,17 @@ const { lang: rawLang = defaultLang } = Astro.props;
 const lang = normalizeLang(rawLang);
 const copy = getSiteCopy(lang);
 
-const cvFile = `${import.meta.env.BASE_URL}cv-se.pdf`;
+const langSuffix: Record<SiteLang, string> = {
+  sv: "se",
+  en: "en",
+  fr: "fr",
+  ru: "ru",
+  es: "es",
+  ja: "jp",
+};
+const suffix = langSuffix[lang];
+const cvFileName = `Ivan-${suffix.toUpperCase()}.pdf`;
+const cvFile = `${import.meta.env.BASE_URL}cv-${suffix}.pdf`;
 ---
 
 <BaseLayout
@@ -31,12 +41,12 @@ const cvFile = `${import.meta.env.BASE_URL}cv-se.pdf`;
     <div class="fade-in-up glass flex w-full max-w-xl flex-col items-center gap-6 rounded-2xl p-8 [animation-delay:0.3s]">
       <div class="inline-flex items-center gap-3 rounded-full border border-white/8 bg-white/4 px-4 py-2 text-white/70">
         <AstroIcon name="file" size="1.2em" />
-        <span class="text-sm md:text-base">Ivan.pdf</span>
+        <span class="text-sm md:text-base">{cvFileName}</span>
       </div>
 
       <a
         href={cvFile}
-        download="Ivan.pdf"
+        download={cvFileName}
         class="glass glass-cta inline-flex items-center gap-3 px-6 py-3 text-base font-semibold text-white/70 hover:text-white"
       >
         <AstroIcon name="download" size="1.2em" />
