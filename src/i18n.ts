@@ -18,11 +18,11 @@ export const nonDefaultLanguages = supportedLangs.filter(
 
 export const languageOptions = [
   { code: "sv", label: "Svenska" },
-  { code: "ja", label: "日本語" },
   { code: "en", label: "English" },
   { code: "fr", label: "Français" },
-  { code: "ru", label: "Русский" },
   { code: "es", label: "Español" },
+  { code: "ru", label: "Русский" },
+  { code: "ja", label: "日本語" },
 ] as const;
 
 const routeSegments: Record<RouteKey, string> = {
