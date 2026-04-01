@@ -5,6 +5,7 @@ export const supportedLangs = [
   "en",
   "fr",
   "es",
+  "zh",
 ] as const;
 
 export type SiteLang = (typeof supportedLangs)[number];
@@ -19,6 +20,7 @@ export const languageOptions = [
   { code: "en", label: "English" },
   { code: "fr", label: "Français" },
   { code: "es", label: "Español" },
+  { code: "zh", label: "中文" },
 ] as const;
 
 const routeSegments: Record<RouteKey, string> = {
@@ -747,6 +749,186 @@ const translations = {
       userLabel: "Tú",
       noResponse: "Lo siento, no obtuve respuesta.",
       apiError: "No se pudo obtener una respuesta ahora mismo.",
+    },
+  },
+  zh: {
+    nav: {
+      home: "首页",
+      about: "关于我",
+      cv: "简历",
+      stack: "技术栈",
+      translate: "翻译",
+      chooseLanguage: "选择语言",
+    },
+    footer: {
+      text: `Ivan ${new Date().getFullYear()}`,
+      socials: {
+        email: "电子邮件",
+        github: "GitHub",
+        discord: "Discord",
+      },
+    },
+    home: {
+      title: "Ivan",
+      description: "Ivan 的个人网站。",
+      intro: "你好，我叫",
+      role: "学生 & 业余开发者",
+      stats: {
+        age: "生于 2010 年",
+      },
+      ctas: {
+        about: "关于我",
+        cv: "简历",
+        stack: "技术栈",
+      },
+    },
+    about: {
+      title: "关于我",
+      metaTitle: "关于我 — Ivan",
+      description: "关于我 — 学生与业余开发者。",
+      age: "生于 2010 年",
+      school: "马尔默基础学校",
+      intro:
+        "我今年 15 岁，住在瑞典马尔默。我就读于马尔默的一所基础学校，自我描述为一个善于社交、有责任心、也能独立工作的人。我对技术很感兴趣，业余时间喜欢做网页开发。我参加游泳比赛，也打高尔夫球。我有一只狗，很喜欢和动物在一起。之前在 ICA 超市完成了为期两周的实习，协助完成补货、整理货架、帮助顾客等各种工作。",
+      builtWith: "本网站使用",
+      hobbiesTitle: "爱好",
+      hobbiesText:
+        "我的爱好包括动物、网页开发、游泳、高尔夫、旅行以及与朋友相处。我有一只狗，很享受和动物在一起的时光。业余时间我也做网页开发，例如创建和设计网站。此外，我参加游泳比赛，也打高尔夫球，这些活动既有趣又让我不断成长。",
+      interestsHeading: "兴趣",
+      interests: ["动物", "网页开发", "游泳", "高尔夫", "旅行", "社交"],
+      workTitle: "工作经历",
+      workText:
+        "我在 ICA 超市完成了为期两周的实习，体验了店内的多种工作。我负责补货、整理货架陈列、协助收银、在仓库分拣和拆包货物，以及帮助顾客寻找商品。我还协助保持店内整洁有序。",
+      lessonsHeading: "所学技能",
+      lessons: ["收银", "补货", "客户服务", "仓库管理", "店铺整理"],
+    },
+    cv: {
+      title: "简历",
+      metaTitle: "简历 — Ivan",
+      description: "下载 Ivan 的简历。",
+      intro: "您可以在这里直接下载我的 PDF 简历。",
+      download: "下载简历",
+      openPdf: "在新标签页中打开 PDF",
+    },
+    stack: {
+      title: "技术栈",
+      metaTitle: "技术栈 — Ivan",
+      description: "我目前使用的工具和技术。",
+      intro: "我使用的工具和技术",
+      filterLabel: "筛选",
+      filters: {
+        all: "全部",
+        web: "网页开发",
+        styling: "样式",
+        backend: "后端",
+        devops: "DevOps",
+      },
+      cards: [
+        {
+          name: "html",
+          label: "HTML5",
+          color: "text-orange-200",
+          description:
+            "语义化标记，是构建结构清晰、无障碍访问且对 SEO 友好的网页的基础。",
+          categoryKey: "web",
+          categoryLabel: "网页开发",
+          href: "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          linkLabel: "MDN HTML",
+        },
+        {
+          name: "tailwind",
+          label: "Tailwind CSS",
+          color: "text-sky-200",
+          description:
+            "实用优先的 CSS 框架，可以直接在标记中轻松构建响应式且一致的界面。",
+          categoryKey: "styling",
+          categoryLabel: "样式",
+          href: "https://tailwindcss.com",
+          linkLabel: "TailwindCSS.com",
+        },
+        {
+          name: "typescript",
+          label: "TypeScript",
+          color: "text-sky-200",
+          description:
+            "带类型的 JavaScript，提供更好的自动补全、更安全的重构，并减少大型项目中的运行时错误。",
+          categoryKey: "web",
+          categoryLabel: "网页开发",
+          href: "https://www.typescriptlang.org",
+          linkLabel: "TypeScriptLang.org",
+        },
+        {
+          name: "nextjs",
+          label: "Next.js (前端 + 后端)",
+          color: "text-slate-200",
+          description:
+            "我的主要全栈框架，支持 App Router、API 路由、服务端操作和内置 TypeScript 支持。",
+          categoryKey: "web",
+          categoryLabel: "网页开发",
+          href: "https://nextjs.org",
+          linkLabel: "NextJS.org",
+        },
+        {
+          name: "prisma",
+          label: "Prisma + PostgreSQL",
+          color: "text-violet-200",
+          description:
+            "TypeScript 优先的 ORM，结合 PostgreSQL 实现类型安全的模型、迁移和可靠的数据存储。",
+          categoryKey: "backend",
+          categoryLabel: "后端",
+          links: [
+            { href: "https://www.prisma.io", label: "Prisma.io" },
+            { href: "https://www.postgresql.org", label: "PostgreSQL.org" },
+          ],
+        },
+        {
+          name: "authjs",
+          label: "Auth.js",
+          color: "text-yellow-100",
+          description:
+            "灵活的身份验证解决方案，支持 OAuth 提供商、邮件链接和凭证登录。",
+          categoryKey: "backend",
+          categoryLabel: "后端",
+          href: "https://authjs.dev",
+          linkLabel: "AuthJS.dev",
+        },
+        {
+          name: "git",
+          label: "Git",
+          color: "text-emerald-200",
+          description:
+            "我每天使用的分布式版本控制系统，用于分支、提交、合并和代码历史管理。",
+          categoryKey: "devops",
+          categoryLabel: "DevOps",
+          href: "https://git-scm.com",
+          linkLabel: "Git-SCM.com",
+        },
+        {
+          name: "github",
+          label: "GitHub",
+          color: "text-slate-200",
+          description:
+            "我用于版本控制、Pull Request、代码审查和项目部署流程的平台。",
+          categoryKey: "devops",
+          categoryLabel: "DevOps",
+          href: "https://github.com",
+          linkLabel: "GitHub.com",
+        },
+      ],
+    },
+    chat: {
+      toggleAriaLabel: "打开 AI 聊天",
+      panelAriaLabel: "AI 聊天",
+      title: "AI 助手",
+      minimize: "最小化聊天",
+      greeting:
+        "你好！我是 Ivan 的 AI 助手。欢迎向我提问关于 Ivan、他的项目或技能的任何问题。",
+      inputPlaceholder: "输入消息…",
+      send: "发送",
+      assistantLabel: "AI",
+      userLabel: "您",
+      noResponse: "抱歉，未能获取回复。",
+      apiError: "暂时无法获取回复。",
     },
   },
 } as const;
